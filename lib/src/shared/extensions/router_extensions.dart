@@ -1,4 +1,4 @@
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 extension RouterExtensions on RouteManager {
   // void exitModule() {

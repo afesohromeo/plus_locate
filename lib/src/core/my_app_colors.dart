@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 class MyAppColors extends AppColors {
   final Color success;

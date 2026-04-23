@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 class DatePickerField extends StatefulWidget {
   const DatePickerField({
@@ -59,7 +59,9 @@ class _DatePickerFieldState extends State<DatePickerField> {
   }
 
   Future<DateTime?> _selectDateTime(
-      BuildContext context, DateTime? initialDate) async {
+    BuildContext context,
+    DateTime? initialDate,
+  ) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: initialDate ?? DateTime.now(),
@@ -74,12 +76,12 @@ class _DatePickerFieldState extends State<DatePickerField> {
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay(
-          hour: initialDate?.hour ?? 0, minute: initialDate?.minute ?? 0),
+        hour: initialDate?.hour ?? 0,
+        minute: initialDate?.minute ?? 0,
+      ),
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            alwaysUse24HourFormat: true,
-          ),
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
           child: child!,
         );
       },

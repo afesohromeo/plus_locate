@@ -1,20 +1,27 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 class DialogUtils {
   /// Generic success handler
   /// All objects (Blocs, services, etc.) must be captured BEFORE calling this.
   /// Do NOT use context inside postActions!
-  static Future<void> handleSuccess(BuildContext context, String message,
-      {List<void Function()> postActions = const [],
-      bool shouldPopDialog = false}) async {
+  static Future<void> handleSuccess(
+    BuildContext context,
+    String message, {
+    List<void Function()> postActions = const [],
+    bool shouldPopDialog = false,
+  }) async {
     // Capture actions to avoid modification during async
     final capturedActions = List<void Function()>.from(postActions);
 
     // Show the dialog (context is used only here)
-    await showSuccessErrorDialog(context, message, true,
-        shouldPopDialog: shouldPopDialog);
+    await showSuccessErrorDialog(
+      context,
+      message,
+      true,
+      shouldPopDialog: shouldPopDialog,
+    );
 
     // Execute actions safely without context
     for (var action in capturedActions) {

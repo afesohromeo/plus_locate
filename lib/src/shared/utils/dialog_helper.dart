@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 /// Shows a success or error dialog, then auto-dismisses after a timeout.
 /// Returns a [Future] that completes once the dialog is closed (either by user or timeout).
@@ -43,14 +43,8 @@ Future<void> showSuccessErrorDialog(
         useRootNavigator: true,
         barrierDismissible: true,
         builder: (_) => isSuccess
-            ? Congratulations(
-                message: message,
-                parentContext: dialogContext,
-              )
-            : ErrorDialog(
-                message: message,
-                parentContext: dialogContext,
-              ),
+            ? Congratulations(message: message, parentContext: dialogContext)
+            : ErrorDialog(message: message, parentContext: dialogContext),
       ).then((_) {
         if (!completer.isCompleted) completer.complete();
       });

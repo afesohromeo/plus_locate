@@ -1,4 +1,4 @@
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 class LocalizationService {
   static AppLocalizations? _appLocalizations;

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:plus_locate/plus_locate.dart';
 import 'package:flutter/material.dart';
 
 /// Helper utility for authentication checks in the checkout/purchase flow
@@ -17,7 +17,8 @@ class AuthCheckHelper {
       final String? token = await SecureStorageHelper.getToken();
       final String? client = await SecureStorageHelper.getUser();
 
-      final bool isAuthenticated = (token != null && token.isNotEmpty) ||
+      final bool isAuthenticated =
+          (token != null && token.isNotEmpty) ||
           (client != null && client.isNotEmpty);
       log('wtffffff helll $isAuthenticated');
 
@@ -98,23 +99,29 @@ class AuthCheckHelper {
           ),
           actions: [
             PrimaryButton(
-                withBg: false,
-                inkRaduis: 10,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                buttonColor: customColors.primary,
-                onPressed: () {
-                  Navigator.of(dialogContext).pop();
-                },
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                  child: Text(
-                    l10n.ok,
-                    style: context.textTheme.displayMedium!
-                        .copyWith(color: customColors.background, fontSize: 14),
+              withBg: false,
+              inkRaduis: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              buttonColor: customColors.primary,
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 10,
+                ),
+                child: Text(
+                  l10n.ok,
+                  style: context.textTheme.displayMedium!.copyWith(
+                    color: customColors.background,
+                    fontSize: 14,
                   ),
-                )),
+                ),
+              ),
+            ),
           ],
         );
       },

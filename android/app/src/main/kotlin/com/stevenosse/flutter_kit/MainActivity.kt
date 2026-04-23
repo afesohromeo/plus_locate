@@ -1,4 +1,4 @@
-package com.romeoafesoh.flutter_bloc_kit
+package com.romeoAfesoh.plusLocate
 
 import io.flutter.embedding.android.FlutterActivity
 

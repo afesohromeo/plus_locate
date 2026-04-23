@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_kit/src/core/core.dart';
-import 'package:flutter_bloc_kit/src/features/features.dart';
+import 'package:plus_locate/src/core/core.dart';
+import 'package:plus_locate/src/features/features.dart';
 import 'package:go_router/go_router.dart';
 
 class RouteManager {
@@ -14,10 +14,11 @@ class RouteManager {
   late final GoRouter router;
   GoRouter createRouter() {
     return GoRouter(
-        navigatorKey: rootNavigatorKey,
-        debugLogDiagnostics: true,
-        initialLocation: homePage,
-        routes: [...shellSubRoutes]);
+      navigatorKey: rootNavigatorKey,
+      debugLogDiagnostics: true,
+      initialLocation: homePage,
+      routes: [...shellSubRoutes],
+    );
   }
 
   static List<RouteBase> get shellSubRoutes {
@@ -50,23 +51,34 @@ class RouteManager {
   }
 
   CustomTransitionPage slideTransition(
-      GoRouterState state, Widget child, Offset begin) {
+    GoRouterState state,
+    Widget child,
+    Offset begin,
+  ) {
     return CustomTransitionPage<void>(
-        key: state.pageKey,
-        child: child,
-        // transitionDuration: Duration(milliseconds: 500),
-        transitionsBuilder: (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation, Widget child) {
-          const end = Offset.zero;
-          const curve = Curves.easeIn;
+      key: state.pageKey,
+      child: child,
+      // transitionDuration: Duration(milliseconds: 500),
+      transitionsBuilder:
+          (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) {
+            const end = Offset.zero;
+            const curve = Curves.easeIn;
 
-          var tween =
-              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var tween = Tween(
+              begin: begin,
+              end: end,
+            ).chain(CurveTween(curve: curve));
 
-          return SlideTransition(
-            position: animation.drive(tween),
-            child: child,
-          );
-        });
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+    );
   }
 }

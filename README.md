@@ -7,7 +7,7 @@ This kit is a boilerplate for Flutter projects. It comes with a set of preconfig
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/afesohromeo/flutter_bloc_kit.git
+git clone https://github.com/afesohromeo/plus_locate.git
 ```
 
 ### 2. Customize the project

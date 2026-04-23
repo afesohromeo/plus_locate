@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 class ResponsiveScaffoldWrapper extends StatelessWidget {
   final Widget mobileBody;
@@ -81,7 +81,8 @@ class ResponsiveScaffoldWrapper extends StatelessWidget {
               color: customColors.background,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: props.showDrawer! ? 10 : 0),
+                  horizontal: props.showDrawer! ? 10 : 0,
+                ),
                 child: ScaffoldWrapper(
                   drawerMode: DrawerMode.fixed,
                   showDrawer: false,
@@ -109,7 +110,7 @@ class ResponsiveScaffoldWrapper extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

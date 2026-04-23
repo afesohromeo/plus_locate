@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key, required this.loadingText});
@@ -10,8 +10,10 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             const CircularProgressIndicator.adaptive(),
             const Gap.vertical(height: 10),
             Text(
@@ -19,7 +21,9 @@ class LoadingWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               style: context.textTheme.displayLarge!.copyWith(fontSize: 14),
             ),
-          ])),
+          ],
+        ),
+      ),
     );
   }
 }
