@@ -1,5 +1,5 @@
 name: plus_locate
-description: A boilerplate for Flutter Projects using BLoC Architecture
+description: generate, decode and locate Google Plus Codes
 
 publish_to: "none"
 
@@ -17,8 +17,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   provider: ^6.1.2
   flutter_bloc: ^9.0.0
-  freezed_annotation: ^2.4.1
-  json_annotation: ^4.8.1
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
   equatable: ^2.0.5
   intl: any
   dio: ^5.4.0
@@ -32,16 +32,22 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   app_theme_kit: ^0.1.0
   web: ^1.1.1
+  google_maps_flutter: ^2.10.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  geolocator: ^13.0.2
+  path_provider: ^2.1.5
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^5.0.0
-  build_runner: ^2.4.8
-  freezed: ^2.5.7
-  json_serializable: ^6.7.1
-  flutter_gen_runner: ^5.4.0
+  build_runner: ^2.4.9
+  freezed: ^3.0.0
+  json_serializable: ^6.10.0
+  source_gen: ^3.0.0
 
 flutter:
   uses-material-design: true

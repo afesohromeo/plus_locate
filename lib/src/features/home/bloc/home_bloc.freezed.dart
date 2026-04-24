@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,290 +9,486 @@ part of 'home_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$HomeEvent {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increment,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increment,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increment,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Increment value) increment,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Increment value)? increment,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Increment value)? increment,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $HomeEventCopyWith<$Res> {
-  factory $HomeEventCopyWith(HomeEvent value, $Res Function(HomeEvent) then) =
-      _$HomeEventCopyWithImpl<$Res, HomeEvent>;
-}
-
-/// @nodoc
-class _$HomeEventCopyWithImpl<$Res, $Val extends HomeEvent>
-    implements $HomeEventCopyWith<$Res> {
-  _$HomeEventCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of HomeEvent
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-abstract class _$$IncrementImplCopyWith<$Res> {
-  factory _$$IncrementImplCopyWith(
-          _$IncrementImpl value, $Res Function(_$IncrementImpl) then) =
-      __$$IncrementImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$IncrementImplCopyWithImpl<$Res>
-    extends _$HomeEventCopyWithImpl<$Res, _$IncrementImpl>
-    implements _$$IncrementImplCopyWith<$Res> {
-  __$$IncrementImplCopyWithImpl(
-      _$IncrementImpl _value, $Res Function(_$IncrementImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of HomeEvent
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$IncrementImpl implements _Increment {
-  const _$IncrementImpl();
-
-  @override
-  String toString() {
-    return 'HomeEvent.increment()';
-  }
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$IncrementImpl);
+        (other.runtimeType == runtimeType && other is HomeEvent);
   }
 
   @override
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increment,
-  }) {
-    return increment();
+  String toString() {
+    return 'HomeEvent()';
   }
+}
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increment,
-  }) {
-    return increment?.call();
-  }
+/// @nodoc
+class $HomeEventCopyWith<$Res> {
+  $HomeEventCopyWith(HomeEvent _, $Res Function(HomeEvent) __);
+}
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increment,
-    required TResult orElse(),
-  }) {
-    if (increment != null) {
-      return increment();
-    }
-    return orElse();
-  }
+/// Adds pattern-matching-related methods to [HomeEvent].
+extension HomeEventPatterns on HomeEvent {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Increment value) increment,
-  }) {
-    return increment(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Increment value)? increment,
-  }) {
-    return increment?.call(this);
-  }
-
-  @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Increment value)? increment,
     required TResult orElse(),
   }) {
-    if (increment != null) {
-      return increment(this);
+    final _that = this;
+    switch (_that) {
+      case _Increment() when increment != null:
+        return increment(_that);
+      case _:
+        return orElse();
     }
-    return orElse();
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Increment value) increment,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Increment():
+        return increment(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Increment value)? increment,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Increment() when increment != null:
+        return increment(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? increment,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Increment() when increment != null:
+        return increment();
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() increment,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Increment():
+        return increment();
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? increment,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Increment() when increment != null:
+        return increment();
+      case _:
+        return null;
+    }
   }
 }
 
-abstract class _Increment implements HomeEvent {
-  const factory _Increment() = _$IncrementImpl;
+/// @nodoc
+
+class _Increment implements HomeEvent {
+  const _Increment();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Increment);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'HomeEvent.increment()';
+  }
 }
 
 /// @nodoc
 mixin _$HomeState {
-  int get value => throw _privateConstructorUsedError;
+  int get value;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $HomeStateCopyWith<HomeState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $HomeStateCopyWith<$Res> {
-  factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
-      _$HomeStateCopyWithImpl<$Res, HomeState>;
-  @useResult
-  $Res call({int value});
-}
-
-/// @nodoc
-class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
-    implements $HomeStateCopyWith<$Res> {
-  _$HomeStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of HomeState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = null,
-  }) {
-    return _then(_value.copyWith(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$HomeStateImplCopyWith<$Res>
-    implements $HomeStateCopyWith<$Res> {
-  factory _$$HomeStateImplCopyWith(
-          _$HomeStateImpl value, $Res Function(_$HomeStateImpl) then) =
-      __$$HomeStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int value});
-}
-
-/// @nodoc
-class __$$HomeStateImplCopyWithImpl<$Res>
-    extends _$HomeStateCopyWithImpl<$Res, _$HomeStateImpl>
-    implements _$$HomeStateImplCopyWith<$Res> {
-  __$$HomeStateImplCopyWithImpl(
-      _$HomeStateImpl _value, $Res Function(_$HomeStateImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of HomeState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = null,
-  }) {
-    return _then(_$HomeStateImpl(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$HomeStateImpl implements _HomeState {
-  const _$HomeStateImpl({this.value = 0});
-
-  @override
-  @JsonKey()
-  final int value;
-
-  @override
-  String toString() {
-    return 'HomeState(value: $value)';
-  }
+      _$HomeStateCopyWithImpl<HomeState>(this as HomeState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$HomeStateImpl &&
+            other is HomeState &&
             (identical(other.value, value) || other.value == value));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, value);
 
+  @override
+  String toString() {
+    return 'HomeState(value: $value)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $HomeStateCopyWith<$Res> {
+  factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) =
+      _$HomeStateCopyWithImpl;
+  @useResult
+  $Res call({int value});
+}
+
+/// @nodoc
+class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
+  _$HomeStateCopyWithImpl(this._self, this._then);
+
+  final HomeState _self;
+  final $Res Function(HomeState) _then;
+
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_self.copyWith(
+      value: null == value
+          ? _self.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [HomeState].
+extension HomeStatePatterns on HomeState {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_HomeState value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _HomeState() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_HomeState value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _HomeState():
+        return $default(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_HomeState value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _HomeState() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(int value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _HomeState() when $default != null:
+        return $default(_that.value);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(int value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _HomeState():
+        return $default(_that.value);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(int value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _HomeState() when $default != null:
+        return $default(_that.value);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+
+class _HomeState implements HomeState {
+  const _HomeState({this.value = 0});
+
+  @override
+  @JsonKey()
+  final int value;
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$HomeStateCopyWith<_HomeState> get copyWith =>
+      __$HomeStateCopyWithImpl<_HomeState>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _HomeState &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @override
+  String toString() {
+    return 'HomeState(value: $value)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$HomeStateCopyWith<$Res>
+    implements $HomeStateCopyWith<$Res> {
+  factory _$HomeStateCopyWith(
+          _HomeState value, $Res Function(_HomeState) _then) =
+      __$HomeStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call({int value});
+}
+
+/// @nodoc
+class __$HomeStateCopyWithImpl<$Res> implements _$HomeStateCopyWith<$Res> {
+  __$HomeStateCopyWithImpl(this._self, this._then);
+
+  final _HomeState _self;
+  final $Res Function(_HomeState) _then;
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
-      __$$HomeStateImplCopyWithImpl<_$HomeStateImpl>(this, _$identity);
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_HomeState(
+      value: null == value
+          ? _self.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
-abstract class _HomeState implements HomeState {
-  const factory _HomeState({final int value}) = _$HomeStateImpl;
-
-  @override
-  int get value;
-
-  /// Create a copy of HomeState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

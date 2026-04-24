@@ -98,23 +98,275 @@ abstract class AppLocalizations {
     Locale('fr')
   ];
 
-  /// counter count
+  /// Application title displayed in app bar and system
+  ///
+  /// In en, this message translates to:
+  /// **'PlusLocate'**
+  String get appTitle;
+
+  /// Counter label (legacy — keep for home page)
   ///
   /// In en, this message translates to:
   /// **'Count'**
   String get count;
 
-  /// counter count
+  /// Home page title
   ///
   /// In en, this message translates to:
-  /// **'Flutter bloc kit'**
-  String get appTitle;
+  /// **'Home'**
+  String get home;
+
+  /// Generate Plus Code page title
+  ///
+  /// In en, this message translates to:
+  /// **'Generate'**
+  String get generate;
+
+  /// Decode Plus Code page title
+  ///
+  /// In en, this message translates to:
+  /// **'Decode'**
+  String get decode;
+
+  /// Map view page title
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get mapView;
+
+  /// Saved codes history page title
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// Settings page title
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// Label for Plus Code input/display field
+  ///
+  /// In en, this message translates to:
+  /// **'Plus Code'**
+  String get labelPlusCode;
+
+  /// Label for latitude field
+  ///
+  /// In en, this message translates to:
+  /// **'Latitude'**
+  String get labelLatitude;
+
+  /// Label for longitude field
+  ///
+  /// In en, this message translates to:
+  /// **'Longitude'**
+  String get labelLongitude;
+
+  /// Label for address field
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get labelAddress;
+
+  /// Label for locality/city field
+  ///
+  /// In en, this message translates to:
+  /// **'Locality'**
+  String get labelLocality;
+
+  /// Label for user-defined label/note field
+  ///
+  /// In en, this message translates to:
+  /// **'Label'**
+  String get labelLabel;
+
+  /// Button text to generate a Plus Code from coordinates
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Code'**
+  String get actionGenerate;
+
+  /// Button text to decode a Plus Code to coordinates
+  ///
+  /// In en, this message translates to:
+  /// **'Decode Code'**
+  String get actionDecode;
+
+  /// Button text to save a Plus Code to history
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get actionSave;
+
+  /// Button text to delete a saved code
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get actionDelete;
+
+  /// Button text to copy to clipboard
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get actionCopy;
+
+  /// Button text to share a Plus Code
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get actionShare;
+
+  /// Button text to get current device location
+  ///
+  /// In en, this message translates to:
+  /// **'Locate Me'**
+  String get actionLocateMe;
+
+  /// Snackbar message when Plus Code is copied
+  ///
+  /// In en, this message translates to:
+  /// **'Code copied to clipboard'**
+  String get msgCodeCopied;
+
+  /// Snackbar message when a code is saved to history
+  ///
+  /// In en, this message translates to:
+  /// **'Code saved successfully'**
+  String get msgCodeSaved;
+
+  /// Snackbar message when a code is deleted from history
+  ///
+  /// In en, this message translates to:
+  /// **'Code deleted'**
+  String get msgCodeDeleted;
+
+  /// Message when search returns no results
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get msgNoResults;
+
+  /// Hint text for Plus Code input field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a Plus Code'**
+  String get msgEnterPlusCode;
+
+  /// Hint text for coordinate input
+  ///
+  /// In en, this message translates to:
+  /// **'Enter coordinates or use your location'**
+  String get msgEnterCoordinates;
+
+  /// Error when device location permission is denied
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission denied'**
+  String get errorLocationPermission;
+
+  /// Error when device location services are turned off
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are disabled'**
+  String get errorLocationService;
+
+  /// Validation error for malformed Plus Code input
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Plus Code format'**
+  String get errorInvalidPlusCode;
+
+  /// Validation error for invalid lat/lng values
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid coordinates'**
+  String get errorInvalidCoordinates;
+
+  /// Error when no internet connection is available
+  ///
+  /// In en, this message translates to:
+  /// **'Network unavailable'**
+  String get errorNetworkUnavailable;
+
+  /// Error when API request times out
+  ///
+  /// In en, this message translates to:
+  /// **'Request timed out'**
+  String get errorTimeout;
+
+  /// Title of delete confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Code'**
+  String get confirmDeleteTitle;
+
+  /// Body text of delete confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this saved code?'**
+  String get confirmDeleteMessage;
 
   /// Button text to refresh content
   ///
   /// In en, this message translates to:
   /// **'Refresh'**
   String get refresh;
+
+  /// Search field placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// Button text for OK action
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// Button text to cancel an action
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Button text to confirm an action
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// Affirmative button text
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// Negative button text
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// Generic loading message
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// No data message
+  ///
+  /// In en, this message translates to:
+  /// **'No data'**
+  String get noData;
+
+  /// Generic operation error message
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred'**
+  String get operationError;
 
   /// Placeholder text for country search field
   ///
@@ -146,53 +398,11 @@ abstract class AppLocalizations {
   /// **'Authentication Required'**
   String get authenticationRequired;
 
-  /// Button text for OK action
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
-  String get ok;
-
-  /// No data message
-  ///
-  /// In en, this message translates to:
-  /// **'No data'**
-  String get noData;
-
-  /// Generic loading message
-  ///
-  /// In en, this message translates to:
-  /// **'Loading...'**
-  String get loading;
-
-  /// Button text to cancel an action
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get cancel;
-
-  /// Button text to confirm an action
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm'**
-  String get confirm;
-
   /// Button text to proceed with an action
   ///
   /// In en, this message translates to:
   /// **'Proceed'**
   String get proceed;
-
-  /// Search field placeholder
-  ///
-  /// In en, this message translates to:
-  /// **'Search'**
-  String get search;
-
-  /// Generic operation error message
-  ///
-  /// In en, this message translates to:
-  /// **'An error occurred'**
-  String get operationError;
 }
 
 class _AppLocalizationsDelegate

@@ -234,9 +234,16 @@ Dialog content layout:
 
 ## Localization
 
-**RULE-033**
+**RULE-033** — See [12_internationalization.md](12_internationalization.md)
+
 ALL user-facing strings MUST come from `LocalizationService.localization.*` or `AppLocalizations.of(context)!`.
-NEVER use hardcoded French or English strings in UI code.
+NEVER use hardcoded French or English strings anywhere (pages, BLoCs, repositories, utils).
+
+Workflow:
+1. Add key & English translation to `app_en.arb`
+2. Add French translation to `app_fr.arb`
+3. Run `make i18n`
+4. Use `l10n.*` in widgets or `LocalizationService.localization.*` in non-UI code
 
 ---
 

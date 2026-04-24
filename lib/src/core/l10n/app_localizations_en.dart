@@ -9,13 +9,140 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get appTitle => 'PlusLocate';
+
+  @override
   String get count => 'Count';
 
   @override
-  String get appTitle => 'Flutter bloc kit';
+  String get home => 'Home';
+
+  @override
+  String get generate => 'Generate';
+
+  @override
+  String get decode => 'Decode';
+
+  @override
+  String get mapView => 'Map';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get labelPlusCode => 'Plus Code';
+
+  @override
+  String get labelLatitude => 'Latitude';
+
+  @override
+  String get labelLongitude => 'Longitude';
+
+  @override
+  String get labelAddress => 'Address';
+
+  @override
+  String get labelLocality => 'Locality';
+
+  @override
+  String get labelLabel => 'Label';
+
+  @override
+  String get actionGenerate => 'Generate Code';
+
+  @override
+  String get actionDecode => 'Decode Code';
+
+  @override
+  String get actionSave => 'Save';
+
+  @override
+  String get actionDelete => 'Delete';
+
+  @override
+  String get actionCopy => 'Copy';
+
+  @override
+  String get actionShare => 'Share';
+
+  @override
+  String get actionLocateMe => 'Locate Me';
+
+  @override
+  String get msgCodeCopied => 'Code copied to clipboard';
+
+  @override
+  String get msgCodeSaved => 'Code saved successfully';
+
+  @override
+  String get msgCodeDeleted => 'Code deleted';
+
+  @override
+  String get msgNoResults => 'No results found';
+
+  @override
+  String get msgEnterPlusCode => 'Enter a Plus Code';
+
+  @override
+  String get msgEnterCoordinates => 'Enter coordinates or use your location';
+
+  @override
+  String get errorLocationPermission => 'Location permission denied';
+
+  @override
+  String get errorLocationService => 'Location services are disabled';
+
+  @override
+  String get errorInvalidPlusCode => 'Invalid Plus Code format';
+
+  @override
+  String get errorInvalidCoordinates => 'Invalid coordinates';
+
+  @override
+  String get errorNetworkUnavailable => 'Network unavailable';
+
+  @override
+  String get errorTimeout => 'Request timed out';
+
+  @override
+  String get confirmDeleteTitle => 'Delete Code';
+
+  @override
+  String get confirmDeleteMessage =>
+      'Are you sure you want to delete this saved code?';
 
   @override
   String get refresh => 'Refresh';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get noData => 'No data';
+
+  @override
+  String get operationError => 'An error occurred';
 
   @override
   String get searchCountry => 'Search country';
@@ -33,26 +160,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authenticationRequired => 'Authentication Required';
 
   @override
-  String get ok => 'Close';
-
-  @override
-  String get noData => 'No data';
-
-  @override
-  String get loading => 'Loading...';
-
-  @override
-  String get cancel => 'Cancel';
-
-  @override
-  String get confirm => 'Confirm';
-
-  @override
   String get proceed => 'Proceed';
-
-  @override
-  String get search => 'Search';
-
-  @override
-  String get operationError => 'An error occurred';
 }

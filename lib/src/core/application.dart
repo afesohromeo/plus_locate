@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plus_locate/src/domain/domain.dart';
 import 'package:plus_locate/src/features/features.dart';
 import 'package:provider/provider.dart';
 
@@ -12,24 +13,39 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        //Define all repositories used by the app here. Example
-        //RepositoryProvider(create: (context) => AuthenticationRepository()),
-        Provider<RouteManager>(lazy: true, create: (context) => RouteManager()),
+        RepositoryProvider(create: (_) => PlusCodeRepository()),
+        RepositoryProvider(create: (_) => GeocodingRepository()),
+        RepositoryProvider(create: (_) => SavedCodesRepository()),
+        Provider<RouteManager>(
+          lazy: true,
+          create: (context) => RouteManager(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
-          //Define all bloc used by the app here. Example
-          // BlocProvider(
-          //     create: (context) => ProfileBloc(
-          //           userRepository: context.read<UserRepository>(),
-          //         )..add(const ProfileLoaded())),
-          // BlocProvider(
-          //     create: (context) => AppointmentBloc(
-          //           userRepository: context.read<UserRepository>(),
-          //         )..add(const AppointmentInitialized())),
-          BlocProvider(create: (_) => HomeBloc(), child: this),
+          BlocProvider(create: (_) => HomeBloc()),
+          BlocProvider(
+            create: (context) => GenerateBloc(
+              repository: context.read<PlusCodeRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => DecodeBloc(
+              repository: context.read<PlusCodeRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => MapViewBloc(
+              geocodingRepository: context.read<GeocodingRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => HistoryBloc(
+              repository: context.read<SavedCodesRepository>(),
+            )..add(const HistoryEvent.init()),
+          ),
         ],
-        child: ApplicationView(),
+        child: const ApplicationView(),
       ),
     );
   }

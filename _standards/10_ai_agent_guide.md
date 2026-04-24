@@ -239,13 +239,15 @@ GoRoute(
 | Call repository directly from UI | Always go through BLoC events |
 | Call one BLoC from another BLoC | Use repositories as shared data source |
 | Use positional parameters in events | Always use named parameters |
-| Hardcode error/UI strings | Use `LocalizationService.localization.*` |
+| **Hardcode any text (UI, errors, logs)** | **Add to ARB files, use `l10n.*` (widgets) or `LocalizationService.localization.*` (BLoCs/repos)** ⭐ |
 | Use `context` after `async` gap | Check `context.mounted` first |
 | Skip `listenWhen`/`buildWhen` | Always provide both selectors |
 | Create a `DropdownButtonFormField` without `isExpanded: true` | Add `isExpanded: true` |
 | Use `DateTime.parse()` on API data | Use `convertJsonDate()` |
 | Swallow exceptions in repository | Always `log + rethrow` |
 | Build a new shared widget for a one-off | Check `shared/components/` first |
+
+**See comprehensive i18n workflow:** [12_internationalization.md](12_internationalization.md)
 
 ---
 

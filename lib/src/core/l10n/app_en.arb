@@ -1,16 +1,191 @@
 {
     "@@locale": "en",
+    "appTitle": "PlusLocate",
+    "@appTitle": {
+        "description": "Application title displayed in app bar and system"
+    },
     "count": "Count",
     "@count": {
-        "description": "counter count"
+        "description": "Counter label (legacy — keep for home page)"
     },
-    "appTitle": "Flutter bloc kit",
-    "@appTitle": {
-        "description": "counter count"
+
+    "home": "Home",
+    "@home": {
+        "description": "Home page title"
     },
+    "generate": "Generate",
+    "@generate": {
+        "description": "Generate Plus Code page title"
+    },
+    "decode": "Decode",
+    "@decode": {
+        "description": "Decode Plus Code page title"
+    },
+    "mapView": "Map",
+    "@mapView": {
+        "description": "Map view page title"
+    },
+    "history": "History",
+    "@history": {
+        "description": "Saved codes history page title"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Settings page title"
+    },
+
+    "labelPlusCode": "Plus Code",
+    "@labelPlusCode": {
+        "description": "Label for Plus Code input/display field"
+    },
+    "labelLatitude": "Latitude",
+    "@labelLatitude": {
+        "description": "Label for latitude field"
+    },
+    "labelLongitude": "Longitude",
+    "@labelLongitude": {
+        "description": "Label for longitude field"
+    },
+    "labelAddress": "Address",
+    "@labelAddress": {
+        "description": "Label for address field"
+    },
+    "labelLocality": "Locality",
+    "@labelLocality": {
+        "description": "Label for locality/city field"
+    },
+    "labelLabel": "Label",
+    "@labelLabel": {
+        "description": "Label for user-defined label/note field"
+    },
+
+    "actionGenerate": "Generate Code",
+    "@actionGenerate": {
+        "description": "Button text to generate a Plus Code from coordinates"
+    },
+    "actionDecode": "Decode Code",
+    "@actionDecode": {
+        "description": "Button text to decode a Plus Code to coordinates"
+    },
+    "actionSave": "Save",
+    "@actionSave": {
+        "description": "Button text to save a Plus Code to history"
+    },
+    "actionDelete": "Delete",
+    "@actionDelete": {
+        "description": "Button text to delete a saved code"
+    },
+    "actionCopy": "Copy",
+    "@actionCopy": {
+        "description": "Button text to copy to clipboard"
+    },
+    "actionShare": "Share",
+    "@actionShare": {
+        "description": "Button text to share a Plus Code"
+    },
+    "actionLocateMe": "Locate Me",
+    "@actionLocateMe": {
+        "description": "Button text to get current device location"
+    },
+
+    "msgCodeCopied": "Code copied to clipboard",
+    "@msgCodeCopied": {
+        "description": "Snackbar message when Plus Code is copied"
+    },
+    "msgCodeSaved": "Code saved successfully",
+    "@msgCodeSaved": {
+        "description": "Snackbar message when a code is saved to history"
+    },
+    "msgCodeDeleted": "Code deleted",
+    "@msgCodeDeleted": {
+        "description": "Snackbar message when a code is deleted from history"
+    },
+    "msgNoResults": "No results found",
+    "@msgNoResults": {
+        "description": "Message when search returns no results"
+    },
+    "msgEnterPlusCode": "Enter a Plus Code",
+    "@msgEnterPlusCode": {
+        "description": "Hint text for Plus Code input field"
+    },
+    "msgEnterCoordinates": "Enter coordinates or use your location",
+    "@msgEnterCoordinates": {
+        "description": "Hint text for coordinate input"
+    },
+
+    "errorLocationPermission": "Location permission denied",
+    "@errorLocationPermission": {
+        "description": "Error when device location permission is denied"
+    },
+    "errorLocationService": "Location services are disabled",
+    "@errorLocationService": {
+        "description": "Error when device location services are turned off"
+    },
+    "errorInvalidPlusCode": "Invalid Plus Code format",
+    "@errorInvalidPlusCode": {
+        "description": "Validation error for malformed Plus Code input"
+    },
+    "errorInvalidCoordinates": "Invalid coordinates",
+    "@errorInvalidCoordinates": {
+        "description": "Validation error for invalid lat/lng values"
+    },
+    "errorNetworkUnavailable": "Network unavailable",
+    "@errorNetworkUnavailable": {
+        "description": "Error when no internet connection is available"
+    },
+    "errorTimeout": "Request timed out",
+    "@errorTimeout": {
+        "description": "Error when API request times out"
+    },
+
+    "confirmDeleteTitle": "Delete Code",
+    "@confirmDeleteTitle": {
+        "description": "Title of delete confirmation dialog"
+    },
+    "confirmDeleteMessage": "Are you sure you want to delete this saved code?",
+    "@confirmDeleteMessage": {
+        "description": "Body text of delete confirmation dialog"
+    },
+
     "refresh": "Refresh",
     "@refresh": {
         "description": "Button text to refresh content"
+    },
+    "search": "Search",
+    "@search": {
+        "description": "Search field placeholder"
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "Button text for OK action"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Button text to cancel an action"
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+        "description": "Button text to confirm an action"
+    },
+    "yes": "Yes",
+    "@yes": {
+        "description": "Affirmative button text"
+    },
+    "no": "No",
+    "@no": {
+        "description": "Negative button text"
+    },
+    "loading": "Loading...",
+    "@loading": {
+        "description": "Generic loading message"
+    },
+    "noData": "No data",
+    "@noData": {
+        "description": "No data message"
+    },
+    "operationError": "An error occurred",
+    "@operationError": {
+        "description": "Generic operation error message"
     },
     "searchCountry": "Search country",
     "@searchCountry": {
@@ -32,36 +207,8 @@
     "@authenticationRequired": {
         "description": "Dialog title when user needs to authenticate"
     },
-    "ok": "Close",
-    "@ok": {
-        "description": "Button text for OK action"
-    },
-    "noData": "No data",
-    "@noData": {
-        "description": "No data message"
-    },
-    "loading": "Loading...",
-    "@loading": {
-        "description": "Generic loading message"
-    },
-    "cancel": "Cancel",
-    "@cancel": {
-        "description": "Button text to cancel an action"
-    },
-    "confirm": "Confirm",
-    "@confirm": {
-        "description": "Button text to confirm an action"
-    },
     "proceed": "Proceed",
     "@proceed": {
         "description": "Button text to proceed with an action"
-    },
-    "search": "Search",
-    "@search": {
-        "description": "Search field placeholder"
-    },
-    "operationError": "An error occurred",
-    "@operationError": {
-        "description": "Generic operation error message"
     }
 }

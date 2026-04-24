@@ -31,22 +31,58 @@ class RouteManager {
             key: state.pageKey,
             child: const HomePage(),
           );
-          //  slideTransition(
-          //     state, const HomePage(), const Offset(0.0, 1.0));
         },
       ),
-      // GoRoute(
-      //   name: loginRouteName,
-      //   path: loginPage,
-      //   pageBuilder: (context, state) {
-      //     return NoTransitionPage<void>(
-      //       key: state.pageKey,
-      //       child: const LoginPage(),
-      //     );
-      //     //  slideTransition(
-      //     //     state, const HomePage(), const Offset(0.0, 1.0));
-      //   },
-      // ),
+      GoRoute(
+        name: generateRouteName,
+        path: generatePage,
+        pageBuilder: (context, state) {
+          return NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const GeneratePage(),
+          );
+        },
+      ),
+      GoRoute(
+        name: decodeRouteName,
+        path: decodePage,
+        pageBuilder: (context, state) {
+          return NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const DecodePage(),
+          );
+        },
+      ),
+      GoRoute(
+        name: mapViewRouteName,
+        path: mapViewPage,
+        pageBuilder: (context, state) {
+          return NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const MapViewPage(),
+          );
+        },
+      ),
+      GoRoute(
+        name: historyRouteName,
+        path: historyPage,
+        pageBuilder: (context, state) {
+          return NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const HistoryPage(),
+          );
+        },
+      ),
+      GoRoute(
+        name: settingsRouteName,
+        path: settingsPage,
+        pageBuilder: (context, state) {
+          return NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const SettingsPage(),
+          );
+        },
+      ),
     ];
   }
 
@@ -58,27 +94,25 @@ class RouteManager {
     return CustomTransitionPage<void>(
       key: state.pageKey,
       child: child,
-      // transitionDuration: Duration(milliseconds: 500),
-      transitionsBuilder:
-          (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) {
-            const end = Offset.zero;
-            const curve = Curves.easeIn;
+      transitionsBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+      ) {
+        const end = Offset.zero;
+        const curve = Curves.easeIn;
 
-            var tween = Tween(
-              begin: begin,
-              end: end,
-            ).chain(CurveTween(curve: curve));
+        var tween = Tween(
+          begin: begin,
+          end: end,
+        ).chain(CurveTween(curve: curve));
 
-            return SlideTransition(
-              position: animation.drive(tween),
-              child: child,
-            );
-          },
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
     );
   }
 }

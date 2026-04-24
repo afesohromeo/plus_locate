@@ -1,5 +1,199 @@
 # UI Patterns
 
+---
+
+## ResponsiveScaffoldWrapper Pattern ⭐ **MANDATORY FOR ALL PAGES**
+
+**Every page view in the application MUST be wrapped with `ResponsiveScaffoldWrapper`.** This is the core UI pattern that enables responsive designs across mobile, tablet, and desktop.
+
+### Overview
+
+`ResponsiveScaffoldWrapper` is a layout component that:
+- Adapts the scaffold structure based on screen size (mobile, tablet, desktop)
+- Integrates responsive drawer behavior (overlay on mobile/tablet, fixed sidebar on desktop)
+- Provides consistent app bar, navigation, and content area management
+- **Location:** `lib/src/shared/components/responsive_scafold_wrapper.dart`
+
+### Basic Structure
+
+```dart
+import 'package:extension_sage_paie/extension_sage_paie.dart';
+import 'package:flutter/material.dart';
+
+class MyFeaturePage extends StatelessWidget {
+  const MyFeaturePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return ResponsiveScaffoldWrapper(
+      props: ScaffoldWrapperProps(
+        resizeToAvoidBottomInset: true,
+        showBottomNav: false,
+        showFloatingButton: false,
+        hasAppbar: true,
+        appBarBgColor: customColors.surface,
+        showDrawer: true,
+        leading: ResponsiveLayout.isDesktop(context) ? null : const CustomBackButton(),
+        title: Text(
+          l10n.myFeatureTitle,
+          style: context.textTheme.displayMedium?.copyWith(
+            fontSize: 16,
+            color: customColors.black1,
+          ),
+        ),
+        elevation: 0,
+        actions: const [AppBarActions()],
+      ),
+      mobileBody: _buildContent(),
+      tabletBody: _buildContent(),    // Optional: can be same as mobileBody
+      desktopBody: _buildContent(),   // Optional: can be same as mobileBody
+    );
+  }
+
+  Widget _buildContent() {
+    return Column(
+      children: [
+        // Your page content here
+      ],
+    );
+  }
+}
+```
+
+### ScaffoldWrapperProps Configuration
+
+| Property | Type | Default | Purpose |
+|----------|------|---------|---------|
+| `resizeToAvoidBottomInset` | `bool` | `true` | Resize scaffold when keyboard appears |
+| `showBottomNav` | `bool` | `false` | Show bottom navigation bar |
+| `showFloatingButton` | `bool` | `false` | Show floating action button |
+| `hasAppbar` | `bool` | `true` | Show app bar |
+| `appBarBgColor` | `Color` | `customColors.surface` | App bar background color |
+| `showDrawer` | `bool?` | `true` | Show navigation drawer |
+| `leading` | `Widget?` | `null` | Leading widget in app bar (menu/back button) |
+| `title` | `Widget?` | `null` | App bar title |
+| `actions` | `List<Widget>?` | `null` | Trailing actions in app bar |
+| `elevation` | `double?` | `0` | App bar elevation |
+| `bgColor` | `Color?` | `null` | Scaffold background color |
+| `bottom` | `PreferredSizeWidget?` | `null` | Bottom widget (e.g., TabBar) |
+| `buttonIcon` | `IconData?` | `null` | Floating button icon |
+| `buttonColor` | `Color?` | `null` | Floating button color |
+| `mini` | `bool?` | `null` | Floating button size |
+| `onPressed` | `VoidCallback?` | `null` | Floating button callback |
+
+### Common Patterns
+
+#### 1. **Simple Page with Menu Button** (Most Common)
+
+```dart
+ResponsiveScaffoldWrapper(
+  props: ScaffoldWrapperProps(
+    resizeToAvoidBottomInset: true,
+    showBottomNav: false,
+    showFloatingButton: false,
+    hasAppbar: true,
+    appBarBgColor: customColors.surface,
+    showDrawer: true,
+    leading: ResponsiveLayout.isDesktop(context)
+        ? null  // Hide menu on desktop (drawer is fixed)
+        : Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.menu, color: customColors.black1),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
+          ),
+    title: Text(l10n.myTitle),
+    elevation: 0,
+    actions: const [AppBarActions()],
+  ),
+  mobileBody: _buildBody(),
+  tabletBody: _buildBody(),
+  desktopBody: _buildBody(),
+);
+```
+
+#### 2. **Shell Route with Back Button & Smart Menu** (For nested routes)
+
+```dart
+final location = GoRouterState.of(context).uri.path;
+final isSubRoute = location.contains('/$detailPage');
+
+ResponsiveScaffoldWrapper(
+  props: ScaffoldWrapperProps(
+    // ... common props
+    leading: ResponsiveLayout.isDesktop(context) && !isSubRoute
+        ? null  // Hide leading on desktop main route
+        : Builder(
+            builder: (ctx) => IconButton(
+              icon: Icon(
+                isSubRoute ? Icons.arrow_back_ios : Icons.menu,
+                color: customColors.black1,
+              ),
+              onPressed: isSubRoute
+                  ? () => context.pop()  // Back button for sub-route
+                  : () => Scaffold.of(ctx).openDrawer(),  // Menu for main
+            ),
+          ),
+    title: Padding(
+      padding: const EdgeInsets.only(left: 12.0),
+      child: Text(_getTitle(location, l10n)),
+    ),
+  ),
+  mobileBody: child,
+  tabletBody: child,
+  desktopBody: child,
+);
+```
+
+#### 3. **Authentication Pages** (No Drawer)
+
+```dart
+ResponsiveScaffoldWrapper(
+  props: ScaffoldWrapperProps(
+    resizeToAvoidBottomInset: true,
+    showBottomNav: false,
+    showFloatingButton: false,
+    hasAppbar: false,  // No app bar for login/signup
+    showDrawer: false,  // No drawer
+    elevation: 0,
+  ),
+  mobileBody: _buildLoginForm(context, l10n),
+  tabletBody: _buildLoginForm(context, l10n),
+  desktopBody: _buildLoginForm(context, l10n),
+);
+```
+
+### Responsive Behavior
+
+**Mobile (`< 600px`)**
+- Drawer is **overlay** (slides in from left)
+- Menu icon toggles drawer visibility
+- Full-width content area
+
+**Tablet (`600px - 1100px`)**
+- Drawer is **overlay** (same as mobile)
+- Menu icon toggles drawer visibility
+- Full-width content area
+
+**Desktop (`≥ 1100px`)**
+- Drawer is **fixed sidebar** (280px width, always visible)
+- No menu icon needed (drawer is persistent)
+- Content area adjusted with padding
+
+### Breakpoint Reference
+
+Use `ResponsiveLayout` helper to check breakpoints:
+
+```dart
+if (ResponsiveLayout.isMobile(context)) { }      // < 600px
+if (ResponsiveLayout.isTablet(context)) { }      // 600px - 1100px
+if (ResponsiveLayout.isDesktop(context)) { }     // ≥ 1100px
+```
+
+---
+
 ## List Page Pattern
 
 **Location:** `lib/src/features/{feature}/views/{feature}_page.dart`
