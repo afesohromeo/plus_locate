@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:plus_locate/src/core/core.dart';
+import 'package:plus_locate/src/shared/shared.dart';
+
 
 /// Stub page — will be replaced with full UI from design screens.
 class GeneratePage extends StatelessWidget {
@@ -6,8 +9,12 @@ class GeneratePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Generate')),
+    return ResponsiveScaffoldWrapper(
+      props: ScaffoldWrapperProps(
+        title: Text(AppLocalizations.of(context)!.generate),
+        hasAppbar: true,
+      ),
+      mobileBody: Center(child: Text(AppLocalizations.of(context)!.generate)),
     );
   }
 }

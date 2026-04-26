@@ -32,7 +32,7 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   app_theme_kit: ^0.1.0
   web: ^1.1.1
-  google_maps_flutter: ^2.10.0
+  google_maps_flutter: ^2.12.3
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   geolocator: ^13.0.2
