@@ -81,7 +81,7 @@ sealed class PlusCode with _$PlusCode {
     }..removeWhere((key, value) => value == null);
   }
 
-  static double? _parseDouble(dynamic value) {
+  static double? _parseDouble(value) {
     if (value == null) return null;
     if (value is double) return value;
     if (value is int) return value.toDouble();

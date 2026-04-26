@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:plus_locate/src/data/api/plus_code/plus_code_api_provider.dart';
 import 'package:plus_locate/src/domain/models/plus_code.dart';
-import 'package:plus_locate/src/shared/utils/localization_service.dart';
 
 /// Repository for Plus Code encode/decode operations.
 ///

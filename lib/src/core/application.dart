@@ -37,6 +37,7 @@ class Application extends StatelessWidget {
           BlocProvider(
             create: (context) => MapViewBloc(
               geocodingRepository: context.read<GeocodingRepository>(),
+              plusCodeRepository: context.read<PlusCodeRepository>(),
             ),
           ),
           BlocProvider(

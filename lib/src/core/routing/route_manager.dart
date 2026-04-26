@@ -16,7 +16,7 @@ class RouteManager {
     return GoRouter(
       navigatorKey: rootNavigatorKey,
       debugLogDiagnostics: true,
-      initialLocation: homePage,
+      initialLocation: mapViewPage,
       routes: [...shellSubRoutes],
     );
   }
