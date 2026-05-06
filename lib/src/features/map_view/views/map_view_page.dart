@@ -14,7 +14,7 @@ class MapViewPage extends StatefulWidget {
 
 class _MapViewPageState extends State<MapViewPage> {
   final Completer<GoogleMapController> _controller = Completer();
-  
+
   // Default camera position: Center of New York (per design reference)
   static const CameraPosition _initialPosition = CameraPosition(
     target: LatLng(40.712776, -74.005974),
@@ -31,16 +31,18 @@ class _MapViewPageState extends State<MapViewPage> {
     final controller = await _controller.future;
     final bounds = await controller.getVisibleRegion();
     // The center is simply the midpoint between southwest and northeast
-    final centerLat = (bounds.northeast.latitude + bounds.southwest.latitude) / 2;
-    final centerLng = (bounds.northeast.longitude + bounds.southwest.longitude) / 2;
-    
+    final centerLat =
+        (bounds.northeast.latitude + bounds.southwest.latitude) / 2;
+    final centerLng =
+        (bounds.northeast.longitude + bounds.southwest.longitude) / 2;
+
     if (mounted) {
       context.read<MapViewBloc>().add(
-        MapViewEvent.reverseGeocodeLocation(
-          latitude: centerLat,
-          longitude: centerLng,
-        ),
-      );
+            MapViewEvent.reverseGeocodeLocation(
+              latitude: centerLat,
+              longitude: centerLng,
+            ),
+          );
     }
   }
 
@@ -83,24 +85,24 @@ class _MapViewPageState extends State<MapViewPage> {
             ),
           ),
 
-          // 4. Map Action Buttons (Right Aligned)
-          Positioned(
-            right: 24,
-            bottom: 300, // Above the detail card
-            child: MapActionButtons(
-              onLayersPressed: () {
-                // TODO: Toggle map type
-              },
-              onMyLocationPressed: () async {
-                final controller = await _controller.future;
-                // For now, jump back to initial position. 
-                // Later: fetch real device location using Geolocator
-                controller.animateCamera(
-                  CameraUpdate.newCameraPosition(_initialPosition),
-                );
-              },
-            ),
-          ),
+          // // 4. Map Action Buttons (Right Aligned)
+          // Positioned(
+          //   right: 24,
+          //   bottom: 300, // Above the detail card
+          //   child: MapActionButtons(
+          //     onLayersPressed: () {
+          //       // TODO: Toggle map type
+          //     },
+          //     onMyLocationPressed: () async {
+          //       final controller = await _controller.future;
+          //       // For now, jump back to initial position.
+          //       // Later: fetch real device location using Geolocator
+          //       controller.animateCamera(
+          //         CameraUpdate.newCameraPosition(_initialPosition),
+          //       );
+          //     },
+          //   ),
+          // ),
 
           // 5. Bottom Detail Card
           Positioned(

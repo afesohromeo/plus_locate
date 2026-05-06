@@ -13,7 +13,7 @@ final customColors = MyAppColors(
   primary: Colors.blue,
   secondary: Colors.orange,
   background: Colors.white,
-  surface: Colors.grey,
+  surface: Colors.white,
   error: Colors.redAccent,
   success: Colors.green,
   warning: Colors.yellow,
