@@ -181,4 +181,25 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get saved => 'Enregistré';
+
+  @override
+  String get msgLocationShared => 'Emplacement partagé';
+
+  @override
+  String shareLocationText(
+      String plusCode, String lat, String lng, String address) {
+    return 'Découvrez cet emplacement : $plusCode ($lat, $lng) - $address';
+  }
+
+  @override
+  String get msgLocationSaved => 'Emplacement sauvegardé dans l\'historique';
+
+  @override
+  String get layers => 'Couches';
+
+  @override
+  String get satellite => 'Satellite';
+
+  @override
+  String get terrain => 'Terrain';
 }

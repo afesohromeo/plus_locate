@@ -439,6 +439,43 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved'**
   String get saved;
+
+  /// Snackbar message when location is shared
+  ///
+  /// In en, this message translates to:
+  /// **'Location shared'**
+  String get msgLocationShared;
+
+  /// Text format used when sharing a location
+  ///
+  /// In en, this message translates to:
+  /// **'Check out this location: {plusCode} ({lat}, {lng}) - {address}'**
+  String shareLocationText(
+      String plusCode, String lat, String lng, String address);
+
+  /// Snackbar message when location is saved to history
+  ///
+  /// In en, this message translates to:
+  /// **'Location saved to history'**
+  String get msgLocationSaved;
+
+  /// Layers button label
+  ///
+  /// In en, this message translates to:
+  /// **'Layers'**
+  String get layers;
+
+  /// Satellite map type label
+  ///
+  /// In en, this message translates to:
+  /// **'Satellite'**
+  String get satellite;
+
+  /// Terrain map type label
+  ///
+  /// In en, this message translates to:
+  /// **'Terrain'**
+  String get terrain;
 }
 
 class _AppLocalizationsDelegate

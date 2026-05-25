@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 class CenterMapPin extends StatelessWidget {
   const CenterMapPin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return IgnorePointer(
       child: Center(
         // Shift it up so the point of the pin is at the exact center
@@ -18,23 +17,23 @@ class CenterMapPin extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
-                  color: colorScheme.primary,
+                  color: customColors.primary,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Colors.white,
+                    color: customColors.surface,
                     width: 3.0,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
+                      color: customColors.black1.withValues(alpha: 0.2),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
                   ],
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.location_on,
-                  color: Colors.white,
+                  color: customColors.surface,
                   size: 28,
                 ),
               ),
@@ -45,7 +44,7 @@ class CenterMapPin extends StatelessWidget {
                   height: 16,
                   width: 4,
                   decoration: BoxDecoration(
-                    color: colorScheme.primary.withValues(alpha: 0.4),
+                    color: customColors.primary.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),

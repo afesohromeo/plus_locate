@@ -9,5 +9,6 @@ sealed class MapViewState with _$MapViewState {
     double? currentLatitude,
     double? currentLongitude,
     String? geocodeErrorMessage,
+    @Default(MapType.normal) MapType mapType,
   }) = _MapViewState;
 }

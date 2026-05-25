@@ -63,5 +63,11 @@
     "unknownLocation": "Position inconnue",
     "selectLocationOnMap": "Sélectionnez un emplacement sur la carte",
     "navigate": "Naviguer",
-    "saved": "Enregistré"
+    "saved": "Enregistré",
+    "msgLocationShared": "Emplacement partagé",
+    "shareLocationText": "Découvrez cet emplacement : {plusCode} ({lat}, {lng}) - {address}",
+    "msgLocationSaved": "Emplacement sauvegardé dans l'historique",
+    "layers": "Couches",
+    "satellite": "Satellite",
+    "terrain": "Terrain"
 }

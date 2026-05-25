@@ -12,4 +12,5 @@ class MapViewEvent with _$MapViewEvent {
     required double longitude,
   }) = _ReverseGeocodeLocation;
   const factory MapViewEvent.reset() = _Reset;
+  const factory MapViewEvent.toggleMapType() = _ToggleMapType;
 }

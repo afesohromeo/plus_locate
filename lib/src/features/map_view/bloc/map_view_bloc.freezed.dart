@@ -54,6 +54,7 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult Function(_UpdateLocation value)? updateLocation,
     TResult Function(_ReverseGeocodeLocation value)? reverseGeocodeLocation,
     TResult Function(_Reset value)? reset,
+    TResult Function(_ToggleMapType value)? toggleMapType,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -66,6 +67,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reverseGeocodeLocation(_that);
       case _Reset() when reset != null:
         return reset(_that);
+      case _ToggleMapType() when toggleMapType != null:
+        return toggleMapType(_that);
       case _:
         return orElse();
     }
@@ -91,6 +94,7 @@ extension MapViewEventPatterns on MapViewEvent {
     required TResult Function(_ReverseGeocodeLocation value)
         reverseGeocodeLocation,
     required TResult Function(_Reset value) reset,
+    required TResult Function(_ToggleMapType value) toggleMapType,
   }) {
     final _that = this;
     switch (_that) {
@@ -102,6 +106,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reverseGeocodeLocation(_that);
       case _Reset():
         return reset(_that);
+      case _ToggleMapType():
+        return toggleMapType(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -125,6 +131,7 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult? Function(_UpdateLocation value)? updateLocation,
     TResult? Function(_ReverseGeocodeLocation value)? reverseGeocodeLocation,
     TResult? Function(_Reset value)? reset,
+    TResult? Function(_ToggleMapType value)? toggleMapType,
   }) {
     final _that = this;
     switch (_that) {
@@ -136,6 +143,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reverseGeocodeLocation(_that);
       case _Reset() when reset != null:
         return reset(_that);
+      case _ToggleMapType() when toggleMapType != null:
+        return toggleMapType(_that);
       case _:
         return null;
     }
@@ -159,6 +168,7 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult Function(double latitude, double longitude)? updateLocation,
     TResult Function(double latitude, double longitude)? reverseGeocodeLocation,
     TResult Function()? reset,
+    TResult Function()? toggleMapType,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -171,6 +181,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reverseGeocodeLocation(_that.latitude, _that.longitude);
       case _Reset() when reset != null:
         return reset();
+      case _ToggleMapType() when toggleMapType != null:
+        return toggleMapType();
       case _:
         return orElse();
     }
@@ -196,6 +208,7 @@ extension MapViewEventPatterns on MapViewEvent {
     required TResult Function(double latitude, double longitude)
         reverseGeocodeLocation,
     required TResult Function() reset,
+    required TResult Function() toggleMapType,
   }) {
     final _that = this;
     switch (_that) {
@@ -207,6 +220,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reverseGeocodeLocation(_that.latitude, _that.longitude);
       case _Reset():
         return reset();
+      case _ToggleMapType():
+        return toggleMapType();
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -231,6 +246,7 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult? Function(double latitude, double longitude)?
         reverseGeocodeLocation,
     TResult? Function()? reset,
+    TResult? Function()? toggleMapType,
   }) {
     final _that = this;
     switch (_that) {
@@ -242,6 +258,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reverseGeocodeLocation(_that.latitude, _that.longitude);
       case _Reset() when reset != null:
         return reset();
+      case _ToggleMapType() when toggleMapType != null:
+        return toggleMapType();
       case _:
         return null;
     }
@@ -437,6 +455,26 @@ class _Reset implements MapViewEvent {
 }
 
 /// @nodoc
+
+class _ToggleMapType implements MapViewEvent {
+  const _ToggleMapType();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ToggleMapType);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'MapViewEvent.toggleMapType()';
+  }
+}
+
+/// @nodoc
 mixin _$MapViewState {
   GenericStatus get geocodeStatus;
   LocationResult? get locationResult;
@@ -444,6 +482,7 @@ mixin _$MapViewState {
   double? get currentLatitude;
   double? get currentLongitude;
   String? get geocodeErrorMessage;
+  MapType get mapType;
 
   /// Create a copy of MapViewState
   /// with the given fields replaced by the non-null parameter values.
@@ -469,16 +508,24 @@ mixin _$MapViewState {
             (identical(other.currentLongitude, currentLongitude) ||
                 other.currentLongitude == currentLongitude) &&
             (identical(other.geocodeErrorMessage, geocodeErrorMessage) ||
-                other.geocodeErrorMessage == geocodeErrorMessage));
+                other.geocodeErrorMessage == geocodeErrorMessage) &&
+            (identical(other.mapType, mapType) || other.mapType == mapType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, geocodeStatus, locationResult,
-      selectedPlusCode, currentLatitude, currentLongitude, geocodeErrorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      geocodeStatus,
+      locationResult,
+      selectedPlusCode,
+      currentLatitude,
+      currentLongitude,
+      geocodeErrorMessage,
+      mapType);
 
   @override
   String toString() {
-    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage)';
+    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage, mapType: $mapType)';
   }
 }
 
@@ -494,7 +541,8 @@ abstract mixin class $MapViewStateCopyWith<$Res> {
       PlusCode? selectedPlusCode,
       double? currentLatitude,
       double? currentLongitude,
-      String? geocodeErrorMessage});
+      String? geocodeErrorMessage,
+      MapType mapType});
 
   $LocationResultCopyWith<$Res>? get locationResult;
   $PlusCodeCopyWith<$Res>? get selectedPlusCode;
@@ -518,6 +566,7 @@ class _$MapViewStateCopyWithImpl<$Res> implements $MapViewStateCopyWith<$Res> {
     Object? currentLatitude = freezed,
     Object? currentLongitude = freezed,
     Object? geocodeErrorMessage = freezed,
+    Object? mapType = null,
   }) {
     return _then(_self.copyWith(
       geocodeStatus: null == geocodeStatus
@@ -544,6 +593,10 @@ class _$MapViewStateCopyWithImpl<$Res> implements $MapViewStateCopyWith<$Res> {
           ? _self.geocodeErrorMessage
           : geocodeErrorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      mapType: null == mapType
+          ? _self.mapType
+          : mapType // ignore: cast_nullable_to_non_nullable
+              as MapType,
     ));
   }
 
@@ -673,7 +726,8 @@ extension MapViewStatePatterns on MapViewState {
             PlusCode? selectedPlusCode,
             double? currentLatitude,
             double? currentLongitude,
-            String? geocodeErrorMessage)?
+            String? geocodeErrorMessage,
+            MapType mapType)?
         $default, {
     required TResult orElse(),
   }) {
@@ -686,7 +740,8 @@ extension MapViewStatePatterns on MapViewState {
             _that.selectedPlusCode,
             _that.currentLatitude,
             _that.currentLongitude,
-            _that.geocodeErrorMessage);
+            _that.geocodeErrorMessage,
+            _that.mapType);
       case _:
         return orElse();
     }
@@ -713,7 +768,8 @@ extension MapViewStatePatterns on MapViewState {
             PlusCode? selectedPlusCode,
             double? currentLatitude,
             double? currentLongitude,
-            String? geocodeErrorMessage)
+            String? geocodeErrorMessage,
+            MapType mapType)
         $default,
   ) {
     final _that = this;
@@ -725,7 +781,8 @@ extension MapViewStatePatterns on MapViewState {
             _that.selectedPlusCode,
             _that.currentLatitude,
             _that.currentLongitude,
-            _that.geocodeErrorMessage);
+            _that.geocodeErrorMessage,
+            _that.mapType);
     }
   }
 
@@ -749,7 +806,8 @@ extension MapViewStatePatterns on MapViewState {
             PlusCode? selectedPlusCode,
             double? currentLatitude,
             double? currentLongitude,
-            String? geocodeErrorMessage)?
+            String? geocodeErrorMessage,
+            MapType mapType)?
         $default,
   ) {
     final _that = this;
@@ -761,7 +819,8 @@ extension MapViewStatePatterns on MapViewState {
             _that.selectedPlusCode,
             _that.currentLatitude,
             _that.currentLongitude,
-            _that.geocodeErrorMessage);
+            _that.geocodeErrorMessage,
+            _that.mapType);
       case _:
         return null;
     }
@@ -777,7 +836,8 @@ class _MapViewState implements MapViewState {
       this.selectedPlusCode,
       this.currentLatitude,
       this.currentLongitude,
-      this.geocodeErrorMessage});
+      this.geocodeErrorMessage,
+      this.mapType = MapType.normal});
 
   @override
   @JsonKey()
@@ -792,6 +852,9 @@ class _MapViewState implements MapViewState {
   final double? currentLongitude;
   @override
   final String? geocodeErrorMessage;
+  @override
+  @JsonKey()
+  final MapType mapType;
 
   /// Create a copy of MapViewState
   /// with the given fields replaced by the non-null parameter values.
@@ -817,16 +880,24 @@ class _MapViewState implements MapViewState {
             (identical(other.currentLongitude, currentLongitude) ||
                 other.currentLongitude == currentLongitude) &&
             (identical(other.geocodeErrorMessage, geocodeErrorMessage) ||
-                other.geocodeErrorMessage == geocodeErrorMessage));
+                other.geocodeErrorMessage == geocodeErrorMessage) &&
+            (identical(other.mapType, mapType) || other.mapType == mapType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, geocodeStatus, locationResult,
-      selectedPlusCode, currentLatitude, currentLongitude, geocodeErrorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      geocodeStatus,
+      locationResult,
+      selectedPlusCode,
+      currentLatitude,
+      currentLongitude,
+      geocodeErrorMessage,
+      mapType);
 
   @override
   String toString() {
-    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage)';
+    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage, mapType: $mapType)';
   }
 }
 
@@ -844,7 +915,8 @@ abstract mixin class _$MapViewStateCopyWith<$Res>
       PlusCode? selectedPlusCode,
       double? currentLatitude,
       double? currentLongitude,
-      String? geocodeErrorMessage});
+      String? geocodeErrorMessage,
+      MapType mapType});
 
   @override
   $LocationResultCopyWith<$Res>? get locationResult;
@@ -871,6 +943,7 @@ class __$MapViewStateCopyWithImpl<$Res>
     Object? currentLatitude = freezed,
     Object? currentLongitude = freezed,
     Object? geocodeErrorMessage = freezed,
+    Object? mapType = null,
   }) {
     return _then(_MapViewState(
       geocodeStatus: null == geocodeStatus
@@ -897,6 +970,10 @@ class __$MapViewStateCopyWithImpl<$Res>
           ? _self.geocodeErrorMessage
           : geocodeErrorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      mapType: null == mapType
+          ? _self.mapType
+          : mapType // ignore: cast_nullable_to_non_nullable
+              as MapType,
     ));
   }
 

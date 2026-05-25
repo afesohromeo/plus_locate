@@ -234,5 +234,43 @@
     "saved": "Saved",
     "@saved": {
         "description": "Button text indicating an item is saved"
+    },
+    "msgLocationShared": "Location shared",
+    "@msgLocationShared": {
+        "description": "Snackbar message when location is shared"
+    },
+    "shareLocationText": "Check out this location: {plusCode} ({lat}, {lng}) - {address}",
+    "@shareLocationText": {
+        "description": "Text format used when sharing a location",
+        "placeholders": {
+            "plusCode": {
+                "type": "String"
+            },
+            "lat": {
+                "type": "String"
+            },
+            "lng": {
+                "type": "String"
+            },
+            "address": {
+                "type": "String"
+            }
+        }
+    },
+    "msgLocationSaved": "Location saved to history",
+    "@msgLocationSaved": {
+        "description": "Snackbar message when location is saved to history"
+    },
+    "layers": "Layers",
+    "@layers": {
+        "description": "Layers button label"
+    },
+    "satellite": "Satellite",
+    "@satellite": {
+        "description": "Satellite map type label"
+    },
+    "terrain": "Terrain",
+    "@terrain": {
+        "description": "Terrain map type label"
     }
 }

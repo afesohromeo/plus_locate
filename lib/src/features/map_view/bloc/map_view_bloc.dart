@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:plus_locate/src/domain/models/plus_code.dart';
 import 'package:plus_locate/src/domain/models/location_result.dart';
@@ -28,6 +29,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<_UpdateLocation>(_onUpdateLocation);
     on<_ReverseGeocodeLocation>(_onReverseGeocodeLocation);
     on<_Reset>(_onReset);
+    on<_ToggleMapType>(_onToggleMapType);
   }
 
   void _onInit(_Init event, Emitter<MapViewState> emit) {
@@ -67,7 +69,6 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
       final locationResult = futures[0] as LocationResult?;
       final plusCode = futures[1] as PlusCode?;
-      log('messagess $locationResult ,,, $plusCode');
 
       if (locationResult != null || plusCode != null) {
         emit(state.copyWith(
@@ -94,5 +95,17 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
   void _onReset(_Reset event, Emitter<MapViewState> emit) {
     emit(const MapViewState());
+  }
+
+  void _onToggleMapType(
+    _ToggleMapType event,
+    Emitter<MapViewState> emit,
+  ) {
+    final nextMapType = switch (state.mapType) {
+      MapType.normal => MapType.satellite,
+      MapType.satellite => MapType.terrain,
+      _ => MapType.normal,
+    };
+    emit(state.copyWith(mapType: nextMapType));
   }
 }
