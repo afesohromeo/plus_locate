@@ -163,4 +163,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get proceed => 'Procéder';
+
+  @override
+  String get searchPlacesOrCodes => 'Rechercher des lieux ou des Plus Codes';
+
+  @override
+  String get currentLocation => 'POSITION ACTUELLE';
+
+  @override
+  String get unknownLocation => 'Position inconnue';
+
+  @override
+  String get selectLocationOnMap => 'Sélectionnez un emplacement sur la carte';
+
+  @override
+  String get navigate => 'Naviguer';
+
+  @override
+  String get saved => 'Enregistré';
 }

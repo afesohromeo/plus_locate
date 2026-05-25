@@ -67,6 +67,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
       final locationResult = futures[0] as LocationResult?;
       final plusCode = futures[1] as PlusCode?;
+      log('messagess $locationResult ,,, $plusCode');
 
       if (locationResult != null || plusCode != null) {
         emit(state.copyWith(
@@ -79,16 +80,14 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       } else {
         emit(state.copyWith(
           geocodeStatus: GenericStatus.failure,
-          geocodeErrorMessage:
-              LocalizationService.localization.operationError,
+          geocodeErrorMessage: LocalizationService.localization.operationError,
         ));
       }
     } catch (e) {
       log('Error reverse geocoding: $e');
       emit(state.copyWith(
         geocodeStatus: GenericStatus.failure,
-        geocodeErrorMessage:
-            LocalizationService.localization.operationError,
+        geocodeErrorMessage: LocalizationService.localization.operationError,
       ));
     }
   }

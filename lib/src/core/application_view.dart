@@ -33,9 +33,8 @@ class _ApplicationViewState extends State<ApplicationView> {
         final double scaleFactor = MediaQuery.of(context).textScaler.scale(1);
 
         // Limit the scale between 1.0 and 1.2
-        final double limitedScaleFactor = scaleFactor < 1.0
-            ? 1.0
-            : (scaleFactor > 1.2 ? 1.2 : scaleFactor);
+        final double limitedScaleFactor =
+            scaleFactor < 1.0 ? 1.0 : (scaleFactor > 1.2 ? 1.2 : scaleFactor);
 
         return MediaQuery(
           data: MediaQuery.of(

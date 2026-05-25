@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:plus_locate/src/core/core.dart';
 import 'package:plus_locate/src/features/map_view/map_view.dart';
 import 'package:plus_locate/src/shared/shared.dart';
 
@@ -15,7 +17,7 @@ class MapViewPage extends StatefulWidget {
 class _MapViewPageState extends State<MapViewPage> {
   final Completer<GoogleMapController> _controller = Completer();
 
-  // Default camera position: Center of New York (per design reference)
+  // Default camera position fallback
   static const CameraPosition _initialPosition = CameraPosition(
     target: LatLng(40.712776, -74.005974),
     zoom: 14.4746,
@@ -24,26 +26,60 @@ class _MapViewPageState extends State<MapViewPage> {
   @override
   void initState() {
     super.initState();
-    // Fetch initial location (or let the map do it once initialized)
+    _determineInitialPosition();
   }
 
-  void _onCameraIdle() async {
+  @override
+  void dispose() {
+    if (_controller.isCompleted) {
+      _controller.future.then((controller) => controller.dispose());
+    }
+    super.dispose();
+  }
+
+  Future<void> _determineInitialPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) return;
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) return;
+    }
+
+    if (permission == LocationPermission.deniedForever) return;
+
+    final position = await Geolocator.getCurrentPosition(
+      locationSettings: LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 3,
+      ),
+    );
+    final latLng = LatLng(position.latitude, position.longitude);
+
     final controller = await _controller.future;
-    final bounds = await controller.getVisibleRegion();
-    // The center is simply the midpoint between southwest and northeast
-    final centerLat =
-        (bounds.northeast.latitude + bounds.southwest.latitude) / 2;
-    final centerLng =
-        (bounds.northeast.longitude + bounds.southwest.longitude) / 2;
+    controller.animateCamera(CameraUpdate.newLatLngZoom(latLng, 16.0));
 
     if (mounted) {
       context.read<MapViewBloc>().add(
             MapViewEvent.reverseGeocodeLocation(
-              latitude: centerLat,
-              longitude: centerLng,
+              latitude: position.latitude,
+              longitude: position.longitude,
             ),
           );
     }
+  }
+
+  void _onMapTapped(LatLng position) {
+    context.read<MapViewBloc>().add(
+          MapViewEvent.reverseGeocodeLocation(
+            latitude: position.latitude,
+            longitude: position.longitude,
+          ),
+        );
   }
 
   @override
@@ -57,23 +93,41 @@ class _MapViewPageState extends State<MapViewPage> {
       mobileBody: Stack(
         children: [
           // 1. Google Map Layer
-          GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: _initialPosition,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
+          BlocBuilder<MapViewBloc, MapViewState>(
+            buildWhen: (previous, current) =>
+                previous.currentLatitude != current.currentLatitude ||
+                previous.currentLongitude != current.currentLongitude,
+            builder: (context, state) {
+              final markers = <Marker>{};
+              if (state.currentLatitude != null &&
+                  state.currentLongitude != null) {
+                markers.add(
+                  Marker(
+                    markerId: const MarkerId('selected_location'),
+                    position:
+                        LatLng(state.currentLatitude!, state.currentLongitude!),
+                  ),
+                );
+              }
+              // return Container();
+
+              return GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: _initialPosition,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+                onTap: _onMapTapped,
+                markers: markers,
+                zoomControlsEnabled: false,
+                myLocationButtonEnabled: false,
+                myLocationEnabled: true,
+                mapToolbarEnabled: false,
+              );
             },
-            onCameraIdle: _onCameraIdle,
-            zoomControlsEnabled: false,
-            myLocationButtonEnabled: false,
-            myLocationEnabled: true,
-            mapToolbarEnabled: false,
           ),
 
-          // 2. Center Fixed Map Pin
-          const CenterMapPin(),
-
-          // 3. Top Floating Search Pill
+          // 2. Top Floating Search Pill
           Positioned(
             top: MediaQuery.of(context).padding.top + 16,
             left: 0,
@@ -85,7 +139,7 @@ class _MapViewPageState extends State<MapViewPage> {
             ),
           ),
 
-          // // 4. Map Action Buttons (Right Aligned)
+          // // 3. Map Action Buttons (Right Aligned)
           // Positioned(
           //   right: 24,
           //   bottom: 300, // Above the detail card
@@ -94,17 +148,12 @@ class _MapViewPageState extends State<MapViewPage> {
           //       // TODO: Toggle map type
           //     },
           //     onMyLocationPressed: () async {
-          //       final controller = await _controller.future;
-          //       // For now, jump back to initial position.
-          //       // Later: fetch real device location using Geolocator
-          //       controller.animateCamera(
-          //         CameraUpdate.newCameraPosition(_initialPosition),
-          //       );
+          //       _determineInitialPosition();
           //     },
           //   ),
           // ),
 
-          // 5. Bottom Detail Card
+          // 4. Bottom Detail Card
           Positioned(
             bottom: 0,
             left: 0,

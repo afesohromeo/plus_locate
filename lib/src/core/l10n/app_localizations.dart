@@ -403,6 +403,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Proceed'**
   String get proceed;
+
+  /// Placeholder for search pill
+  ///
+  /// In en, this message translates to:
+  /// **'Search for places or Plus Codes'**
+  String get searchPlacesOrCodes;
+
+  /// Header for current location card
+  ///
+  /// In en, this message translates to:
+  /// **'CURRENT LOCATION'**
+  String get currentLocation;
+
+  /// Fallback text for unknown location
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Location'**
+  String get unknownLocation;
+
+  /// Text shown when no location is selected
+  ///
+  /// In en, this message translates to:
+  /// **'Select a location on the map'**
+  String get selectLocationOnMap;
+
+  /// Button text to start navigation
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate'**
+  String get navigate;
+
+  /// Button text indicating an item is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get saved;
 }
 
 class _AppLocalizationsDelegate

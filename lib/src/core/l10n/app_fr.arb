@@ -57,5 +57,11 @@
     "tel": "Tél",
     "validateMobile2": "Le numéro de téléphone doit commencer par 6.",
     "authenticationRequired": "Authentification Requise",
-    "proceed": "Procéder"
+    "proceed": "Procéder",
+    "searchPlacesOrCodes": "Rechercher des lieux ou des Plus Codes",
+    "currentLocation": "POSITION ACTUELLE",
+    "unknownLocation": "Position inconnue",
+    "selectLocationOnMap": "Sélectionnez un emplacement sur la carte",
+    "navigate": "Naviguer",
+    "saved": "Enregistré"
 }

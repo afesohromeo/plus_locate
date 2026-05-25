@@ -161,4 +161,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get proceed => 'Proceed';
+
+  @override
+  String get searchPlacesOrCodes => 'Search for places or Plus Codes';
+
+  @override
+  String get currentLocation => 'CURRENT LOCATION';
+
+  @override
+  String get unknownLocation => 'Unknown Location';
+
+  @override
+  String get selectLocationOnMap => 'Select a location on the map';
+
+  @override
+  String get navigate => 'Navigate';
+
+  @override
+  String get saved => 'Saved';
 }

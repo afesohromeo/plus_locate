@@ -210,5 +210,29 @@
     "proceed": "Proceed",
     "@proceed": {
         "description": "Button text to proceed with an action"
+    },
+    "searchPlacesOrCodes": "Search for places or Plus Codes",
+    "@searchPlacesOrCodes": {
+        "description": "Placeholder for search pill"
+    },
+    "currentLocation": "CURRENT LOCATION",
+    "@currentLocation": {
+        "description": "Header for current location card"
+    },
+    "unknownLocation": "Unknown Location",
+    "@unknownLocation": {
+        "description": "Fallback text for unknown location"
+    },
+    "selectLocationOnMap": "Select a location on the map",
+    "@selectLocationOnMap": {
+        "description": "Text shown when no location is selected"
+    },
+    "navigate": "Navigate",
+    "@navigate": {
+        "description": "Button text to start navigation"
+    },
+    "saved": "Saved",
+    "@saved": {
+        "description": "Button text indicating an item is saved"
     }
 }

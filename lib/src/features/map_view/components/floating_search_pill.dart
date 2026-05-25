@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 class FloatingSearchPill extends StatelessWidget {
   final VoidCallback onTap;
@@ -11,8 +12,6 @@ class FloatingSearchPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: ClipRRect(
@@ -20,9 +19,9 @@ class FloatingSearchPill extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 16.0, sigmaY: 16.0),
           child: Material(
-            color: colorScheme.surface.withValues(alpha: 0.9),
+            color: customColors.surface.withValues(alpha: 0.9),
             elevation: 8,
-            shadowColor: colorScheme.primary.withValues(alpha: 0.2),
+            shadowColor: customColors.primary.withValues(alpha: 0.2),
             child: InkWell(
               onTap: onTap,
               child: Container(
@@ -39,15 +38,14 @@ class FloatingSearchPill extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.search,
-                      color: colorScheme.outline,
+                      color: customColors.black1.withValues(alpha: 0.5),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        // TODO: Update to use AppLocalizations once generated
-                        'Search for places or Plus Codes',
-                        style: TextStyle(
-                          color: colorScheme.onSurfaceVariant,
+                        AppLocalizations.of(context)!.searchPlacesOrCodes,
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: customColors.black1.withValues(alpha: 0.6),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -55,12 +53,12 @@ class FloatingSearchPill extends StatelessWidget {
                     Container(
                       height: 24,
                       width: 1,
-                      color: colorScheme.outlineVariant,
+                      color: customColors.black1.withValues(alpha: 0.1),
                       margin: const EdgeInsets.symmetric(horizontal: 12.0),
                     ),
                     Icon(
                       Icons.mic,
-                      color: colorScheme.primary,
+                      color: customColors.primary,
                     ),
                   ],
                 ),
