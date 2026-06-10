@@ -44,36 +44,6 @@ class RouteManager {
         },
       ),
       GoRoute(
-        name: decodeRouteName,
-        path: decodePage,
-        pageBuilder: (context, state) {
-          return NoTransitionPage<void>(
-            key: state.pageKey,
-            child: const DecodePage(),
-          );
-        },
-      ),
-      GoRoute(
-        name: mapViewRouteName,
-        path: mapViewPage,
-        pageBuilder: (context, state) {
-          return NoTransitionPage<void>(
-            key: state.pageKey,
-            child: const MapViewPage(),
-          );
-        },
-      ),
-      GoRoute(
-        name: historyRouteName,
-        path: historyPage,
-        pageBuilder: (context, state) {
-          return NoTransitionPage<void>(
-            key: state.pageKey,
-            child: const HistoryPage(),
-          );
-        },
-      ),
-      GoRoute(
         name: settingsRouteName,
         path: settingsPage,
         pageBuilder: (context, state) {
@@ -82,6 +52,55 @@ class RouteManager {
             child: const SettingsPage(),
           );
         },
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ScaffoldWithNav(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: mapViewRouteName,
+                path: mapViewPage,
+                pageBuilder: (context, state) {
+                  return NoTransitionPage<void>(
+                    key: state.pageKey,
+                    child: const MapViewPage(),
+                  );
+                },
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: historyRouteName,
+                path: historyPage,
+                pageBuilder: (context, state) {
+                  return NoTransitionPage<void>(
+                    key: state.pageKey,
+                    child: const HistoryPage(),
+                  );
+                },
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: decodeRouteName,
+                path: decodePage,
+                pageBuilder: (context, state) {
+                  return NoTransitionPage<void>(
+                    key: state.pageKey,
+                    child: const DecodePage(),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     ];
   }

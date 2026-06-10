@@ -74,8 +74,7 @@ class ScaffoldWrapper extends StatelessWidget {
           side: BorderSide(color: buttonColor ?? customColors.secondary),
         ),
         onPressed: onPressed,
-        child:
-            buttonIcon ??
+        child: buttonIcon ??
             Icon(Icons.add, size: 30, color: customColors.background),
       ),
     );
@@ -107,6 +106,7 @@ class ScaffoldWrapper extends StatelessWidget {
       drawer: drawerMode == DrawerMode.overlay && showDrawer == true
           ? AppDrawer(parentContext: context)
           : null,
+      bottomNavigationBar: showBottomNav ? bottomNav : null,
     );
   }
 }
