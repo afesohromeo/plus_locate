@@ -1,47 +1,30 @@
-import 'package:dio/dio.dart';
+import 'package:open_location_code/open_location_code.dart' as olc;
 
-import 'package:plus_locate/src/data/api/config/api_provider.dart';
-import 'package:plus_locate/src/data/api/config/api_error_handler.dart';
-
-/// API provider for Google Plus Codes operations.
-///
-/// Per RULE-015: catches only DioException, re-throws via ApiErrorHandler.
-/// Per RULE-019: no business logic — raw API calls only.
+/// Local Plus Code provider using the open_location_code package.
+/// No network calls — encoding/decoding is done entirely on-device.
 class PlusCodeApiProvider {
-  Dio get _dio => ApiProvider().dio;
-
-  /// Encode latitude/longitude → Plus Code.
+  /// Encode latitude/longitude → Plus Code map.
   Future<Map<String, dynamic>> encodePlusCode({
     required double latitude,
     required double longitude,
   }) async {
-    try {
-      final response = await _dio.get(
-        '',
-        queryParameters: {
-          'latlng': '$latitude,$longitude',
-        }..removeWhere((key, value) => value == null),
-      );
-      return response.data as Map<String, dynamic>;
-    } on DioException catch (e) {
-      throw ApiErrorHandler.handle(e);
-    }
+    final plusCode = olc.PlusCode.encode(olc.LatLng(latitude, longitude));
+    return {
+      'global_code': plusCode.toString(),
+      'latitude': latitude,
+      'longitude': longitude,
+    };
   }
 
-  /// Decode Plus Code → latitude/longitude.
+  /// Decode Plus Code → coordinates map.
   Future<Map<String, dynamic>> decodePlusCode({
     required String code,
   }) async {
-    try {
-      final response = await _dio.get(
-        '',
-        queryParameters: {
-          'address': code,
-        }..removeWhere((key, value) => value == null),
-      );
-      return response.data as Map<String, dynamic>;
-    } on DioException catch (e) {
-      throw ApiErrorHandler.handle(e);
-    }
+    final area = olc.PlusCode(code).decode();
+    return {
+      'global_code': code,
+      'latitude': area.center.latitude,
+      'longitude': area.center.longitude,
+    };
   }
 }

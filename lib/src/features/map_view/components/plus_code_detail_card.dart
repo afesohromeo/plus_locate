@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:plus_locate/plus_locate.dart';
-import 'package:plus_locate/src/domain/models/location_result.dart';
-import 'package:plus_locate/src/domain/models/plus_code.dart';
 
 class PlusCodeDetailCard extends StatelessWidget {
   final LocationResult? locationResult;

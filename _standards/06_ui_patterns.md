@@ -1,5 +1,7 @@
 # UI Patterns
 
+> ⚠️ **Pagination**: the "List Page Pattern" / `AsyncPaginatedDataTable2`/`AsyncDataTableSource` sections below were generated from a **web project** displaying paginated data in a fixed-bottom-widget datatable with adjustable page size (10/20/50). **SmartDrive Terminal is mobile and displays paginated lists as infinite-scroll feeds via `PagingController`/`CustomPaginatedList` instead.** For any paginated list UI in this app, follow [13_mobile_pagination.md](13_mobile_pagination.md). The `ResponsiveScaffoldWrapper` guidance below still applies to all pages regardless.
+
 ---
 
 ## ResponsiveScaffoldWrapper Pattern ⭐ **MANDATORY FOR ALL PAGES**
@@ -626,7 +628,8 @@ class DeleteMyFeatureDialog extends StatelessWidget {
                     .read<MyFeatureBloc>()
                     .add(MyFeatureEvent.deleteMyFeature(item)),
                 child: Text(l10n.yes,
-                    style: TextStyle(color: customColors.error)),
+                 style: context.textTheme.displayMedium
+                ?.copyWith(color: customColors.error, fontSize: 14))
               ),
             ],
           ),

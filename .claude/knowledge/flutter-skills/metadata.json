@@ -1,0 +1,17 @@
+{
+  "title": "Flutter Skills",
+  "summary": "10 Flutter/Dart development skills covering: architecture best practices (MVVM + Repository pattern), responsive layouts (LayoutBuilder/MediaQuery), layout issue fixes (overflow/unbounded constraints), widget tests (WidgetTester), integration tests (Flutter Driver), widget previews, JSON serialization (fromJson/toJson), declarative routing (go_router), localization (flutter_localizations + intl), and HTTP networking (http package). Skills are installed locally at .claude/skills/flutter/ within the project directory.",
+  "created": "2026-06-06T00:00:00Z",
+  "updated": "2026-06-06T00:00:00Z",
+  "references": [
+    {
+      "type": "local_path",
+      "uri": ".claude/skills/flutter"
+    },
+    {
+      "type": "mcp_server",
+      "uri": "dart"
+    }
+  ],
+  "tags": ["flutter", "dart", "mvvm", "testing", "routing", "localization", "http", "layout", "architecture"]
+}

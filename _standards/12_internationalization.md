@@ -120,7 +120,7 @@ class DashboardPage extends StatelessWidget {
 
 **Best practice:** Capture `l10n` once at the top of your `build()` method, then reuse it.
 
-### Pattern 2: In BLoCs & Repositories (NO Context)
+### Pattern 2: In BLoCs & Repositories/services (NO Context)
 
 Use `LocalizationService.localization` — works anywhere without `BuildContext`.
 

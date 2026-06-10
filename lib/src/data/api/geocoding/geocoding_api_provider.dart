@@ -1,61 +1,59 @@
-import 'package:dio/dio.dart';
+import 'package:geocoding/geocoding.dart';
 
-import 'package:plus_locate/src/data/api/config/api_error_handler.dart';
-import 'package:plus_locate/src/core/environment.dart';
-
-/// API provider for Google Geocoding operations.
-///
-/// Uses a separate Dio instance pointed at the Google Geocoding API.
+/// Local geocoding provider using the geocoding package.
+/// Uses device-native reverse geocoding — no API key required.
 class GeocodingApiProvider {
-  late final Dio _dio;
-
-  GeocodingApiProvider() {
-    _dio = Dio(
-      BaseOptions(
-        baseUrl: 'https://maps.googleapis.com/maps/api/geocode',
-        connectTimeout: const Duration(seconds: 15),
-        receiveTimeout: const Duration(seconds: 15),
-        headers: {
-          'Accept': 'application/json',
-        },
-      ),
-    );
-  }
-
-  /// Forward geocode: address text → coordinates.
+  /// Forward geocode: address text → coordinates + location info.
   Future<Map<String, dynamic>> geocodeAddress({
     required String address,
   }) async {
-    try {
-      final response = await _dio.get(
-        '/json',
-        queryParameters: {
-          'address': address,
-          'key': Environment.geocodingApiKey,
-        }..removeWhere((key, value) => value == null),
-      );
-      return response.data as Map<String, dynamic>;
-    } on DioException catch (e) {
-      throw ApiErrorHandler.handle(e);
-    }
+    final locations = await locationFromAddress(address);
+    if (locations.isEmpty) return {'results': []};
+
+    final loc = locations.first;
+    final placemarks =
+        await placemarkFromCoordinates(loc.latitude, loc.longitude);
+    final placemark = placemarks.isNotEmpty ? placemarks.first : null;
+
+    return {
+      'results': [
+        {
+          'formatted_address': address,
+          'latitude': loc.latitude,
+          'longitude': loc.longitude,
+          'locality': placemark?.locality,
+          'country': placemark?.country,
+        }
+      ]
+    };
   }
 
-  /// Reverse geocode: coordinates → address.
+  /// Reverse geocode: coordinates → address info.
   Future<Map<String, dynamic>> reverseGeocode({
     required double latitude,
     required double longitude,
   }) async {
-    try {
-      final response = await _dio.get(
-        '/json',
-        queryParameters: {
-          'latlng': '$latitude,$longitude',
-          'key': Environment.geocodingApiKey,
-        }..removeWhere((key, value) => value == null),
-      );
-      return response.data as Map<String, dynamic>;
-    } on DioException catch (e) {
-      throw ApiErrorHandler.handle(e);
-    }
+    final placemarks = await placemarkFromCoordinates(latitude, longitude);
+    if (placemarks.isEmpty) return {'results': []};
+
+    final placemark = placemarks.first;
+    final formattedAddress = [
+      placemark.street,
+      placemark.locality,
+      placemark.administrativeArea,
+      placemark.country,
+    ].where((p) => p != null && p.isNotEmpty).join(', ');
+
+    return {
+      'results': [
+        {
+          'formatted_address': formattedAddress.isNotEmpty ? formattedAddress : null,
+          'latitude': latitude,
+          'longitude': longitude,
+          'locality': placemark.locality,
+          'country': placemark.country,
+        }
+      ]
+    };
   }
 }

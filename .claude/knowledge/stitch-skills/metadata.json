@@ -1,0 +1,17 @@
+{
+  "title": "Stitch Skills",
+  "summary": "8 Google Stitch MCP skills covering: stitch-design (primary entry point for screen generation/editing), taste-design (premium anti-generic DESIGN.md generation), design-md (synthesizing DESIGN.md from existing projects), enhance-prompt (transforming vague UI ideas into Stitch-optimized prompts), stitch-loop (autonomous iterative multi-page website building via baton-passing), react-components (converting Stitch designs to Vite/React components), shadcn-ui (shadcn/ui component integration), and remotion (walkthrough video generation from Stitch screens). Requires the stitch MCP server (https://stitch.googleapis.com/mcp).",
+  "created": "2026-06-06T00:00:00Z",
+  "updated": "2026-06-06T00:00:00Z",
+  "references": [
+    {
+      "type": "local_path",
+      "uri": ".claude/skills/stitch"
+    },
+    {
+      "type": "mcp_server",
+      "uri": "stitch — https://stitch.googleapis.com/mcp"
+    }
+  ],
+  "tags": ["stitch", "ui", "design", "screen-generation", "design-system", "react", "shadcn", "remotion", "mcp"]
+}

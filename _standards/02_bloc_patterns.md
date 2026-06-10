@@ -1,5 +1,7 @@
 # BLoC Patterns
 
+> ⚠️ **Paginated lists**: this document's pagination fields (`pageKey`/`pageSize`/`totalCount`/`maxItems`) were generated from a **web project** using `DataTable2` with an adjustable page-size widget. **SmartDrive Terminal is mobile and uses infinite-scroll (`PagingController`) instead — no `pageSize`/`totalCount` in state.** For any paginated list (events, state, handlers), follow [13_mobile_pagination.md](13_mobile_pagination.md) instead. The non-pagination guidance below (event/state shape, `GenericStatus`, 5-step handler backbone, `GenericFlowStep`, CRUD) still applies as-is.
+
 ## File Structure (3 files per feature)
 
 ```

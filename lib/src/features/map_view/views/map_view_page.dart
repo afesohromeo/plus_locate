@@ -173,20 +173,20 @@ class _MapViewPageState extends State<MapViewPage> {
             ),
 
             // 3. Map Action Buttons (Right Aligned)
-            Positioned(
-              right: 24,
-              bottom: 300, // Above the detail card
-              child: MapActionButtons(
-                onLayersPressed: () {
-                  context
-                      .read<MapViewBloc>()
-                      .add(const MapViewEvent.toggleMapType());
-                },
-                onMyLocationPressed: () async {
-                  _determineInitialPosition();
-                },
-              ),
-            ),
+            // Positioned(
+            //   right: 24,
+            //   bottom: 300, // Above the detail card
+            //   child: MapActionButtons(
+            //     onLayersPressed: () {
+            //       context
+            //           .read<MapViewBloc>()
+            //           .add(const MapViewEvent.toggleMapType());
+            //     },
+            //     onMyLocationPressed: () async {
+            //       _determineInitialPosition();
+            //     },
+            //   ),
+            // ),
 
             // 4. Bottom Detail Card
             Positioned(
@@ -228,7 +228,7 @@ class _MapViewPageState extends State<MapViewPage> {
                           localCode: state.selectedPlusCode?.localCode,
                           latitude: state.currentLatitude,
                           longitude: state.currentLongitude,
-                          locality: state.selectedPlusCode?.locality,
+                          locality: state.locationResult?.locality,
                           savedAt: DateTime.now(),
                         );
                         context.read<HistoryBloc>().add(

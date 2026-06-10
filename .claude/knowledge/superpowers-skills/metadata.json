@@ -1,0 +1,17 @@
+{
+  "title": "Superpowers Skills Framework",
+  "summary": "Comprehensive agentic software development methodology from obra/superpowers. Contains 14 skills covering: brainstorming (design before code), writing-plans (implementation plans), executing-plans (batch execution), subagent-driven-development (fresh subagent per task with two-stage review), test-driven-development (RED-GREEN-REFACTOR), systematic-debugging (4-phase root cause analysis), verification-before-completion (evidence before claims), requesting-code-review, receiving-code-review, using-git-worktrees (isolated workspaces), finishing-a-development-branch, dispatching-parallel-agents, writing-skills, and using-superpowers (core skill discovery). Skills are installed locally at .claude/skills/ within the project directory.",
+  "created": "2026-05-19T10:05:00Z",
+  "updated": "2026-05-19T11:02:00Z",
+  "references": [
+    {
+      "type": "repository",
+      "uri": "https://github.com/obra/superpowers.git"
+    },
+    {
+      "type": "local_path",
+      "uri": ".claude/skills"
+    }
+  ],
+  "tags": ["skills", "methodology", "tdd", "debugging", "code-review", "planning", "brainstorming"]
+}
