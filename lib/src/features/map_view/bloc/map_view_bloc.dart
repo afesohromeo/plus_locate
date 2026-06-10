@@ -56,21 +56,18 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     ));
 
     try {
-      final futures = await Future.wait([
-        _geocodingRepository.reverseGeocode(
-          latitude: event.latitude,
-          longitude: event.longitude,
-        ),
+      final results = await Future.wait([
+        _safeReverseGeocode(event.latitude, event.longitude),
         _plusCodeRepository.encodePlusCode(
           latitude: event.latitude,
           longitude: event.longitude,
         ),
       ]);
 
-      final locationResult = futures[0] as LocationResult?;
-      final plusCode = futures[1] as PlusCode?;
+      final locationResult = results[0] as LocationResult?;
+      final plusCode = results[1] as PlusCode?;
 
-      if (locationResult != null || plusCode != null) {
+      if (plusCode != null) {
         emit(state.copyWith(
           geocodeStatus: GenericStatus.success,
           locationResult: locationResult,
@@ -85,11 +82,28 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
         ));
       }
     } catch (e) {
-      log('Error reverse geocoding: $e');
+      log('Error encoding Plus Code: $e');
       emit(state.copyWith(
         geocodeStatus: GenericStatus.failure,
         geocodeErrorMessage: LocalizationService.localization.operationError,
       ));
+    }
+  }
+
+  /// Reverse geocode without throwing — a timeout or network error returns null
+  /// so the plus code can still be displayed.
+  Future<LocationResult?> _safeReverseGeocode(
+    double latitude,
+    double longitude,
+  ) async {
+    try {
+      return await _geocodingRepository.reverseGeocode(
+        latitude: latitude,
+        longitude: longitude,
+      );
+    } catch (e) {
+      log('Geocoding failed (non-fatal): $e');
+      return null;
     }
   }
 

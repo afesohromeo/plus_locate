@@ -25,14 +25,14 @@ class PlusCodeDetailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(12.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24.0),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 24.0, sigmaY: 24.0),
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
               color: customColors.surface.withValues(alpha: 0.95),
               borderRadius: BorderRadius.circular(24.0),
@@ -97,21 +97,19 @@ class PlusCodeDetailCard extends StatelessWidget {
                 children: [
                   Text(
                     l10n.currentLocation,
-                    style: context.textTheme.labelSmall?.copyWith(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2.0,
-                      color: customColors.secondary,
+                    style: context.textTheme.displayLarge?.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                      color: customColors.primary,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     locationResult?.locality ?? l10n.unknownLocation,
-                    style: context.textTheme.headlineMedium?.copyWith(
-                      fontSize: 24,
+                    style: context.textTheme.displayLarge?.copyWith(
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: customColors.black1,
-                      letterSpacing: -0.5,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -121,7 +119,7 @@ class PlusCodeDetailCard extends StatelessWidget {
                     locationResult?.formattedAddress ?? '---',
                     style: context.textTheme.bodyMedium?.copyWith(
                       fontSize: 14,
-                      color: customColors.black1.withValues(alpha: 0.6),
+                      color: customColors.black1.withValues(alpha: 0.8),
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -142,14 +140,14 @@ class PlusCodeDetailCard extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 8),
 
         // Plus Code Highlight
         InkWell(
           onTap: onCopyPlusCode,
           borderRadius: BorderRadius.circular(16),
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: customColors.black1.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(16),
@@ -163,11 +161,10 @@ class PlusCodeDetailCard extends StatelessWidget {
                     children: [
                       Text(
                         l10n.labelPlusCode.toUpperCase(),
-                        style: context.textTheme.labelMedium?.copyWith(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: customColors.black1.withValues(alpha: 0.5),
-                          letterSpacing: 1.0,
+                        style: context.textTheme.displayLarge?.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: customColors.black1,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -177,23 +174,13 @@ class PlusCodeDetailCard extends StatelessWidget {
                         children: [
                           Text(
                             plusCode?.globalCode ?? '---',
-                            style: context.textTheme.headlineLarge?.copyWith(
-                              fontSize: 28,
+                            style: context.textTheme.displayLarge?.copyWith(
+                              fontSize: 24,
                               fontWeight: FontWeight.w900,
                               color: customColors.primary,
                               letterSpacing: -1.0,
                             ),
                           ),
-                          if (plusCode?.locality != null)
-                            Text(
-                              plusCode!.locality!,
-                              style: context.textTheme.titleMedium?.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color:
-                                    customColors.primary.withValues(alpha: 0.8),
-                              ),
-                            ),
                         ],
                       ),
                     ],
@@ -201,13 +188,13 @@ class PlusCodeDetailCard extends StatelessWidget {
                 ),
                 Icon(
                   Icons.content_copy,
-                  color: customColors.black1.withValues(alpha: 0.5),
+                  color: customColors.black1.withValues(alpha: 0.8),
                 ),
               ],
             ),
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 18),
 
         // Coordinates Grid
         Row(
@@ -217,11 +204,11 @@ class PlusCodeDetailCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    l10n.labelLatitude.toUpperCase(),
-                    style: context.textTheme.labelSmall?.copyWith(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: customColors.black1.withValues(alpha: 0.5),
+                    l10n.labelLatitude,
+                    style: context.textTheme.displaySmall?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                      color: customColors.black1,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -241,11 +228,11 @@ class PlusCodeDetailCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    l10n.labelLongitude.toUpperCase(),
-                    style: context.textTheme.labelSmall?.copyWith(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: customColors.black1.withValues(alpha: 0.5),
+                    l10n.labelLongitude,
+                    style: context.textTheme.displaySmall?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                      color: customColors.black1,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -262,7 +249,7 @@ class PlusCodeDetailCard extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 32),
+        const SizedBox(height: 12),
 
         // Action Buttons
         Row(
@@ -289,7 +276,7 @@ class PlusCodeDetailCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 12.0),
                       child: Text(
                         l10n.navigate,
-                        style: context.textTheme.displayMedium?.copyWith(
+                        style: context.textTheme.displayLarge?.copyWith(
                             color: customColors.surface, fontSize: 14),
                       ),
                     ),
@@ -322,8 +309,9 @@ class PlusCodeDetailCard extends StatelessWidget {
                       const SizedBox(width: 8),
                       Text(
                         l10n.saved,
-                        style: context.textTheme.labelLarge?.copyWith(
+                        style: context.textTheme.displayLarge?.copyWith(
                           fontWeight: FontWeight.bold,
+                          fontSize: 14,
                           color: customColors.black1,
                         ),
                       ),
@@ -334,6 +322,7 @@ class PlusCodeDetailCard extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             IconButton(
+              iconSize: 20,
               onPressed: onSharePressed,
               style: IconButton.styleFrom(
                 backgroundColor: customColors.black1.withValues(alpha: 0.05),

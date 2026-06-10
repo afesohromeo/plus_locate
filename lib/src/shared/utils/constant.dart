@@ -64,11 +64,11 @@ DateTime? convertJsonDate(value) {
 double? convertToDouble(value, {bool canBeNull = false}) {
   double? doubleValue = value == null || value == ''
       ? canBeNull
-            ? null
-            : 0.0
+          ? null
+          : 0.0
       : (value is int)
-      ? value.toDouble()
-      : value;
+          ? value.toDouble()
+          : value;
   return doubleValue;
 }
 
@@ -88,6 +88,6 @@ String formatDate(
   return withTime
       ? DateFormat('d MMM yyyy - HH:mm', 'fr_FR').format(date)
       : withDay
-      ? DateFormat('EEE d MMM yyyy', 'fr_FR').format(date)
-      : DateFormat('d MMM yyyy', 'fr_FR').format(date);
+          ? DateFormat('EEE d MMM yyyy', 'fr_FR').format(date)
+          : DateFormat('d MMM yyyy', 'fr_FR').format(date);
 }
