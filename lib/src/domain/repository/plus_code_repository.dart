@@ -23,6 +23,7 @@ class PlusCodeRepository {
         latitude: latitude,
         longitude: longitude,
       );
+      log('mdss $res');
       return PlusCode.fromJson(res);
     } catch (e) {
       log('Error encoding Plus Code: $e');

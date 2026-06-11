@@ -28,6 +28,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<_Init>(_onInit);
     on<_UpdateLocation>(_onUpdateLocation);
     on<_ReverseGeocodeLocation>(_onReverseGeocodeLocation);
+    on<_FocusOnLocation>(_onFocusOnLocation);
     on<_Reset>(_onReset);
     on<_ToggleMapType>(_onToggleMapType);
   }
@@ -105,6 +106,20 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       log('Geocoding failed (non-fatal): $e');
       return null;
     }
+  }
+
+  void _onFocusOnLocation(
+    _FocusOnLocation event,
+    Emitter<MapViewState> emit,
+  ) {
+    emit(state.copyWith(
+      geocodeStatus: GenericStatus.success,
+      currentLatitude: event.latitude,
+      currentLongitude: event.longitude,
+      selectedPlusCode: event.plusCode,
+      locationResult: event.locationResult,
+      focusToken: state.focusToken + 1,
+    ));
   }
 
   void _onReset(_Reset event, Emitter<MapViewState> emit) {

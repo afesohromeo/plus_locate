@@ -35,6 +35,9 @@ sealed class SavedCode with _$SavedCode {
     /// Locality name
     String? locality,
 
+    /// Address name
+    String? address,
+
     /// When the code was saved
     DateTime? savedAt,
   }) = _SavedCode;
@@ -54,7 +57,7 @@ sealed class SavedCode with _$SavedCode {
       latitude: _parseDouble(json['latitude']),
       longitude: _parseDouble(json['longitude']),
       label: json['label']?.toString(),
-      locality: json['locality']?.toString(),
+      address: json['address']?.toString(),
       savedAt: convertJsonDate(json['saved_at']),
     );
   }
@@ -67,7 +70,7 @@ sealed class SavedCode with _$SavedCode {
       'latitude': item.latitude,
       'longitude': item.longitude,
       'label': item.label,
-      'locality': item.locality,
+      'address': item.address,
       'saved_at': item.savedAt?.toIso8601String(),
     }..removeWhere((key, value) => value == null);
   }
@@ -80,7 +83,7 @@ sealed class SavedCode with _$SavedCode {
       'latitude': item.latitude,
       'longitude': item.longitude,
       'label': item.label,
-      'locality': item.locality,
+      'address': item.address,
       'saved_at':
           item.savedAt?.toIso8601String() ?? DateTime.now().toIso8601String(),
     }..removeWhere((key, value) => value == null);

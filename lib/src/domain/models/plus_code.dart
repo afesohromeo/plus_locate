@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:plus_locate/plus_locate.dart';
 
 part 'plus_code.freezed.dart';
 
@@ -28,25 +29,15 @@ sealed class PlusCode with _$PlusCode {
   bool get hasCoordinates => latitude != null && longitude != null;
 
   /// Whether a global code is available.
-  bool get hasGlobalCode =>
-      globalCode != null && globalCode!.isNotEmpty;
+  bool get hasGlobalCode => globalCode != null && globalCode!.isNotEmpty;
 
   /// Manual fromJson — per standards, no json_serializable auto-generation.
   factory PlusCode.fromJson(Map<String, dynamic> json) {
-    // Google Plus Codes API response shape:
-    // { "plus_code": { "global_code": "...", "local_code": "..." },
-    //   "geometry": { "location": { "lat": ..., "lng": ... } } }
-    final plusCodeData = json['plus_code'] as Map<String, dynamic>?;
-    final geometry = json['geometry'] as Map<String, dynamic>?;
-    final location = geometry?['location'] as Map<String, dynamic>?;
-
     return PlusCode(
-      globalCode: plusCodeData?['global_code']?.toString() ??
-          json['global_code']?.toString(),
-      localCode: plusCodeData?['local_code']?.toString() ??
-          json['local_code']?.toString(),
-      latitude: _parseDouble(location?['lat'] ?? json['latitude']),
-      longitude: _parseDouble(location?['lng'] ?? json['longitude']),
+      globalCode: json['global_code']?.toString(),
+      localCode: json['global_code']?.toString(),
+      latitude: convertToDouble(json['latitude']),
+      longitude: convertToDouble(json['longitude']),
       locality: json['locality']?.toString(),
     );
   }
@@ -79,12 +70,5 @@ sealed class PlusCode with _$PlusCode {
       'longitude': item.longitude,
       'locality': item.locality,
     }..removeWhere((key, value) => value == null);
-  }
-
-  static double? _parseDouble(value) {
-    if (value == null) return null;
-    if (value is double) return value;
-    if (value is int) return value.toDouble();
-    return double.tryParse(value.toString());
   }
 }

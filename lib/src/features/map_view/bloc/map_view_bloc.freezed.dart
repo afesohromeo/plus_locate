@@ -53,6 +53,7 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult Function(_Init value)? init,
     TResult Function(_UpdateLocation value)? updateLocation,
     TResult Function(_ReverseGeocodeLocation value)? reverseGeocodeLocation,
+    TResult Function(_FocusOnLocation value)? focusOnLocation,
     TResult Function(_Reset value)? reset,
     TResult Function(_ToggleMapType value)? toggleMapType,
     required TResult orElse(),
@@ -65,6 +66,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return updateLocation(_that);
       case _ReverseGeocodeLocation() when reverseGeocodeLocation != null:
         return reverseGeocodeLocation(_that);
+      case _FocusOnLocation() when focusOnLocation != null:
+        return focusOnLocation(_that);
       case _Reset() when reset != null:
         return reset(_that);
       case _ToggleMapType() when toggleMapType != null:
@@ -93,6 +96,7 @@ extension MapViewEventPatterns on MapViewEvent {
     required TResult Function(_UpdateLocation value) updateLocation,
     required TResult Function(_ReverseGeocodeLocation value)
         reverseGeocodeLocation,
+    required TResult Function(_FocusOnLocation value) focusOnLocation,
     required TResult Function(_Reset value) reset,
     required TResult Function(_ToggleMapType value) toggleMapType,
   }) {
@@ -104,6 +108,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return updateLocation(_that);
       case _ReverseGeocodeLocation():
         return reverseGeocodeLocation(_that);
+      case _FocusOnLocation():
+        return focusOnLocation(_that);
       case _Reset():
         return reset(_that);
       case _ToggleMapType():
@@ -130,6 +136,7 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult? Function(_Init value)? init,
     TResult? Function(_UpdateLocation value)? updateLocation,
     TResult? Function(_ReverseGeocodeLocation value)? reverseGeocodeLocation,
+    TResult? Function(_FocusOnLocation value)? focusOnLocation,
     TResult? Function(_Reset value)? reset,
     TResult? Function(_ToggleMapType value)? toggleMapType,
   }) {
@@ -141,6 +148,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return updateLocation(_that);
       case _ReverseGeocodeLocation() when reverseGeocodeLocation != null:
         return reverseGeocodeLocation(_that);
+      case _FocusOnLocation() when focusOnLocation != null:
+        return focusOnLocation(_that);
       case _Reset() when reset != null:
         return reset(_that);
       case _ToggleMapType() when toggleMapType != null:
@@ -167,6 +176,9 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult Function()? init,
     TResult Function(double latitude, double longitude)? updateLocation,
     TResult Function(double latitude, double longitude)? reverseGeocodeLocation,
+    TResult Function(double latitude, double longitude, PlusCode? plusCode,
+            LocationResult? locationResult)?
+        focusOnLocation,
     TResult Function()? reset,
     TResult Function()? toggleMapType,
     required TResult orElse(),
@@ -179,6 +191,9 @@ extension MapViewEventPatterns on MapViewEvent {
         return updateLocation(_that.latitude, _that.longitude);
       case _ReverseGeocodeLocation() when reverseGeocodeLocation != null:
         return reverseGeocodeLocation(_that.latitude, _that.longitude);
+      case _FocusOnLocation() when focusOnLocation != null:
+        return focusOnLocation(_that.latitude, _that.longitude, _that.plusCode,
+            _that.locationResult);
       case _Reset() when reset != null:
         return reset();
       case _ToggleMapType() when toggleMapType != null:
@@ -207,6 +222,9 @@ extension MapViewEventPatterns on MapViewEvent {
     required TResult Function(double latitude, double longitude) updateLocation,
     required TResult Function(double latitude, double longitude)
         reverseGeocodeLocation,
+    required TResult Function(double latitude, double longitude,
+            PlusCode? plusCode, LocationResult? locationResult)
+        focusOnLocation,
     required TResult Function() reset,
     required TResult Function() toggleMapType,
   }) {
@@ -218,6 +236,9 @@ extension MapViewEventPatterns on MapViewEvent {
         return updateLocation(_that.latitude, _that.longitude);
       case _ReverseGeocodeLocation():
         return reverseGeocodeLocation(_that.latitude, _that.longitude);
+      case _FocusOnLocation():
+        return focusOnLocation(_that.latitude, _that.longitude, _that.plusCode,
+            _that.locationResult);
       case _Reset():
         return reset();
       case _ToggleMapType():
@@ -245,6 +266,9 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult? Function(double latitude, double longitude)? updateLocation,
     TResult? Function(double latitude, double longitude)?
         reverseGeocodeLocation,
+    TResult? Function(double latitude, double longitude, PlusCode? plusCode,
+            LocationResult? locationResult)?
+        focusOnLocation,
     TResult? Function()? reset,
     TResult? Function()? toggleMapType,
   }) {
@@ -256,6 +280,9 @@ extension MapViewEventPatterns on MapViewEvent {
         return updateLocation(_that.latitude, _that.longitude);
       case _ReverseGeocodeLocation() when reverseGeocodeLocation != null:
         return reverseGeocodeLocation(_that.latitude, _that.longitude);
+      case _FocusOnLocation() when focusOnLocation != null:
+        return focusOnLocation(_that.latitude, _that.longitude, _that.plusCode,
+            _that.locationResult);
       case _Reset() when reset != null:
         return reset();
       case _ToggleMapType() when toggleMapType != null:
@@ -436,6 +463,135 @@ class __$ReverseGeocodeLocationCopyWithImpl<$Res>
 
 /// @nodoc
 
+class _FocusOnLocation implements MapViewEvent {
+  const _FocusOnLocation(
+      {required this.latitude,
+      required this.longitude,
+      this.plusCode,
+      this.locationResult});
+
+  final double latitude;
+  final double longitude;
+  final PlusCode? plusCode;
+  final LocationResult? locationResult;
+
+  /// Create a copy of MapViewEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$FocusOnLocationCopyWith<_FocusOnLocation> get copyWith =>
+      __$FocusOnLocationCopyWithImpl<_FocusOnLocation>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _FocusOnLocation &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.plusCode, plusCode) ||
+                other.plusCode == plusCode) &&
+            (identical(other.locationResult, locationResult) ||
+                other.locationResult == locationResult));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, latitude, longitude, plusCode, locationResult);
+
+  @override
+  String toString() {
+    return 'MapViewEvent.focusOnLocation(latitude: $latitude, longitude: $longitude, plusCode: $plusCode, locationResult: $locationResult)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$FocusOnLocationCopyWith<$Res>
+    implements $MapViewEventCopyWith<$Res> {
+  factory _$FocusOnLocationCopyWith(
+          _FocusOnLocation value, $Res Function(_FocusOnLocation) _then) =
+      __$FocusOnLocationCopyWithImpl;
+  @useResult
+  $Res call(
+      {double latitude,
+      double longitude,
+      PlusCode? plusCode,
+      LocationResult? locationResult});
+
+  $PlusCodeCopyWith<$Res>? get plusCode;
+  $LocationResultCopyWith<$Res>? get locationResult;
+}
+
+/// @nodoc
+class __$FocusOnLocationCopyWithImpl<$Res>
+    implements _$FocusOnLocationCopyWith<$Res> {
+  __$FocusOnLocationCopyWithImpl(this._self, this._then);
+
+  final _FocusOnLocation _self;
+  final $Res Function(_FocusOnLocation) _then;
+
+  /// Create a copy of MapViewEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? plusCode = freezed,
+    Object? locationResult = freezed,
+  }) {
+    return _then(_FocusOnLocation(
+      latitude: null == latitude
+          ? _self.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _self.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      plusCode: freezed == plusCode
+          ? _self.plusCode
+          : plusCode // ignore: cast_nullable_to_non_nullable
+              as PlusCode?,
+      locationResult: freezed == locationResult
+          ? _self.locationResult
+          : locationResult // ignore: cast_nullable_to_non_nullable
+              as LocationResult?,
+    ));
+  }
+
+  /// Create a copy of MapViewEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PlusCodeCopyWith<$Res>? get plusCode {
+    if (_self.plusCode == null) {
+      return null;
+    }
+
+    return $PlusCodeCopyWith<$Res>(_self.plusCode!, (value) {
+      return _then(_self.copyWith(plusCode: value));
+    });
+  }
+
+  /// Create a copy of MapViewEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationResultCopyWith<$Res>? get locationResult {
+    if (_self.locationResult == null) {
+      return null;
+    }
+
+    return $LocationResultCopyWith<$Res>(_self.locationResult!, (value) {
+      return _then(_self.copyWith(locationResult: value));
+    });
+  }
+}
+
+/// @nodoc
+
 class _Reset implements MapViewEvent {
   const _Reset();
 
@@ -483,6 +639,7 @@ mixin _$MapViewState {
   double? get currentLongitude;
   String? get geocodeErrorMessage;
   MapType get mapType;
+  int get focusToken;
 
   /// Create a copy of MapViewState
   /// with the given fields replaced by the non-null parameter values.
@@ -509,7 +666,9 @@ mixin _$MapViewState {
                 other.currentLongitude == currentLongitude) &&
             (identical(other.geocodeErrorMessage, geocodeErrorMessage) ||
                 other.geocodeErrorMessage == geocodeErrorMessage) &&
-            (identical(other.mapType, mapType) || other.mapType == mapType));
+            (identical(other.mapType, mapType) || other.mapType == mapType) &&
+            (identical(other.focusToken, focusToken) ||
+                other.focusToken == focusToken));
   }
 
   @override
@@ -521,11 +680,12 @@ mixin _$MapViewState {
       currentLatitude,
       currentLongitude,
       geocodeErrorMessage,
-      mapType);
+      mapType,
+      focusToken);
 
   @override
   String toString() {
-    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage, mapType: $mapType)';
+    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage, mapType: $mapType, focusToken: $focusToken)';
   }
 }
 
@@ -542,7 +702,8 @@ abstract mixin class $MapViewStateCopyWith<$Res> {
       double? currentLatitude,
       double? currentLongitude,
       String? geocodeErrorMessage,
-      MapType mapType});
+      MapType mapType,
+      int focusToken});
 
   $LocationResultCopyWith<$Res>? get locationResult;
   $PlusCodeCopyWith<$Res>? get selectedPlusCode;
@@ -567,6 +728,7 @@ class _$MapViewStateCopyWithImpl<$Res> implements $MapViewStateCopyWith<$Res> {
     Object? currentLongitude = freezed,
     Object? geocodeErrorMessage = freezed,
     Object? mapType = null,
+    Object? focusToken = null,
   }) {
     return _then(_self.copyWith(
       geocodeStatus: null == geocodeStatus
@@ -597,6 +759,10 @@ class _$MapViewStateCopyWithImpl<$Res> implements $MapViewStateCopyWith<$Res> {
           ? _self.mapType
           : mapType // ignore: cast_nullable_to_non_nullable
               as MapType,
+      focusToken: null == focusToken
+          ? _self.focusToken
+          : focusToken // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -727,7 +893,8 @@ extension MapViewStatePatterns on MapViewState {
             double? currentLatitude,
             double? currentLongitude,
             String? geocodeErrorMessage,
-            MapType mapType)?
+            MapType mapType,
+            int focusToken)?
         $default, {
     required TResult orElse(),
   }) {
@@ -741,7 +908,8 @@ extension MapViewStatePatterns on MapViewState {
             _that.currentLatitude,
             _that.currentLongitude,
             _that.geocodeErrorMessage,
-            _that.mapType);
+            _that.mapType,
+            _that.focusToken);
       case _:
         return orElse();
     }
@@ -769,7 +937,8 @@ extension MapViewStatePatterns on MapViewState {
             double? currentLatitude,
             double? currentLongitude,
             String? geocodeErrorMessage,
-            MapType mapType)
+            MapType mapType,
+            int focusToken)
         $default,
   ) {
     final _that = this;
@@ -782,7 +951,8 @@ extension MapViewStatePatterns on MapViewState {
             _that.currentLatitude,
             _that.currentLongitude,
             _that.geocodeErrorMessage,
-            _that.mapType);
+            _that.mapType,
+            _that.focusToken);
     }
   }
 
@@ -807,7 +977,8 @@ extension MapViewStatePatterns on MapViewState {
             double? currentLatitude,
             double? currentLongitude,
             String? geocodeErrorMessage,
-            MapType mapType)?
+            MapType mapType,
+            int focusToken)?
         $default,
   ) {
     final _that = this;
@@ -820,7 +991,8 @@ extension MapViewStatePatterns on MapViewState {
             _that.currentLatitude,
             _that.currentLongitude,
             _that.geocodeErrorMessage,
-            _that.mapType);
+            _that.mapType,
+            _that.focusToken);
       case _:
         return null;
     }
@@ -837,7 +1009,8 @@ class _MapViewState implements MapViewState {
       this.currentLatitude,
       this.currentLongitude,
       this.geocodeErrorMessage,
-      this.mapType = MapType.normal});
+      this.mapType = MapType.normal,
+      this.focusToken = 0});
 
   @override
   @JsonKey()
@@ -855,6 +1028,9 @@ class _MapViewState implements MapViewState {
   @override
   @JsonKey()
   final MapType mapType;
+  @override
+  @JsonKey()
+  final int focusToken;
 
   /// Create a copy of MapViewState
   /// with the given fields replaced by the non-null parameter values.
@@ -881,7 +1057,9 @@ class _MapViewState implements MapViewState {
                 other.currentLongitude == currentLongitude) &&
             (identical(other.geocodeErrorMessage, geocodeErrorMessage) ||
                 other.geocodeErrorMessage == geocodeErrorMessage) &&
-            (identical(other.mapType, mapType) || other.mapType == mapType));
+            (identical(other.mapType, mapType) || other.mapType == mapType) &&
+            (identical(other.focusToken, focusToken) ||
+                other.focusToken == focusToken));
   }
 
   @override
@@ -893,11 +1071,12 @@ class _MapViewState implements MapViewState {
       currentLatitude,
       currentLongitude,
       geocodeErrorMessage,
-      mapType);
+      mapType,
+      focusToken);
 
   @override
   String toString() {
-    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage, mapType: $mapType)';
+    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage, mapType: $mapType, focusToken: $focusToken)';
   }
 }
 
@@ -916,7 +1095,8 @@ abstract mixin class _$MapViewStateCopyWith<$Res>
       double? currentLatitude,
       double? currentLongitude,
       String? geocodeErrorMessage,
-      MapType mapType});
+      MapType mapType,
+      int focusToken});
 
   @override
   $LocationResultCopyWith<$Res>? get locationResult;
@@ -944,6 +1124,7 @@ class __$MapViewStateCopyWithImpl<$Res>
     Object? currentLongitude = freezed,
     Object? geocodeErrorMessage = freezed,
     Object? mapType = null,
+    Object? focusToken = null,
   }) {
     return _then(_MapViewState(
       geocodeStatus: null == geocodeStatus
@@ -974,6 +1155,10 @@ class __$MapViewStateCopyWithImpl<$Res>
           ? _self.mapType
           : mapType // ignore: cast_nullable_to_non_nullable
               as MapType,
+      focusToken: null == focusToken
+          ? _self.focusToken
+          : focusToken // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 

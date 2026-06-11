@@ -10,5 +10,6 @@ sealed class MapViewState with _$MapViewState {
     double? currentLongitude,
     String? geocodeErrorMessage,
     @Default(MapType.normal) MapType mapType,
+    @Default(0) int focusToken,
   }) = _MapViewState;
 }

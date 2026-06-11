@@ -11,6 +11,12 @@ class MapViewEvent with _$MapViewEvent {
     required double latitude,
     required double longitude,
   }) = _ReverseGeocodeLocation;
+  const factory MapViewEvent.focusOnLocation({
+    required double latitude,
+    required double longitude,
+    PlusCode? plusCode,
+    LocationResult? locationResult,
+  }) = _FocusOnLocation;
   const factory MapViewEvent.reset() = _Reset;
   const factory MapViewEvent.toggleMapType() = _ToggleMapType;
 }

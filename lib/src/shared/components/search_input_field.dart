@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:plus_locate/plus_locate.dart';
 
 class SearchInputField extends StatelessWidget {
-  const SearchInputField({
-    super.key,
-    required this.onChanged,
-    required this.labelText,
-    this.padding,
-    this.initialValue,
-    this.inputController,
-    this.labelColor,
-    this.bgColor,
-    this.showSuffixIcon = true,
-    this.shape,
-  });
+  const SearchInputField(
+      {super.key,
+      required this.onChanged,
+      required this.labelText,
+      this.padding,
+      this.initialValue,
+      this.inputController,
+      this.labelColor,
+      this.bgColor,
+      this.showSuffixIcon = true,
+      this.shape});
   final void Function(String)? onChanged;
   final String labelText;
   final EdgeInsets? padding;
@@ -30,7 +29,9 @@ class SearchInputField extends StatelessWidget {
           ? null
           : MediaQuery.sizeOf(context).width * .4,
       child: InputField(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
 
         labelColor: labelColor,
         bgColor: bgColor,
@@ -47,7 +48,10 @@ class SearchInputField extends StatelessWidget {
         labelText: labelText,
 
         suffixIcon: showSuffixIcon!
-            ? Icon(Icons.search_rounded, color: labelColor)
+            ? Icon(
+                Icons.search_rounded,
+                color: labelColor,
+              )
             : null,
       ),
     );

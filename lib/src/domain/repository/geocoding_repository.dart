@@ -43,6 +43,7 @@ class GeocodingRepository {
       );
       final results = res['results'] as List<dynamic>?;
       if (results != null && results.isNotEmpty) {
+        log('resss $res');
         return LocationResult.fromJson(
           results.first as Map<String, dynamic>,
         );

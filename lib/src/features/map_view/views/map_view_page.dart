@@ -87,34 +87,55 @@ class _MapViewPageState extends State<MapViewPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return BlocListener<HistoryBloc, HistoryState>(
-      listenWhen: (previous, current) =>
-          previous.historyActionStatus != current.historyActionStatus &&
-          current.flowStep == GenericFlowStep.creatingItem,
-      listener: (context, state) async {
-        final historyBloc = context.read<HistoryBloc>();
-        if (state.historyActionStatus == GenericStatus.success) {
-          await DialogUtils.handleSuccess(
-            context,
-            l10n.msgLocationSaved,
-            postActions: [
-              () => historyBloc.add(const HistoryEvent.resetFlowStep()),
-            ],
-            shouldPopDialog: false,
-          );
-        } else if (state.historyActionStatus == GenericStatus.failure) {
-          if (context.mounted) {
-            await DialogUtils.handleFailure(
-              context,
-              state.historyActionErrorMessage ?? l10n.operationError,
-              postActions: [
-                () => historyBloc.add(const HistoryEvent.resetFlowStep()),
-              ],
-              shouldPopDialog: false,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<HistoryBloc, HistoryState>(
+          listenWhen: (previous, current) =>
+              previous.historyActionStatus != current.historyActionStatus &&
+              current.flowStep == GenericFlowStep.creatingItem,
+          listener: (context, state) async {
+            final historyBloc = context.read<HistoryBloc>();
+            if (state.historyActionStatus == GenericStatus.success) {
+              await DialogUtils.handleSuccess(
+                context,
+                l10n.msgLocationSaved,
+                postActions: [
+                  () => historyBloc.add(const HistoryEvent.resetFlowStep()),
+                ],
+                shouldPopDialog: false,
+              );
+            } else if (state.historyActionStatus == GenericStatus.failure) {
+              if (context.mounted) {
+                await DialogUtils.handleFailure(
+                  context,
+                  state.historyActionErrorMessage ?? l10n.operationError,
+                  postActions: [
+                    () => historyBloc.add(const HistoryEvent.resetFlowStep()),
+                  ],
+                  shouldPopDialog: false,
+                );
+              }
+            }
+          },
+        ),
+        BlocListener<MapViewBloc, MapViewState>(
+          listenWhen: (previous, current) =>
+              previous.focusToken != current.focusToken,
+          listener: (context, state) async {
+            if (state.currentLatitude == null ||
+                state.currentLongitude == null) {
+              return;
+            }
+            final controller = await _controller.future;
+            controller.animateCamera(
+              CameraUpdate.newLatLngZoom(
+                LatLng(state.currentLatitude!, state.currentLongitude!),
+                16.0,
+              ),
             );
-          }
-        }
-      },
+          },
+        ),
+      ],
       child: ResponsiveScaffoldWrapper(
         props: const ScaffoldWrapperProps(
           hasAppbar: false,
@@ -229,6 +250,7 @@ class _MapViewPageState extends State<MapViewPage> {
                           latitude: state.currentLatitude,
                           longitude: state.currentLongitude,
                           locality: state.locationResult?.locality,
+                          address: state.locationResult?.formattedAddress,
                           savedAt: DateTime.now(),
                         );
                         context.read<HistoryBloc>().add(

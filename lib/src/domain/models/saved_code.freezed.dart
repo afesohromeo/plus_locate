@@ -35,6 +35,9 @@ mixin _$SavedCode {
   /// Locality name
   String? get locality;
 
+  /// Address name
+  String? get address;
+
   /// When the code was saved
   DateTime? get savedAt;
 
@@ -62,16 +65,17 @@ mixin _$SavedCode {
             (identical(other.label, label) || other.label == label) &&
             (identical(other.locality, locality) ||
                 other.locality == locality) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.savedAt, savedAt) || other.savedAt == savedAt));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, globalCode, localCode,
-      latitude, longitude, label, locality, savedAt);
+      latitude, longitude, label, locality, address, savedAt);
 
   @override
   String toString() {
-    return 'SavedCode(id: $id, globalCode: $globalCode, localCode: $localCode, latitude: $latitude, longitude: $longitude, label: $label, locality: $locality, savedAt: $savedAt)';
+    return 'SavedCode(id: $id, globalCode: $globalCode, localCode: $localCode, latitude: $latitude, longitude: $longitude, label: $label, locality: $locality, address: $address, savedAt: $savedAt)';
   }
 }
 
@@ -88,6 +92,7 @@ abstract mixin class $SavedCodeCopyWith<$Res> {
       double? longitude,
       String? label,
       String? locality,
+      String? address,
       DateTime? savedAt});
 }
 
@@ -110,6 +115,7 @@ class _$SavedCodeCopyWithImpl<$Res> implements $SavedCodeCopyWith<$Res> {
     Object? longitude = freezed,
     Object? label = freezed,
     Object? locality = freezed,
+    Object? address = freezed,
     Object? savedAt = freezed,
   }) {
     return _then(_self.copyWith(
@@ -140,6 +146,10 @@ class _$SavedCodeCopyWithImpl<$Res> implements $SavedCodeCopyWith<$Res> {
       locality: freezed == locality
           ? _self.locality
           : locality // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _self.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String?,
       savedAt: freezed == savedAt
           ? _self.savedAt
@@ -248,6 +258,7 @@ extension SavedCodePatterns on SavedCode {
             double? longitude,
             String? label,
             String? locality,
+            String? address,
             DateTime? savedAt)?
         $default, {
     required TResult orElse(),
@@ -263,6 +274,7 @@ extension SavedCodePatterns on SavedCode {
             _that.longitude,
             _that.label,
             _that.locality,
+            _that.address,
             _that.savedAt);
       case _:
         return orElse();
@@ -292,6 +304,7 @@ extension SavedCodePatterns on SavedCode {
             double? longitude,
             String? label,
             String? locality,
+            String? address,
             DateTime? savedAt)
         $default,
   ) {
@@ -306,6 +319,7 @@ extension SavedCodePatterns on SavedCode {
             _that.longitude,
             _that.label,
             _that.locality,
+            _that.address,
             _that.savedAt);
     }
   }
@@ -332,6 +346,7 @@ extension SavedCodePatterns on SavedCode {
             double? longitude,
             String? label,
             String? locality,
+            String? address,
             DateTime? savedAt)?
         $default,
   ) {
@@ -346,6 +361,7 @@ extension SavedCodePatterns on SavedCode {
             _that.longitude,
             _that.label,
             _that.locality,
+            _that.address,
             _that.savedAt);
       case _:
         return null;
@@ -364,6 +380,7 @@ class _SavedCode extends SavedCode {
       this.longitude,
       this.label,
       this.locality,
+      this.address,
       this.savedAt})
       : super._();
 
@@ -395,6 +412,10 @@ class _SavedCode extends SavedCode {
   @override
   final String? locality;
 
+  /// Address name
+  @override
+  final String? address;
+
   /// When the code was saved
   @override
   final DateTime? savedAt;
@@ -424,16 +445,17 @@ class _SavedCode extends SavedCode {
             (identical(other.label, label) || other.label == label) &&
             (identical(other.locality, locality) ||
                 other.locality == locality) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.savedAt, savedAt) || other.savedAt == savedAt));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, globalCode, localCode,
-      latitude, longitude, label, locality, savedAt);
+      latitude, longitude, label, locality, address, savedAt);
 
   @override
   String toString() {
-    return 'SavedCode(id: $id, globalCode: $globalCode, localCode: $localCode, latitude: $latitude, longitude: $longitude, label: $label, locality: $locality, savedAt: $savedAt)';
+    return 'SavedCode(id: $id, globalCode: $globalCode, localCode: $localCode, latitude: $latitude, longitude: $longitude, label: $label, locality: $locality, address: $address, savedAt: $savedAt)';
   }
 }
 
@@ -453,6 +475,7 @@ abstract mixin class _$SavedCodeCopyWith<$Res>
       double? longitude,
       String? label,
       String? locality,
+      String? address,
       DateTime? savedAt});
 }
 
@@ -475,6 +498,7 @@ class __$SavedCodeCopyWithImpl<$Res> implements _$SavedCodeCopyWith<$Res> {
     Object? longitude = freezed,
     Object? label = freezed,
     Object? locality = freezed,
+    Object? address = freezed,
     Object? savedAt = freezed,
   }) {
     return _then(_SavedCode(
@@ -505,6 +529,10 @@ class __$SavedCodeCopyWithImpl<$Res> implements _$SavedCodeCopyWith<$Res> {
       locality: freezed == locality
           ? _self.locality
           : locality // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _self.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String?,
       savedAt: freezed == savedAt
           ? _self.savedAt
