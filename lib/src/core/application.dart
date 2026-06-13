@@ -16,6 +16,7 @@ class Application extends StatelessWidget {
         RepositoryProvider(create: (_) => PlusCodeRepository()),
         RepositoryProvider(create: (_) => GeocodingRepository()),
         RepositoryProvider(create: (_) => SavedCodesRepository()),
+        RepositoryProvider(create: (_) => SearchQuotaRepository()),
         Provider<RouteManager>(
           lazy: true,
           create: (context) => RouteManager(),
@@ -30,9 +31,11 @@ class Application extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => DecodeBloc(
-              repository: context.read<PlusCodeRepository>(),
-            ),
+            create: (context) => SearchBloc(
+              plusCodeRepository: context.read<PlusCodeRepository>(),
+              geocodingRepository: context.read<GeocodingRepository>(),
+              quotaRepository: context.read<SearchQuotaRepository>(),
+            )..add(const SearchEvent.init()),
           ),
           BlocProvider(
             create: (context) => MapViewBloc(

@@ -89,12 +89,12 @@ class RouteManager {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: decodeRouteName,
-                path: decodePage,
+                name: searchRouteName,
+                path: searchPage,
                 pageBuilder: (context, state) {
                   return NoTransitionPage<void>(
                     key: state.pageKey,
-                    child: const DecodePage(),
+                    child: const SearchPage(),
                   );
                 },
               ),

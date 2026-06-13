@@ -11,6 +11,13 @@ class PlusCodeDetailCard extends StatelessWidget {
   final VoidCallback onSharePressed;
   final VoidCallback onCopyPlusCode;
 
+  /// Header title. Defaults to [AppLocalizations.currentLocation] when null
+  /// — used by the Map tab. The Search tab passes its own title.
+  final String? title;
+
+  /// When provided, shows a "View on Map" icon button in the action row.
+  final VoidCallback? onViewOnMapPressed;
+
   const PlusCodeDetailCard({
     super.key,
     this.locationResult,
@@ -20,6 +27,8 @@ class PlusCodeDetailCard extends StatelessWidget {
     required this.onSavePressed,
     required this.onSharePressed,
     required this.onCopyPlusCode,
+    this.title,
+    this.onViewOnMapPressed,
   });
 
   @override
@@ -96,7 +105,7 @@ class PlusCodeDetailCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    l10n.currentLocation,
+                    title ?? l10n.currentLocation,
                     style: context.textTheme.displayLarge?.copyWith(
                       fontSize: 18,
                       fontWeight: FontWeight.w900,
@@ -334,6 +343,23 @@ class PlusCodeDetailCard extends StatelessWidget {
               ),
               icon: const Icon(Icons.share),
             ),
+            if (onViewOnMapPressed != null) ...[
+              const SizedBox(width: 12),
+              IconButton(
+                iconSize: 20,
+                onPressed: onViewOnMapPressed,
+                style: IconButton.styleFrom(
+                  backgroundColor:
+                      customColors.primary.withValues(alpha: 0.1),
+                  foregroundColor: customColors.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+                icon: const Icon(Icons.map_outlined),
+              ),
+            ],
           ],
         ),
       ],

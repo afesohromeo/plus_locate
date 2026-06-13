@@ -122,12 +122,6 @@ abstract class AppLocalizations {
   /// **'Generate'**
   String get generate;
 
-  /// Decode Plus Code page title
-  ///
-  /// In en, this message translates to:
-  /// **'Decode'**
-  String get decode;
-
   /// Map view page title
   ///
   /// In en, this message translates to:
@@ -187,12 +181,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Generate Code'**
   String get actionGenerate;
-
-  /// Button text to decode a Plus Code to coordinates
-  ///
-  /// In en, this message translates to:
-  /// **'Decode Code'**
-  String get actionDecode;
 
   /// Button text to save a Plus Code to history
   ///
@@ -409,6 +397,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search for places or Plus Codes'**
   String get searchPlacesOrCodes;
+
+  /// Header title for the search result card
+  ///
+  /// In en, this message translates to:
+  /// **'Search Result'**
+  String get searchResult;
+
+  /// Button/tooltip to focus the searched location on the map
+  ///
+  /// In en, this message translates to:
+  /// **'View on Map'**
+  String get viewOnMap;
+
+  /// Placeholder shown on the Search tab before any search is performed
+  ///
+  /// In en, this message translates to:
+  /// **'Search for an address or Plus Code to see details here'**
+  String get searchInitialPrompt;
 
   /// Header for current location card
   ///

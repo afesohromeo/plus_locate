@@ -21,9 +21,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get generate => 'Générer';
 
   @override
-  String get decode => 'Décoder';
-
-  @override
   String get mapView => 'Carte';
 
   @override
@@ -52,9 +49,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get actionGenerate => 'Générer le code';
-
-  @override
-  String get actionDecode => 'Décoder le code';
 
   @override
   String get actionSave => 'Enregistrer';
@@ -166,6 +160,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get searchPlacesOrCodes => 'Rechercher des lieux ou des Plus Codes';
+
+  @override
+  String get searchResult => 'Résultat de recherche';
+
+  @override
+  String get viewOnMap => 'Voir sur la carte';
+
+  @override
+  String get searchInitialPrompt =>
+      'Recherchez une adresse ou un Plus Code pour voir les détails ici';
 
   @override
   String get currentLocation => 'POSITION ACTUELLE';

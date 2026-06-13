@@ -187,9 +187,7 @@ class _MapViewPageState extends State<MapViewPage> {
               left: 0,
               right: 0,
               child: FloatingSearchPill(
-                onTap: () {
-                  // TODO: Open Search Bottom Sheet or Page
-                },
+                onTap: () => context.goNamed(searchRouteName),
               ),
             ),
 

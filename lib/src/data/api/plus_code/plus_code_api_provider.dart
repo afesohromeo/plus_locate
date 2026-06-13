@@ -27,4 +27,12 @@ class PlusCodeApiProvider {
       'longitude': area.center.longitude,
     };
   }
+
+  /// Whether [code] is a syntactically valid Plus Code.
+  ///
+  /// Non-throwing — unlike `.decode()`, `.isValid` returns false for
+  /// malformed or short codes instead of throwing [ArgumentError].
+  bool isValidPlusCode(String code) {
+    return olc.PlusCode.unverified(code).isValid;
+  }
 }

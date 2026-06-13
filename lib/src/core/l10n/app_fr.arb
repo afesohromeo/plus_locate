@@ -5,7 +5,6 @@
 
     "home": "Accueil",
     "generate": "Générer",
-    "decode": "Décoder",
     "mapView": "Carte",
     "history": "Historique",
     "settings": "Paramètres",
@@ -18,7 +17,6 @@
     "labelLabel": "Libellé",
 
     "actionGenerate": "Générer le code",
-    "actionDecode": "Décoder le code",
     "actionSave": "Enregistrer",
     "actionDelete": "Supprimer",
     "actionCopy": "Copier",
@@ -59,6 +57,9 @@
     "authenticationRequired": "Authentification Requise",
     "proceed": "Procéder",
     "searchPlacesOrCodes": "Rechercher des lieux ou des Plus Codes",
+    "searchResult": "Résultat de recherche",
+    "viewOnMap": "Voir sur la carte",
+    "searchInitialPrompt": "Recherchez une adresse ou un Plus Code pour voir les détails ici",
     "currentLocation": "POSITION ACTUELLE",
     "unknownLocation": "Position inconnue",
     "selectLocationOnMap": "Sélectionnez un emplacement sur la carte",

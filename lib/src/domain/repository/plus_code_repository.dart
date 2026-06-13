@@ -43,4 +43,9 @@ class PlusCodeRepository {
       rethrow;
     }
   }
+
+  /// Whether [code] is a syntactically valid Plus Code (no network call).
+  bool isValidPlusCode(String code) {
+    return _apiProvider.isValidPlusCode(code);
+  }
 }
