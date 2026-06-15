@@ -11,7 +11,11 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveScaffoldWrapper(
       props: ScaffoldWrapperProps(
-        title: Text(AppLocalizations.of(context)!.settings),
+        title: Text(
+          AppLocalizations.of(context)!.settings,
+          style: context.textTheme.displayLarge
+              ?.copyWith(color: customColors.surface, fontSize: 18),
+        ),
         hasAppbar: true,
       ),
       mobileBody: Center(child: Text(AppLocalizations.of(context)!.settings)),

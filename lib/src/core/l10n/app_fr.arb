@@ -2,44 +2,37 @@
     "@@locale": "fr",
     "appTitle": "PlusLocate",
     "count": "Compteur",
-
     "home": "Accueil",
     "generate": "Générer",
     "mapView": "Carte",
     "history": "Historique",
     "settings": "Paramètres",
-
     "labelPlusCode": "Plus Code",
     "labelLatitude": "Latitude",
     "labelLongitude": "Longitude",
     "labelAddress": "Adresse",
     "labelLocality": "Localité",
     "labelLabel": "Libellé",
-
     "actionGenerate": "Générer le code",
     "actionSave": "Enregistrer",
     "actionDelete": "Supprimer",
     "actionCopy": "Copier",
     "actionShare": "Partager",
     "actionLocateMe": "Me localiser",
-
     "msgCodeCopied": "Code copié dans le presse-papiers",
     "msgCodeSaved": "Code enregistré avec succès",
     "msgCodeDeleted": "Code supprimé",
     "msgNoResults": "Aucun résultat trouvé",
     "msgEnterPlusCode": "Saisissez un Plus Code",
     "msgEnterCoordinates": "Saisissez des coordonnées ou utilisez votre position",
-
     "errorLocationPermission": "Autorisation de localisation refusée",
     "errorLocationService": "Les services de localisation sont désactivés",
     "errorInvalidPlusCode": "Format de Plus Code invalide",
     "errorInvalidCoordinates": "Coordonnées invalides",
     "errorNetworkUnavailable": "Réseau indisponible",
     "errorTimeout": "La requête a expiré",
-
-    "confirmDeleteTitle": "Supprimer le code",
+    "confirmDeleteTitle": "Supprimer l'emplacement enregistré",
     "confirmDeleteMessage": "Êtes-vous sûr de vouloir supprimer ce code enregistré ?",
-
     "refresh": "Rafraîchir",
     "search": "Recherche",
     "ok": "OK",
@@ -70,5 +63,6 @@
     "msgLocationSaved": "Emplacement sauvegardé dans l'historique",
     "layers": "Couches",
     "satellite": "Satellite",
-    "terrain": "Terrain"
+    "terrain": "Terrain",
+    "savedLocations": "Emplacements enregistrés"
 }

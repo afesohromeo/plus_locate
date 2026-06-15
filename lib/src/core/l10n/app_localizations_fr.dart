@@ -104,7 +104,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get errorTimeout => 'La requête a expiré';
 
   @override
-  String get confirmDeleteTitle => 'Supprimer le code';
+  String get confirmDeleteTitle => 'Supprimer l\'emplacement enregistré';
 
   @override
   String get confirmDeleteMessage =>
@@ -206,4 +206,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get terrain => 'Terrain';
+
+  @override
+  String get savedLocations => 'Emplacements enregistrés';
 }

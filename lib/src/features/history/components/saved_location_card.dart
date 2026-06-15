@@ -31,7 +31,7 @@ class SavedLocationCard extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: customColors.surface,
               borderRadius: BorderRadius.circular(20),
@@ -87,11 +87,19 @@ class SavedLocationCard extends StatelessWidget {
                       itemBuilder: (context) => [
                         PopupMenuItem(
                           value: 'copy',
-                          child: Text(l10n.actionCopy),
+                          child: Text(
+                            l10n.actionCopy,
+                            style: context.textTheme.displayMedium?.copyWith(
+                                fontSize: 13, color: customColors.black1),
+                          ),
                         ),
                         PopupMenuItem(
                           value: 'delete',
-                          child: Text(l10n.actionDelete),
+                          child: Text(
+                            l10n.actionDelete,
+                            style: context.textTheme.displayMedium?.copyWith(
+                                fontSize: 13, color: customColors.black1),
+                          ),
                         ),
                       ],
                     ),
@@ -127,14 +135,14 @@ class SavedLocationCard extends StatelessWidget {
                         Icon(
                           Icons.access_time,
                           size: 14,
-                          color: customColors.black1.withValues(alpha: 0.4),
+                          color: customColors.black1.withValues(alpha: 0.7),
                         ),
                         const SizedBox(width: 4),
                         Text(
                           formatDate(code.savedAt, withTime: true),
-                          style: context.textTheme.bodyMedium?.copyWith(
+                          style: context.textTheme.displayMedium?.copyWith(
                             fontSize: 12,
-                            color: customColors.black1.withValues(alpha: 0.4),
+                            color: customColors.black1.withValues(alpha: 0.7),
                           ),
                         ),
                       ],

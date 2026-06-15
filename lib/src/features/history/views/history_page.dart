@@ -14,8 +14,19 @@ class HistoryPage extends StatelessWidget {
 
     return ResponsiveScaffoldWrapper(
       props: ScaffoldWrapperProps(
-        title: Text(l10n.saved),
         hasAppbar: true,
+        appBarBgColor: customColors.primary,
+        elevation: 0,
+        showDrawer: false,
+        showBottomNav: false,
+        showFloatingButton: false,
+        resizeToAvoidBottomInset: true,
+        leading: const Icon(Icons.location_history, color: Colors.white),
+        title: Text(
+          l10n.savedLocations,
+          style: context.textTheme.displayLarge
+              ?.copyWith(color: customColors.surface, fontSize: 18),
+        ),
       ),
       mobileBody: const _HistoryBody(),
       tabletBody: const _HistoryBody(),
@@ -63,9 +74,9 @@ class _HistoryBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: SearchInputField(
-                labelText: l10n.search,
                 bgColor: customColors.surface,
                 labelColor: customColors.black1.withValues(alpha: .7),
+                labelText: l10n.search,
                 onChanged: (query) {
                   final historyBloc = context.read<HistoryBloc>();
                   if (query.trim().isEmpty) {
@@ -162,16 +173,32 @@ class _HistoryBody extends StatelessWidget {
             final confirmed = await showDialog<bool>(
               context: context,
               builder: (dialogContext) => AlertDialog(
-                title: Text(l10n.confirmDeleteTitle),
-                content: Text(l10n.confirmDeleteMessage),
+                title: Text(l10n.confirmDeleteTitle,
+                    style: context.textTheme.titleLarge),
+                content: Text(
+                  l10n.confirmDeleteMessage,
+                  style: context.textTheme.displayMedium?.copyWith(
+                      fontSize: 14,
+                      color: customColors.black1.withValues(alpha: .7)),
+                ),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(dialogContext).pop(false),
-                    child: Text(l10n.cancel),
+                    child: Text(
+                      l10n.cancel,
+                      style: context.textTheme.displayLarge?.copyWith(
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
                   TextButton(
                     onPressed: () => Navigator.of(dialogContext).pop(true),
-                    child: Text(l10n.actionDelete),
+                    child: Text(
+                      l10n.actionDelete,
+                      style: context.textTheme.displayLarge?.copyWith(
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
                 ],
               ),

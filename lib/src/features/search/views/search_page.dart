@@ -17,8 +17,19 @@ class SearchPage extends StatelessWidget {
 
     return ResponsiveScaffoldWrapper(
       props: ScaffoldWrapperProps(
-        title: Text(l10n.search),
         hasAppbar: true,
+        appBarBgColor: customColors.primary,
+        elevation: 0,
+        showDrawer: false,
+        showBottomNav: false,
+        showFloatingButton: false,
+        resizeToAvoidBottomInset: true,
+        leading: const Icon(Icons.search_rounded, color: Colors.white),
+        title: Text(
+          l10n.search,
+          style: context.textTheme.displayLarge
+              ?.copyWith(color: customColors.surface, fontSize: 18),
+        ),
       ),
       mobileBody: const _SearchBody(),
       tabletBody: const _SearchBody(),
@@ -225,7 +236,9 @@ class _SearchResultView extends StatelessWidget {
             address: state.locationResult?.formattedAddress,
             savedAt: DateTime.now(),
           );
-          context.read<HistoryBloc>().add(HistoryEvent.saveCode(code: savedCode));
+          context
+              .read<HistoryBloc>()
+              .add(HistoryEvent.saveCode(code: savedCode));
         },
         onSharePressed: () {
           final plusCodeVal = state.plusCode?.globalCode ?? '---';

@@ -8,7 +8,6 @@
     "@count": {
         "description": "Counter label (legacy — keep for home page)"
     },
-
     "home": "Home",
     "@home": {
         "description": "Home page title"
@@ -29,7 +28,6 @@
     "@settings": {
         "description": "Settings page title"
     },
-
     "labelPlusCode": "Plus Code",
     "@labelPlusCode": {
         "description": "Label for Plus Code input/display field"
@@ -54,7 +52,6 @@
     "@labelLabel": {
         "description": "Label for user-defined label/note field"
     },
-
     "actionGenerate": "Generate Code",
     "@actionGenerate": {
         "description": "Button text to generate a Plus Code from coordinates"
@@ -79,7 +76,6 @@
     "@actionLocateMe": {
         "description": "Button text to get current device location"
     },
-
     "msgCodeCopied": "Code copied to clipboard",
     "@msgCodeCopied": {
         "description": "Snackbar message when Plus Code is copied"
@@ -104,7 +100,6 @@
     "@msgEnterCoordinates": {
         "description": "Hint text for coordinate input"
     },
-
     "errorLocationPermission": "Location permission denied",
     "@errorLocationPermission": {
         "description": "Error when device location permission is denied"
@@ -129,8 +124,7 @@
     "@errorTimeout": {
         "description": "Error when API request times out"
     },
-
-    "confirmDeleteTitle": "Delete Code",
+    "confirmDeleteTitle": "Delete saved location",
     "@confirmDeleteTitle": {
         "description": "Title of delete confirmation dialog"
     },
@@ -138,7 +132,6 @@
     "@confirmDeleteMessage": {
         "description": "Body text of delete confirmation dialog"
     },
-
     "refresh": "Refresh",
     "@refresh": {
         "description": "Button text to refresh content"
@@ -275,6 +268,10 @@
     },
     "terrain": "Terrain",
     "@terrain": {
+        "description": "Terrain map type label"
+    },
+    "savedLocations": "Saved locations",
+    "@savedLocations": {
         "description": "Terrain map type label"
     }
 }

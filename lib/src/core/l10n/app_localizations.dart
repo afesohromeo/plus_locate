@@ -287,7 +287,7 @@ abstract class AppLocalizations {
   /// Title of delete confirmation dialog
   ///
   /// In en, this message translates to:
-  /// **'Delete Code'**
+  /// **'Delete saved location'**
   String get confirmDeleteTitle;
 
   /// Body text of delete confirmation dialog
@@ -482,6 +482,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Terrain'**
   String get terrain;
+
+  /// Terrain map type label
+  ///
+  /// In en, this message translates to:
+  /// **'Saved locations'**
+  String get savedLocations;
 }
 
 class _AppLocalizationsDelegate

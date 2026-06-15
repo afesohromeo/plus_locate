@@ -26,7 +26,11 @@ class AppBottomNavBar extends StatelessWidget {
         activeIcon: Icons.bookmark,
         label: l10n.saved
       ),
-      (icon: Icons.search_outlined, activeIcon: Icons.search, label: l10n.search),
+      (
+        icon: Icons.search_outlined,
+        activeIcon: Icons.search,
+        label: l10n.search
+      ),
     ];
 
     return ClipRRect(
@@ -98,10 +102,10 @@ class _NavBarItem extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             label,
-            style: context.textTheme.bodySmall?.copyWith(
-              color: color,
-              fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
-            ),
+            style: context.textTheme.displayLarge
+                ?.copyWith(color: color, fontSize: 14
+                    // fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
+                    ),
           ),
         ],
       ),

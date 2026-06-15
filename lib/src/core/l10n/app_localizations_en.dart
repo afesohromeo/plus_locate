@@ -102,7 +102,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorTimeout => 'Request timed out';
 
   @override
-  String get confirmDeleteTitle => 'Delete Code';
+  String get confirmDeleteTitle => 'Delete saved location';
 
   @override
   String get confirmDeleteMessage =>
@@ -204,4 +204,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get terrain => 'Terrain';
+
+  @override
+  String get savedLocations => 'Saved locations';
 }

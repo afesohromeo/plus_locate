@@ -60,7 +60,8 @@ class Congratulations extends StatelessWidget {
           Text(
             message,
             textAlign: TextAlign.center,
-            style: context.textTheme.bodyMedium,
+            style: context.textTheme.displayMedium
+                ?.copyWith(fontSize: 14, color: customColors.black1),
           ),
 
           const SizedBox(height: 20),
