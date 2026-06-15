@@ -72,7 +72,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get msgCodeSaved => 'Code saved successfully';
 
   @override
-  String get msgCodeDeleted => 'Code deleted';
+  String get msgCodeDeleted => 'Emplacement supprimé';
 
   @override
   String get msgNoResults => 'No results found';

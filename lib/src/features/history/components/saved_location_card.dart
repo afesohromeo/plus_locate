@@ -68,7 +68,8 @@ class SavedLocationCard extends StatelessWidget {
                   children: [
                     if (isSelectionMode)
                       Padding(
-                        padding: const EdgeInsets.only(right: 8, top: 2),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
                         child: Icon(
                           isSelected
                               ? Icons.check_circle
@@ -86,16 +87,16 @@ class SavedLocationCard extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.w900,
                           color: customColors.black1,
-                          height: 1.2,
                         ),
-                        maxLines: 2,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     if (!isSelectionMode) ...[
                       IconButton(
                         onPressed: onShare,
-                        visualDensity: VisualDensity.compact,
+                        visualDensity:
+                            VisualDensity(vertical: -4, horizontal: 0),
                         icon: Icon(
                           Icons.share,
                           size: 20,
@@ -103,6 +104,15 @@ class SavedLocationCard extends StatelessWidget {
                         ),
                       ),
                       PopupMenuButton<String>(
+                        padding: EdgeInsets.zero,
+                        menuPadding: EdgeInsets.zero,
+                        style: ButtonStyle(
+                          padding: WidgetStateProperty.all(EdgeInsets.zero),
+                          visualDensity:
+                              const VisualDensity(horizontal: 0, vertical: -4),
+                          backgroundColor:
+                              WidgetStateProperty.all(Colors.transparent),
+                        ),
                         icon: Icon(
                           Icons.more_vert,
                           size: 20,
@@ -117,20 +127,16 @@ class SavedLocationCard extends StatelessWidget {
                             value: 'copy',
                             child: Text(
                               l10n.actionCopy,
-                              style: context.textTheme.displayMedium
-                                  ?.copyWith(
-                                      fontSize: 13,
-                                      color: customColors.black1),
+                              style: context.textTheme.displayMedium?.copyWith(
+                                  fontSize: 13, color: customColors.black1),
                             ),
                           ),
                           PopupMenuItem(
                             value: 'delete',
                             child: Text(
                               l10n.actionDelete,
-                              style: context.textTheme.displayMedium
-                                  ?.copyWith(
-                                      fontSize: 13,
-                                      color: customColors.black1),
+                              style: context.textTheme.displayMedium?.copyWith(
+                                  fontSize: 13, color: customColors.black1),
                             ),
                           ),
                         ],

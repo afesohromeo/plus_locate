@@ -227,7 +227,7 @@ abstract class AppLocalizations {
   /// Snackbar message when a code is deleted from history
   ///
   /// In en, this message translates to:
-  /// **'Code deleted'**
+  /// **'Emplacement supprimé'**
   String get msgCodeDeleted;
 
   /// Message when search returns no results

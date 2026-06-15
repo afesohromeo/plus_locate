@@ -84,7 +84,7 @@
     "@msgCodeSaved": {
         "description": "Snackbar message when a code is saved to history"
     },
-    "msgCodeDeleted": "Code deleted",
+    "msgCodeDeleted": "Emplacement supprimé",
     "@msgCodeDeleted": {
         "description": "Snackbar message when a code is deleted from history"
     },
