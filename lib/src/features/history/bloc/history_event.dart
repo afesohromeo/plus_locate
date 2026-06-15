@@ -15,4 +15,13 @@ class HistoryEvent with _$HistoryEvent {
   }) = _SearchCodes;
   const factory HistoryEvent.resetFlowStep() = _ResetFlowStep;
   const factory HistoryEvent.reset() = _Reset;
+  const factory HistoryEvent.enterSelectionMode({
+    required String id,
+  }) = _EnterSelectionMode;
+  const factory HistoryEvent.toggleItemSelection({
+    required String id,
+  }) = _ToggleItemSelection;
+  const factory HistoryEvent.selectAllCodes() = _SelectAllCodes;
+  const factory HistoryEvent.exitSelectionMode() = _ExitSelectionMode;
+  const factory HistoryEvent.deleteSelectedCodes() = _DeleteSelectedCodes;
 }

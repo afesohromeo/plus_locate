@@ -15,5 +15,10 @@ sealed class HistoryState with _$HistoryState {
     // --- Error messages (per RULE-007) ---
     String? historyErrorMessage,
     String? historyActionErrorMessage,
+
+    // --- Multi-select state ---
+    @Default(false) bool isSelectionMode,
+    @Default(<String>{}) Set<String> selectedIds,
+    int? lastDeletedCount,
   }) = _HistoryState;
 }

@@ -209,4 +209,30 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get savedLocations => 'Emplacements enregistrés';
+
+  @override
+  String selectedCount(int count) {
+    return '$count sélectionné(s)';
+  }
+
+  @override
+  String get selectAll => 'Tout sélectionner';
+
+  @override
+  String get confirmDeleteMultipleTitle =>
+      'Supprimer les emplacements enregistrés';
+
+  @override
+  String confirmDeleteMultipleMessage(int count) {
+    return 'Êtes-vous sûr de vouloir supprimer $count emplacements enregistrés ?';
+  }
+
+  @override
+  String msgCodesDeleted(int count) {
+    return '$count emplacements supprimés';
+  }
+
+  @override
+  String get errorDeletingSelectedCodes =>
+      'Échec de la suppression des emplacements sélectionnés';
 }

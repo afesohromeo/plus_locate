@@ -57,6 +57,11 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult Function(_SearchCodes value)? searchCodes,
     TResult Function(_ResetFlowStep value)? resetFlowStep,
     TResult Function(_Reset value)? reset,
+    TResult Function(_EnterSelectionMode value)? enterSelectionMode,
+    TResult Function(_ToggleItemSelection value)? toggleItemSelection,
+    TResult Function(_SelectAllCodes value)? selectAllCodes,
+    TResult Function(_ExitSelectionMode value)? exitSelectionMode,
+    TResult Function(_DeleteSelectedCodes value)? deleteSelectedCodes,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -75,6 +80,16 @@ extension HistoryEventPatterns on HistoryEvent {
         return resetFlowStep(_that);
       case _Reset() when reset != null:
         return reset(_that);
+      case _EnterSelectionMode() when enterSelectionMode != null:
+        return enterSelectionMode(_that);
+      case _ToggleItemSelection() when toggleItemSelection != null:
+        return toggleItemSelection(_that);
+      case _SelectAllCodes() when selectAllCodes != null:
+        return selectAllCodes(_that);
+      case _ExitSelectionMode() when exitSelectionMode != null:
+        return exitSelectionMode(_that);
+      case _DeleteSelectedCodes() when deleteSelectedCodes != null:
+        return deleteSelectedCodes(_that);
       case _:
         return orElse();
     }
@@ -102,6 +117,11 @@ extension HistoryEventPatterns on HistoryEvent {
     required TResult Function(_SearchCodes value) searchCodes,
     required TResult Function(_ResetFlowStep value) resetFlowStep,
     required TResult Function(_Reset value) reset,
+    required TResult Function(_EnterSelectionMode value) enterSelectionMode,
+    required TResult Function(_ToggleItemSelection value) toggleItemSelection,
+    required TResult Function(_SelectAllCodes value) selectAllCodes,
+    required TResult Function(_ExitSelectionMode value) exitSelectionMode,
+    required TResult Function(_DeleteSelectedCodes value) deleteSelectedCodes,
   }) {
     final _that = this;
     switch (_that) {
@@ -119,6 +139,16 @@ extension HistoryEventPatterns on HistoryEvent {
         return resetFlowStep(_that);
       case _Reset():
         return reset(_that);
+      case _EnterSelectionMode():
+        return enterSelectionMode(_that);
+      case _ToggleItemSelection():
+        return toggleItemSelection(_that);
+      case _SelectAllCodes():
+        return selectAllCodes(_that);
+      case _ExitSelectionMode():
+        return exitSelectionMode(_that);
+      case _DeleteSelectedCodes():
+        return deleteSelectedCodes(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -145,6 +175,11 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult? Function(_SearchCodes value)? searchCodes,
     TResult? Function(_ResetFlowStep value)? resetFlowStep,
     TResult? Function(_Reset value)? reset,
+    TResult? Function(_EnterSelectionMode value)? enterSelectionMode,
+    TResult? Function(_ToggleItemSelection value)? toggleItemSelection,
+    TResult? Function(_SelectAllCodes value)? selectAllCodes,
+    TResult? Function(_ExitSelectionMode value)? exitSelectionMode,
+    TResult? Function(_DeleteSelectedCodes value)? deleteSelectedCodes,
   }) {
     final _that = this;
     switch (_that) {
@@ -162,6 +197,16 @@ extension HistoryEventPatterns on HistoryEvent {
         return resetFlowStep(_that);
       case _Reset() when reset != null:
         return reset(_that);
+      case _EnterSelectionMode() when enterSelectionMode != null:
+        return enterSelectionMode(_that);
+      case _ToggleItemSelection() when toggleItemSelection != null:
+        return toggleItemSelection(_that);
+      case _SelectAllCodes() when selectAllCodes != null:
+        return selectAllCodes(_that);
+      case _ExitSelectionMode() when exitSelectionMode != null:
+        return exitSelectionMode(_that);
+      case _DeleteSelectedCodes() when deleteSelectedCodes != null:
+        return deleteSelectedCodes(_that);
       case _:
         return null;
     }
@@ -188,6 +233,11 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult Function(String query)? searchCodes,
     TResult Function()? resetFlowStep,
     TResult Function()? reset,
+    TResult Function(String id)? enterSelectionMode,
+    TResult Function(String id)? toggleItemSelection,
+    TResult Function()? selectAllCodes,
+    TResult Function()? exitSelectionMode,
+    TResult Function()? deleteSelectedCodes,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -206,6 +256,16 @@ extension HistoryEventPatterns on HistoryEvent {
         return resetFlowStep();
       case _Reset() when reset != null:
         return reset();
+      case _EnterSelectionMode() when enterSelectionMode != null:
+        return enterSelectionMode(_that.id);
+      case _ToggleItemSelection() when toggleItemSelection != null:
+        return toggleItemSelection(_that.id);
+      case _SelectAllCodes() when selectAllCodes != null:
+        return selectAllCodes();
+      case _ExitSelectionMode() when exitSelectionMode != null:
+        return exitSelectionMode();
+      case _DeleteSelectedCodes() when deleteSelectedCodes != null:
+        return deleteSelectedCodes();
       case _:
         return orElse();
     }
@@ -233,6 +293,11 @@ extension HistoryEventPatterns on HistoryEvent {
     required TResult Function(String query) searchCodes,
     required TResult Function() resetFlowStep,
     required TResult Function() reset,
+    required TResult Function(String id) enterSelectionMode,
+    required TResult Function(String id) toggleItemSelection,
+    required TResult Function() selectAllCodes,
+    required TResult Function() exitSelectionMode,
+    required TResult Function() deleteSelectedCodes,
   }) {
     final _that = this;
     switch (_that) {
@@ -250,6 +315,16 @@ extension HistoryEventPatterns on HistoryEvent {
         return resetFlowStep();
       case _Reset():
         return reset();
+      case _EnterSelectionMode():
+        return enterSelectionMode(_that.id);
+      case _ToggleItemSelection():
+        return toggleItemSelection(_that.id);
+      case _SelectAllCodes():
+        return selectAllCodes();
+      case _ExitSelectionMode():
+        return exitSelectionMode();
+      case _DeleteSelectedCodes():
+        return deleteSelectedCodes();
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -276,6 +351,11 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult? Function(String query)? searchCodes,
     TResult? Function()? resetFlowStep,
     TResult? Function()? reset,
+    TResult? Function(String id)? enterSelectionMode,
+    TResult? Function(String id)? toggleItemSelection,
+    TResult? Function()? selectAllCodes,
+    TResult? Function()? exitSelectionMode,
+    TResult? Function()? deleteSelectedCodes,
   }) {
     final _that = this;
     switch (_that) {
@@ -293,6 +373,16 @@ extension HistoryEventPatterns on HistoryEvent {
         return resetFlowStep();
       case _Reset() when reset != null:
         return reset();
+      case _EnterSelectionMode() when enterSelectionMode != null:
+        return enterSelectionMode(_that.id);
+      case _ToggleItemSelection() when toggleItemSelection != null:
+        return toggleItemSelection(_that.id);
+      case _SelectAllCodes() when selectAllCodes != null:
+        return selectAllCodes();
+      case _ExitSelectionMode() when exitSelectionMode != null:
+        return exitSelectionMode();
+      case _DeleteSelectedCodes() when deleteSelectedCodes != null:
+        return deleteSelectedCodes();
       case _:
         return null;
     }
@@ -580,6 +670,195 @@ class _Reset implements HistoryEvent {
 }
 
 /// @nodoc
+
+class _EnterSelectionMode implements HistoryEvent {
+  const _EnterSelectionMode({required this.id});
+
+  final String id;
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$EnterSelectionModeCopyWith<_EnterSelectionMode> get copyWith =>
+      __$EnterSelectionModeCopyWithImpl<_EnterSelectionMode>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _EnterSelectionMode &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @override
+  String toString() {
+    return 'HistoryEvent.enterSelectionMode(id: $id)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$EnterSelectionModeCopyWith<$Res>
+    implements $HistoryEventCopyWith<$Res> {
+  factory _$EnterSelectionModeCopyWith(
+          _EnterSelectionMode value, $Res Function(_EnterSelectionMode) _then) =
+      __$EnterSelectionModeCopyWithImpl;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$EnterSelectionModeCopyWithImpl<$Res>
+    implements _$EnterSelectionModeCopyWith<$Res> {
+  __$EnterSelectionModeCopyWithImpl(this._self, this._then);
+
+  final _EnterSelectionMode _self;
+  final $Res Function(_EnterSelectionMode) _then;
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_EnterSelectionMode(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _ToggleItemSelection implements HistoryEvent {
+  const _ToggleItemSelection({required this.id});
+
+  final String id;
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ToggleItemSelectionCopyWith<_ToggleItemSelection> get copyWith =>
+      __$ToggleItemSelectionCopyWithImpl<_ToggleItemSelection>(
+          this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ToggleItemSelection &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @override
+  String toString() {
+    return 'HistoryEvent.toggleItemSelection(id: $id)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ToggleItemSelectionCopyWith<$Res>
+    implements $HistoryEventCopyWith<$Res> {
+  factory _$ToggleItemSelectionCopyWith(_ToggleItemSelection value,
+          $Res Function(_ToggleItemSelection) _then) =
+      __$ToggleItemSelectionCopyWithImpl;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$ToggleItemSelectionCopyWithImpl<$Res>
+    implements _$ToggleItemSelectionCopyWith<$Res> {
+  __$ToggleItemSelectionCopyWithImpl(this._self, this._then);
+
+  final _ToggleItemSelection _self;
+  final $Res Function(_ToggleItemSelection) _then;
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_ToggleItemSelection(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _SelectAllCodes implements HistoryEvent {
+  const _SelectAllCodes();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _SelectAllCodes);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'HistoryEvent.selectAllCodes()';
+  }
+}
+
+/// @nodoc
+
+class _ExitSelectionMode implements HistoryEvent {
+  const _ExitSelectionMode();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ExitSelectionMode);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'HistoryEvent.exitSelectionMode()';
+  }
+}
+
+/// @nodoc
+
+class _DeleteSelectedCodes implements HistoryEvent {
+  const _DeleteSelectedCodes();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _DeleteSelectedCodes);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'HistoryEvent.deleteSelectedCodes()';
+  }
+}
+
+/// @nodoc
 mixin _$HistoryState {
   List<SavedCode> get savedCodes; // --- Status fields (scoped per RULE-006) ---
   GenericStatus get historyStatus;
@@ -587,7 +866,10 @@ mixin _$HistoryState {
       get historyActionStatus; // --- Flow step (for CRUD per RULE-004) ---
   GenericFlowStep get flowStep; // --- Error messages (per RULE-007) ---
   String? get historyErrorMessage;
-  String? get historyActionErrorMessage;
+  String? get historyActionErrorMessage; // --- Multi-select state ---
+  bool get isSelectionMode;
+  Set<String> get selectedIds;
+  int? get lastDeletedCount;
 
   /// Create a copy of HistoryState
   /// with the given fields replaced by the non-null parameter values.
@@ -614,7 +896,13 @@ mixin _$HistoryState {
                 other.historyErrorMessage == historyErrorMessage) &&
             (identical(other.historyActionErrorMessage,
                     historyActionErrorMessage) ||
-                other.historyActionErrorMessage == historyActionErrorMessage));
+                other.historyActionErrorMessage == historyActionErrorMessage) &&
+            (identical(other.isSelectionMode, isSelectionMode) ||
+                other.isSelectionMode == isSelectionMode) &&
+            const DeepCollectionEquality()
+                .equals(other.selectedIds, selectedIds) &&
+            (identical(other.lastDeletedCount, lastDeletedCount) ||
+                other.lastDeletedCount == lastDeletedCount));
   }
 
   @override
@@ -625,11 +913,14 @@ mixin _$HistoryState {
       historyActionStatus,
       flowStep,
       historyErrorMessage,
-      historyActionErrorMessage);
+      historyActionErrorMessage,
+      isSelectionMode,
+      const DeepCollectionEquality().hash(selectedIds),
+      lastDeletedCount);
 
   @override
   String toString() {
-    return 'HistoryState(savedCodes: $savedCodes, historyStatus: $historyStatus, historyActionStatus: $historyActionStatus, flowStep: $flowStep, historyErrorMessage: $historyErrorMessage, historyActionErrorMessage: $historyActionErrorMessage)';
+    return 'HistoryState(savedCodes: $savedCodes, historyStatus: $historyStatus, historyActionStatus: $historyActionStatus, flowStep: $flowStep, historyErrorMessage: $historyErrorMessage, historyActionErrorMessage: $historyActionErrorMessage, isSelectionMode: $isSelectionMode, selectedIds: $selectedIds, lastDeletedCount: $lastDeletedCount)';
   }
 }
 
@@ -645,7 +936,10 @@ abstract mixin class $HistoryStateCopyWith<$Res> {
       GenericStatus historyActionStatus,
       GenericFlowStep flowStep,
       String? historyErrorMessage,
-      String? historyActionErrorMessage});
+      String? historyActionErrorMessage,
+      bool isSelectionMode,
+      Set<String> selectedIds,
+      int? lastDeletedCount});
 }
 
 /// @nodoc
@@ -666,6 +960,9 @@ class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
     Object? flowStep = null,
     Object? historyErrorMessage = freezed,
     Object? historyActionErrorMessage = freezed,
+    Object? isSelectionMode = null,
+    Object? selectedIds = null,
+    Object? lastDeletedCount = freezed,
   }) {
     return _then(_self.copyWith(
       savedCodes: null == savedCodes
@@ -692,6 +989,18 @@ class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
           ? _self.historyActionErrorMessage
           : historyActionErrorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isSelectionMode: null == isSelectionMode
+          ? _self.isSelectionMode
+          : isSelectionMode // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selectedIds: null == selectedIds
+          ? _self.selectedIds
+          : selectedIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
+      lastDeletedCount: freezed == lastDeletedCount
+          ? _self.lastDeletedCount
+          : lastDeletedCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -793,7 +1102,10 @@ extension HistoryStatePatterns on HistoryState {
             GenericStatus historyActionStatus,
             GenericFlowStep flowStep,
             String? historyErrorMessage,
-            String? historyActionErrorMessage)?
+            String? historyActionErrorMessage,
+            bool isSelectionMode,
+            Set<String> selectedIds,
+            int? lastDeletedCount)?
         $default, {
     required TResult orElse(),
   }) {
@@ -806,7 +1118,10 @@ extension HistoryStatePatterns on HistoryState {
             _that.historyActionStatus,
             _that.flowStep,
             _that.historyErrorMessage,
-            _that.historyActionErrorMessage);
+            _that.historyActionErrorMessage,
+            _that.isSelectionMode,
+            _that.selectedIds,
+            _that.lastDeletedCount);
       case _:
         return orElse();
     }
@@ -833,7 +1148,10 @@ extension HistoryStatePatterns on HistoryState {
             GenericStatus historyActionStatus,
             GenericFlowStep flowStep,
             String? historyErrorMessage,
-            String? historyActionErrorMessage)
+            String? historyActionErrorMessage,
+            bool isSelectionMode,
+            Set<String> selectedIds,
+            int? lastDeletedCount)
         $default,
   ) {
     final _that = this;
@@ -845,7 +1163,10 @@ extension HistoryStatePatterns on HistoryState {
             _that.historyActionStatus,
             _that.flowStep,
             _that.historyErrorMessage,
-            _that.historyActionErrorMessage);
+            _that.historyActionErrorMessage,
+            _that.isSelectionMode,
+            _that.selectedIds,
+            _that.lastDeletedCount);
     }
   }
 
@@ -869,7 +1190,10 @@ extension HistoryStatePatterns on HistoryState {
             GenericStatus historyActionStatus,
             GenericFlowStep flowStep,
             String? historyErrorMessage,
-            String? historyActionErrorMessage)?
+            String? historyActionErrorMessage,
+            bool isSelectionMode,
+            Set<String> selectedIds,
+            int? lastDeletedCount)?
         $default,
   ) {
     final _that = this;
@@ -881,7 +1205,10 @@ extension HistoryStatePatterns on HistoryState {
             _that.historyActionStatus,
             _that.flowStep,
             _that.historyErrorMessage,
-            _that.historyActionErrorMessage);
+            _that.historyActionErrorMessage,
+            _that.isSelectionMode,
+            _that.selectedIds,
+            _that.lastDeletedCount);
       case _:
         return null;
     }
@@ -897,8 +1224,12 @@ class _HistoryState implements HistoryState {
       this.historyActionStatus = GenericStatus.initial,
       this.flowStep = GenericFlowStep.none,
       this.historyErrorMessage,
-      this.historyActionErrorMessage})
-      : _savedCodes = savedCodes;
+      this.historyActionErrorMessage,
+      this.isSelectionMode = false,
+      final Set<String> selectedIds = const <String>{},
+      this.lastDeletedCount})
+      : _savedCodes = savedCodes,
+        _selectedIds = selectedIds;
 
   final List<SavedCode> _savedCodes;
   @override
@@ -925,6 +1256,21 @@ class _HistoryState implements HistoryState {
   final String? historyErrorMessage;
   @override
   final String? historyActionErrorMessage;
+// --- Multi-select state ---
+  @override
+  @JsonKey()
+  final bool isSelectionMode;
+  final Set<String> _selectedIds;
+  @override
+  @JsonKey()
+  Set<String> get selectedIds {
+    if (_selectedIds is EqualUnmodifiableSetView) return _selectedIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_selectedIds);
+  }
+
+  @override
+  final int? lastDeletedCount;
 
   /// Create a copy of HistoryState
   /// with the given fields replaced by the non-null parameter values.
@@ -951,7 +1297,13 @@ class _HistoryState implements HistoryState {
                 other.historyErrorMessage == historyErrorMessage) &&
             (identical(other.historyActionErrorMessage,
                     historyActionErrorMessage) ||
-                other.historyActionErrorMessage == historyActionErrorMessage));
+                other.historyActionErrorMessage == historyActionErrorMessage) &&
+            (identical(other.isSelectionMode, isSelectionMode) ||
+                other.isSelectionMode == isSelectionMode) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedIds, _selectedIds) &&
+            (identical(other.lastDeletedCount, lastDeletedCount) ||
+                other.lastDeletedCount == lastDeletedCount));
   }
 
   @override
@@ -962,11 +1314,14 @@ class _HistoryState implements HistoryState {
       historyActionStatus,
       flowStep,
       historyErrorMessage,
-      historyActionErrorMessage);
+      historyActionErrorMessage,
+      isSelectionMode,
+      const DeepCollectionEquality().hash(_selectedIds),
+      lastDeletedCount);
 
   @override
   String toString() {
-    return 'HistoryState(savedCodes: $savedCodes, historyStatus: $historyStatus, historyActionStatus: $historyActionStatus, flowStep: $flowStep, historyErrorMessage: $historyErrorMessage, historyActionErrorMessage: $historyActionErrorMessage)';
+    return 'HistoryState(savedCodes: $savedCodes, historyStatus: $historyStatus, historyActionStatus: $historyActionStatus, flowStep: $flowStep, historyErrorMessage: $historyErrorMessage, historyActionErrorMessage: $historyActionErrorMessage, isSelectionMode: $isSelectionMode, selectedIds: $selectedIds, lastDeletedCount: $lastDeletedCount)';
   }
 }
 
@@ -984,7 +1339,10 @@ abstract mixin class _$HistoryStateCopyWith<$Res>
       GenericStatus historyActionStatus,
       GenericFlowStep flowStep,
       String? historyErrorMessage,
-      String? historyActionErrorMessage});
+      String? historyActionErrorMessage,
+      bool isSelectionMode,
+      Set<String> selectedIds,
+      int? lastDeletedCount});
 }
 
 /// @nodoc
@@ -1006,6 +1364,9 @@ class __$HistoryStateCopyWithImpl<$Res>
     Object? flowStep = null,
     Object? historyErrorMessage = freezed,
     Object? historyActionErrorMessage = freezed,
+    Object? isSelectionMode = null,
+    Object? selectedIds = null,
+    Object? lastDeletedCount = freezed,
   }) {
     return _then(_HistoryState(
       savedCodes: null == savedCodes
@@ -1032,6 +1393,18 @@ class __$HistoryStateCopyWithImpl<$Res>
           ? _self.historyActionErrorMessage
           : historyActionErrorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isSelectionMode: null == isSelectionMode
+          ? _self.isSelectionMode
+          : isSelectionMode // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selectedIds: null == selectedIds
+          ? _self._selectedIds
+          : selectedIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
+      lastDeletedCount: freezed == lastDeletedCount
+          ? _self.lastDeletedCount
+          : lastDeletedCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }

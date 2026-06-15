@@ -25,6 +25,11 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     on<_SearchCodes>(_onSearchCodes);
     on<_ResetFlowStep>(_onResetFlowStep);
     on<_Reset>(_onReset);
+    on<_EnterSelectionMode>(_onEnterSelectionMode);
+    on<_ToggleItemSelection>(_onToggleItemSelection);
+    on<_SelectAllCodes>(_onSelectAllCodes);
+    on<_ExitSelectionMode>(_onExitSelectionMode);
+    on<_DeleteSelectedCodes>(_onDeleteSelectedCodes);
   }
 
   void _onInit(_Init event, Emitter<HistoryState> emit) {
@@ -150,10 +155,92 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       flowStep: GenericFlowStep.none,
       historyActionStatus: GenericStatus.initial,
       historyActionErrorMessage: null,
+      lastDeletedCount: null,
     ));
   }
 
   void _onReset(_Reset event, Emitter<HistoryState> emit) {
     emit(const HistoryState());
+  }
+
+  void _onEnterSelectionMode(
+    _EnterSelectionMode event,
+    Emitter<HistoryState> emit,
+  ) {
+    emit(state.copyWith(
+      isSelectionMode: true,
+      selectedIds: {event.id},
+    ));
+  }
+
+  void _onToggleItemSelection(
+    _ToggleItemSelection event,
+    Emitter<HistoryState> emit,
+  ) {
+    final selectedIds = Set<String>.from(state.selectedIds);
+    if (selectedIds.contains(event.id)) {
+      selectedIds.remove(event.id);
+    } else {
+      selectedIds.add(event.id);
+    }
+
+    emit(state.copyWith(
+      isSelectionMode: selectedIds.isNotEmpty,
+      selectedIds: selectedIds,
+    ));
+  }
+
+  void _onSelectAllCodes(
+    _SelectAllCodes event,
+    Emitter<HistoryState> emit,
+  ) {
+    emit(state.copyWith(
+      isSelectionMode: true,
+      selectedIds: state.savedCodes
+          .where((code) => code.id != null)
+          .map((code) => code.id!)
+          .toSet(),
+    ));
+  }
+
+  void _onExitSelectionMode(
+    _ExitSelectionMode event,
+    Emitter<HistoryState> emit,
+  ) {
+    emit(state.copyWith(
+      isSelectionMode: false,
+      selectedIds: {},
+    ));
+  }
+
+  Future<void> _onDeleteSelectedCodes(
+    _DeleteSelectedCodes event,
+    Emitter<HistoryState> emit,
+  ) async {
+    emit(state.copyWith(
+      flowStep: GenericFlowStep.deletingItem,
+      historyActionStatus: GenericStatus.loading,
+      historyActionErrorMessage: null,
+    ));
+
+    try {
+      final deletedCount = state.selectedIds.length;
+      await _repository.deleteCodes(state.selectedIds.toList());
+      emit(state.copyWith(
+        historyActionStatus: GenericStatus.success,
+        isSelectionMode: false,
+        selectedIds: {},
+        lastDeletedCount: deletedCount,
+      ));
+      // Refresh the list
+      add(const HistoryEvent.fetchSavedCodes());
+    } catch (e) {
+      log('Error deleting selected codes: $e');
+      emit(state.copyWith(
+        historyActionStatus: GenericStatus.failure,
+        historyActionErrorMessage:
+            LocalizationService.localization.errorDeletingSelectedCodes,
+      ));
+    }
   }
 }

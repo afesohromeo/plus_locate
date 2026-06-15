@@ -77,6 +77,18 @@ class SavedCodesRepository {
     }
   }
 
+  /// Delete multiple saved codes by their IDs.
+  Future<bool> deleteCodes(List<String> ids) async {
+    try {
+      final box = await _getBox();
+      await box.deleteAll(ids);
+      return true;
+    } catch (e) {
+      log('Error deleting saved codes: $e');
+      rethrow;
+    }
+  }
+
   /// Search saved codes by label or global code.
   Future<List<SavedCode>> searchCodes(String query) async {
     try {

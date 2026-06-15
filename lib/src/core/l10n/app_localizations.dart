@@ -488,6 +488,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved locations'**
   String get savedLocations;
+
+  /// AppBar title showing number of selected items in selection mode
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String selectedCount(int count);
+
+  /// Button to select all saved locations
+  ///
+  /// In en, this message translates to:
+  /// **'Select all'**
+  String get selectAll;
+
+  /// Title of the multi-delete confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Delete saved locations'**
+  String get confirmDeleteMultipleTitle;
+
+  /// Body text of the multi-delete confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} saved locations?'**
+  String confirmDeleteMultipleMessage(int count);
+
+  /// Snackbar message when multiple codes are deleted from history
+  ///
+  /// In en, this message translates to:
+  /// **'{count} locations deleted'**
+  String msgCodesDeleted(int count);
+
+  /// Error message shown when deleting multiple selected codes fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete the selected locations'**
+  String get errorDeletingSelectedCodes;
 }
 
 class _AppLocalizationsDelegate

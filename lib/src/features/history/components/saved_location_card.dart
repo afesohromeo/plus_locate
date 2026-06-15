@@ -7,6 +7,10 @@ class SavedLocationCard extends StatelessWidget {
   final VoidCallback onCopy;
   final VoidCallback onShare;
   final VoidCallback onDelete;
+  final bool isSelectionMode;
+  final bool isSelected;
+  final VoidCallback? onLongPress;
+  final VoidCallback? onSelectToggle;
 
   const SavedLocationCard({
     super.key,
@@ -15,6 +19,10 @@ class SavedLocationCard extends StatelessWidget {
     required this.onCopy,
     required this.onShare,
     required this.onDelete,
+    this.isSelectionMode = false,
+    this.isSelected = false,
+    this.onLongPress,
+    this.onSelectToggle,
   });
 
   @override
@@ -28,15 +36,21 @@ class SavedLocationCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         elevation: 0,
         child: InkWell(
-          onTap: onTap,
+          onTap: isSelectionMode ? onSelectToggle : onTap,
+          onLongPress: onLongPress,
           borderRadius: BorderRadius.circular(20),
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: customColors.surface,
+              color: isSelected
+                  ? customColors.primary.withValues(alpha: 0.08)
+                  : customColors.surface,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: customColors.black1.withValues(alpha: 0.06),
+                color: isSelected
+                    ? customColors.primary
+                    : customColors.black1.withValues(alpha: 0.06),
+                width: isSelected ? 2 : 1,
               ),
               boxShadow: [
                 BoxShadow(
@@ -52,6 +66,19 @@ class SavedLocationCard extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    if (isSelectionMode)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8, top: 2),
+                        child: Icon(
+                          isSelected
+                              ? Icons.check_circle
+                              : Icons.radio_button_unchecked,
+                          size: 22,
+                          color: isSelected
+                              ? customColors.primary
+                              : customColors.black1.withValues(alpha: 0.4),
+                        ),
+                      ),
                     Expanded(
                       child: Text(
                         code.locality ?? '---',
@@ -65,44 +92,50 @@ class SavedLocationCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    IconButton(
-                      onPressed: onShare,
-                      visualDensity: VisualDensity.compact,
-                      icon: Icon(
-                        Icons.share,
-                        size: 20,
-                        color: customColors.black1.withValues(alpha: 0.8),
-                      ),
-                    ),
-                    PopupMenuButton<String>(
-                      icon: Icon(
-                        Icons.more_vert,
-                        size: 20,
-                        color: customColors.black1.withValues(alpha: 0.8),
-                      ),
-                      onSelected: (value) {
-                        if (value == 'copy') onCopy();
-                        if (value == 'delete') onDelete();
-                      },
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          value: 'copy',
-                          child: Text(
-                            l10n.actionCopy,
-                            style: context.textTheme.displayMedium?.copyWith(
-                                fontSize: 13, color: customColors.black1),
-                          ),
+                    if (!isSelectionMode) ...[
+                      IconButton(
+                        onPressed: onShare,
+                        visualDensity: VisualDensity.compact,
+                        icon: Icon(
+                          Icons.share,
+                          size: 20,
+                          color: customColors.black1.withValues(alpha: 0.8),
                         ),
-                        PopupMenuItem(
-                          value: 'delete',
-                          child: Text(
-                            l10n.actionDelete,
-                            style: context.textTheme.displayMedium?.copyWith(
-                                fontSize: 13, color: customColors.black1),
-                          ),
+                      ),
+                      PopupMenuButton<String>(
+                        icon: Icon(
+                          Icons.more_vert,
+                          size: 20,
+                          color: customColors.black1.withValues(alpha: 0.8),
                         ),
-                      ],
-                    ),
+                        onSelected: (value) {
+                          if (value == 'copy') onCopy();
+                          if (value == 'delete') onDelete();
+                        },
+                        itemBuilder: (context) => [
+                          PopupMenuItem(
+                            value: 'copy',
+                            child: Text(
+                              l10n.actionCopy,
+                              style: context.textTheme.displayMedium
+                                  ?.copyWith(
+                                      fontSize: 13,
+                                      color: customColors.black1),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'delete',
+                            child: Text(
+                              l10n.actionDelete,
+                              style: context.textTheme.displayMedium
+                                  ?.copyWith(
+                                      fontSize: 13,
+                                      color: customColors.black1),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ],
                 ),
                 const SizedBox(height: 8),

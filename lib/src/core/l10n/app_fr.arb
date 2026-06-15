@@ -64,5 +64,11 @@
     "layers": "Couches",
     "satellite": "Satellite",
     "terrain": "Terrain",
-    "savedLocations": "Emplacements enregistrés"
+    "savedLocations": "Emplacements enregistrés",
+    "selectedCount": "{count} sélectionné(s)",
+    "selectAll": "Tout sélectionner",
+    "confirmDeleteMultipleTitle": "Supprimer les emplacements enregistrés",
+    "confirmDeleteMultipleMessage": "Êtes-vous sûr de vouloir supprimer {count} emplacements enregistrés ?",
+    "msgCodesDeleted": "{count} emplacements supprimés",
+    "errorDeletingSelectedCodes": "Échec de la suppression des emplacements sélectionnés"
 }

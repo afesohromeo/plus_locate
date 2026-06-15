@@ -12,26 +12,107 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return ResponsiveScaffoldWrapper(
-      props: ScaffoldWrapperProps(
-        hasAppbar: true,
-        appBarBgColor: customColors.primary,
-        elevation: 0,
-        showDrawer: false,
-        showBottomNav: false,
-        showFloatingButton: false,
-        resizeToAvoidBottomInset: true,
-        leading: const Icon(Icons.location_history, color: Colors.white),
-        title: Text(
-          l10n.savedLocations,
-          style: context.textTheme.displayLarge
-              ?.copyWith(color: customColors.surface, fontSize: 18),
-        ),
-      ),
-      mobileBody: const _HistoryBody(),
-      tabletBody: const _HistoryBody(),
-      desktopBody: const _HistoryBody(),
+    return BlocBuilder<HistoryBloc, HistoryState>(
+      buildWhen: (previous, current) =>
+          previous.isSelectionMode != current.isSelectionMode ||
+          previous.selectedIds != current.selectedIds,
+      builder: (context, state) {
+        final titleStyle = context.textTheme.displayLarge
+            ?.copyWith(color: customColors.surface, fontSize: 18);
+
+        return ResponsiveScaffoldWrapper(
+          props: state.isSelectionMode
+              ? ScaffoldWrapperProps(
+                  hasAppbar: true,
+                  appBarBgColor: customColors.primary,
+                  elevation: 0,
+                  showDrawer: false,
+                  showBottomNav: false,
+                  showFloatingButton: false,
+                  resizeToAvoidBottomInset: true,
+                  leading: IconButton(
+                    icon: const Icon(Icons.close, color: Colors.white),
+                    onPressed: () => context
+                        .read<HistoryBloc>()
+                        .add(const HistoryEvent.exitSelectionMode()),
+                  ),
+                  title: Text(
+                    l10n.selectedCount(state.selectedIds.length),
+                    style: titleStyle,
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.select_all, color: Colors.white),
+                      tooltip: l10n.selectAll,
+                      onPressed: () => context
+                          .read<HistoryBloc>()
+                          .add(const HistoryEvent.selectAllCodes()),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.white),
+                      onPressed: () => _confirmAndDeleteSelected(
+                          context, l10n, state.selectedIds.length),
+                    ),
+                  ],
+                )
+              : ScaffoldWrapperProps(
+                  hasAppbar: true,
+                  appBarBgColor: customColors.primary,
+                  elevation: 0,
+                  showDrawer: false,
+                  showBottomNav: false,
+                  showFloatingButton: false,
+                  resizeToAvoidBottomInset: true,
+                  leading:
+                      const Icon(Icons.location_history, color: Colors.white),
+                  title: Text(l10n.savedLocations, style: titleStyle),
+                ),
+          mobileBody: const _HistoryBody(),
+          tabletBody: const _HistoryBody(),
+          desktopBody: const _HistoryBody(),
+        );
+      },
     );
+  }
+
+  Future<void> _confirmAndDeleteSelected(
+    BuildContext context,
+    AppLocalizations l10n,
+    int count,
+  ) async {
+    final historyBloc = context.read<HistoryBloc>();
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.confirmDeleteMultipleTitle,
+            style: context.textTheme.titleLarge),
+        content: Text(
+          l10n.confirmDeleteMultipleMessage(count),
+          style: context.textTheme.displayMedium?.copyWith(
+              fontSize: 14, color: customColors.black1.withValues(alpha: .7)),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(
+              l10n.cancel,
+              style: context.textTheme.displayLarge?.copyWith(fontSize: 14),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(
+              l10n.actionDelete,
+              style: context.textTheme.displayLarge?.copyWith(fontSize: 14),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      historyBloc.add(const HistoryEvent.deleteSelectedCodes());
+    }
   }
 }
 
@@ -49,9 +130,12 @@ class _HistoryBody extends StatelessWidget {
       listener: (context, state) async {
         final historyBloc = context.read<HistoryBloc>();
         if (state.historyActionStatus == GenericStatus.success) {
+          final deletedCount = state.lastDeletedCount;
           await DialogUtils.handleSuccess(
             context,
-            l10n.msgCodeDeleted,
+            deletedCount != null && deletedCount > 1
+                ? l10n.msgCodesDeleted(deletedCount)
+                : l10n.msgCodeDeleted,
             postActions: [
               () => historyBloc.add(const HistoryEvent.resetFlowStep()),
             ],
@@ -127,8 +211,21 @@ class _HistoryBody extends StatelessWidget {
       itemCount: state.savedCodes.length,
       itemBuilder: (context, index) {
         final code = state.savedCodes[index];
+        final codeId = code.id;
         return SavedLocationCard(
           code: code,
+          isSelectionMode: state.isSelectionMode,
+          isSelected: codeId != null && state.selectedIds.contains(codeId),
+          onLongPress: codeId != null
+              ? () => context
+                  .read<HistoryBloc>()
+                  .add(HistoryEvent.enterSelectionMode(id: codeId))
+              : null,
+          onSelectToggle: codeId != null
+              ? () => context
+                  .read<HistoryBloc>()
+                  .add(HistoryEvent.toggleItemSelection(id: codeId))
+              : null,
           onTap: code.hasCoordinates
               ? () {
                   context.read<MapViewBloc>().add(

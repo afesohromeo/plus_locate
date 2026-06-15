@@ -273,5 +273,44 @@
     "savedLocations": "Saved locations",
     "@savedLocations": {
         "description": "Terrain map type label"
+    },
+    "selectedCount": "{count} selected",
+    "@selectedCount": {
+        "description": "AppBar title showing number of selected items in selection mode",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "selectAll": "Select all",
+    "@selectAll": {
+        "description": "Button to select all saved locations"
+    },
+    "confirmDeleteMultipleTitle": "Delete saved locations",
+    "@confirmDeleteMultipleTitle": {
+        "description": "Title of the multi-delete confirmation dialog"
+    },
+    "confirmDeleteMultipleMessage": "Are you sure you want to delete {count} saved locations?",
+    "@confirmDeleteMultipleMessage": {
+        "description": "Body text of the multi-delete confirmation dialog",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "msgCodesDeleted": "{count} locations deleted",
+    "@msgCodesDeleted": {
+        "description": "Snackbar message when multiple codes are deleted from history",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "errorDeletingSelectedCodes": "Failed to delete the selected locations",
+    "@errorDeletingSelectedCodes": {
+        "description": "Error message shown when deleting multiple selected codes fails"
     }
 }

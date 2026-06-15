@@ -207,4 +207,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get savedLocations => 'Saved locations';
+
+  @override
+  String selectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get selectAll => 'Select all';
+
+  @override
+  String get confirmDeleteMultipleTitle => 'Delete saved locations';
+
+  @override
+  String confirmDeleteMultipleMessage(int count) {
+    return 'Are you sure you want to delete $count saved locations?';
+  }
+
+  @override
+  String msgCodesDeleted(int count) {
+    return '$count locations deleted';
+  }
+
+  @override
+  String get errorDeletingSelectedCodes =>
+      'Failed to delete the selected locations';
 }
