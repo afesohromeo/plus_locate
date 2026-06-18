@@ -312,5 +312,33 @@
     "errorDeletingSelectedCodes": "Failed to delete the selected locations",
     "@errorDeletingSelectedCodes": {
         "description": "Error message shown when deleting multiple selected codes fails"
+    },
+    "onboardingHeadline": "Find Your Place Everywhere.",
+    "@onboardingHeadline": {
+        "description": "Main headline on the onboarding splash screen"
+    },
+    "onboardingTagline": "Discover precise Plus Codes for any location on Earth, even without a street address. Navigate the world with architectural precision.",
+    "@onboardingTagline": {
+        "description": "Tagline / body text on the onboarding splash screen"
+    },
+    "onboardingPrecise": "Precise to 3 meters",
+    "@onboardingPrecise": {
+        "description": "Precision badge text on the sample Plus Code card"
+    },
+    "onboardingFeatureGlobal": "Global Coverage",
+    "@onboardingFeatureGlobal": {
+        "description": "First feature pill label on the onboarding screen"
+    },
+    "onboardingFeatureOffline": "Offline Access",
+    "@onboardingFeatureOffline": {
+        "description": "Second feature pill label on the onboarding screen"
+    },
+    "onboardingFeatureShare": "Easy Sharing",
+    "@onboardingFeatureShare": {
+        "description": "Third feature pill label on the onboarding screen"
+    },
+    "getStarted": "Get Started",
+    "@getStarted": {
+        "description": "CTA button text on the onboarding screen"
     }
 }

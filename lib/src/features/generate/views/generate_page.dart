@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plus_locate/src/core/core.dart';
-import 'package:plus_locate/src/shared/shared.dart';
-
+import 'package:plus_locate/plus_locate.dart';
 
 /// Stub page — will be replaced with full UI from design screens.
 class GeneratePage extends StatelessWidget {

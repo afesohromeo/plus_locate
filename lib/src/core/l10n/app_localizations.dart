@@ -524,6 +524,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to delete the selected locations'**
   String get errorDeletingSelectedCodes;
+
+  /// Main headline on the onboarding splash screen
+  ///
+  /// In en, this message translates to:
+  /// **'Find Your Place Everywhere.'**
+  String get onboardingHeadline;
+
+  /// Tagline / body text on the onboarding splash screen
+  ///
+  /// In en, this message translates to:
+  /// **'Discover precise Plus Codes for any location on Earth, even without a street address. Navigate the world with architectural precision.'**
+  String get onboardingTagline;
+
+  /// Precision badge text on the sample Plus Code card
+  ///
+  /// In en, this message translates to:
+  /// **'Precise to 3 meters'**
+  String get onboardingPrecise;
+
+  /// First feature pill label on the onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'Global Coverage'**
+  String get onboardingFeatureGlobal;
+
+  /// Second feature pill label on the onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'Offline Access'**
+  String get onboardingFeatureOffline;
+
+  /// Third feature pill label on the onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'Easy Sharing'**
+  String get onboardingFeatureShare;
+
+  /// CTA button text on the onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
 }
 
 class _AppLocalizationsDelegate

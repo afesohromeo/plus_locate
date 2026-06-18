@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plus_locate/src/core/core.dart';
-import 'package:plus_locate/src/features/features.dart';
+import 'package:plus_locate/plus_locate.dart';
 import 'package:go_router/go_router.dart';
 
 class RouteManager {
@@ -17,12 +16,29 @@ class RouteManager {
       navigatorKey: rootNavigatorKey,
       debugLogDiagnostics: true,
       initialLocation: mapViewPage,
+      redirect: (context, state) async {
+        final seen = await SecureStorageHelper.hasSeenOnboarding();
+        if (!seen && state.matchedLocation != onboardingPage) {
+          return onboardingPage;
+        }
+        return null;
+      },
       routes: [...shellSubRoutes],
     );
   }
 
   static List<RouteBase> get shellSubRoutes {
     return [
+      GoRoute(
+        name: onboardingRouteName,
+        path: onboardingPage,
+        pageBuilder: (context, state) {
+          return NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const OnboardingPage(),
+          );
+        },
+      ),
       GoRoute(
         name: homeRouteName,
         path: homePage,

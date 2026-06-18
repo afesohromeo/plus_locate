@@ -70,5 +70,12 @@
     "confirmDeleteMultipleTitle": "Supprimer les emplacements enregistrés",
     "confirmDeleteMultipleMessage": "Êtes-vous sûr de vouloir supprimer {count} emplacements enregistrés ?",
     "msgCodesDeleted": "{count} emplacements supprimés",
-    "errorDeletingSelectedCodes": "Échec de la suppression des emplacements sélectionnés"
+    "errorDeletingSelectedCodes": "Échec de la suppression des emplacements sélectionnés",
+    "onboardingHeadline": "Trouvez votre place partout.",
+    "onboardingTagline": "Découvrez des codes Plus précis pour n'importe quel endroit sur Terre, même sans adresse. Naviguez dans le monde avec une précision architecturale.",
+    "onboardingPrecise": "Précis à 3 mètres",
+    "onboardingFeatureGlobal": "Couverture mondiale",
+    "onboardingFeatureOffline": "Accès hors ligne",
+    "onboardingFeatureShare": "Partage facile",
+    "getStarted": "Commencer"
 }

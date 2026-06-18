@@ -232,4 +232,26 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorDeletingSelectedCodes =>
       'Failed to delete the selected locations';
+
+  @override
+  String get onboardingHeadline => 'Find Your Place Everywhere.';
+
+  @override
+  String get onboardingTagline =>
+      'Discover precise Plus Codes for any location on Earth, even without a street address. Navigate the world with architectural precision.';
+
+  @override
+  String get onboardingPrecise => 'Precise to 3 meters';
+
+  @override
+  String get onboardingFeatureGlobal => 'Global Coverage';
+
+  @override
+  String get onboardingFeatureOffline => 'Offline Access';
+
+  @override
+  String get onboardingFeatureShare => 'Easy Sharing';
+
+  @override
+  String get getStarted => 'Get Started';
 }

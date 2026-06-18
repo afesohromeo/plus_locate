@@ -47,4 +47,15 @@ class SecureStorageHelper {
 
     // await saveBaseUrl(baseUrl);
   }
+
+  static const kHasSeenOnboarding = 'hasSeenOnboarding';
+
+  static Future<bool> hasSeenOnboarding() async {
+    final value = await _storage.read(key: kHasSeenOnboarding);
+    return value == 'true';
+  }
+
+  static Future<void> markOnboardingSeen() async {
+    await _storage.write(key: kHasSeenOnboarding, value: 'true');
+  }
 }
