@@ -313,9 +313,13 @@
     "@errorDeletingSelectedCodes": {
         "description": "Error message shown when deleting multiple selected codes fails"
     },
-    "onboardingHeadline": "Find Your Place Everywhere.",
+    "onboardingHeadline": "Find Your Place",
     "@onboardingHeadline": {
-        "description": "Main headline on the onboarding splash screen"
+        "description": "First line of the onboarding headline (accent word follows)"
+    },
+    "onboardingHeadlineAccent": "Everywhere.",
+    "@onboardingHeadlineAccent": {
+        "description": "Accent word in the onboarding headline, rendered in primary color"
     },
     "onboardingTagline": "Discover precise Plus Codes for any location on Earth, even without a street address. Navigate the world with architectural precision.",
     "@onboardingTagline": {

@@ -234,7 +234,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Failed to delete the selected locations';
 
   @override
-  String get onboardingHeadline => 'Find Your Place Everywhere.';
+  String get onboardingHeadline => 'Find Your Place';
+
+  @override
+  String get onboardingHeadlineAccent => 'Everywhere.';
 
   @override
   String get onboardingTagline =>

@@ -237,7 +237,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Échec de la suppression des emplacements sélectionnés';
 
   @override
-  String get onboardingHeadline => 'Trouvez votre place partout.';
+  String get onboardingHeadline => 'Trouvez votre place';
+
+  @override
+  String get onboardingHeadlineAccent => 'Partout.';
 
   @override
   String get onboardingTagline =>

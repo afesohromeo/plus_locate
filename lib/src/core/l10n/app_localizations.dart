@@ -525,11 +525,17 @@ abstract class AppLocalizations {
   /// **'Failed to delete the selected locations'**
   String get errorDeletingSelectedCodes;
 
-  /// Main headline on the onboarding splash screen
+  /// First line of the onboarding headline (accent word follows)
   ///
   /// In en, this message translates to:
-  /// **'Find Your Place Everywhere.'**
+  /// **'Find Your Place'**
   String get onboardingHeadline;
+
+  /// Accent word in the onboarding headline, rendered in primary color
+  ///
+  /// In en, this message translates to:
+  /// **'Everywhere.'**
+  String get onboardingHeadlineAccent;
 
   /// Tagline / body text on the onboarding splash screen
   ///
