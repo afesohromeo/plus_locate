@@ -240,6 +240,7 @@ class _HistoryBody extends StatelessWidget {
                             locality: code.locality,
                           ),
                           locationResult: LocationResult(
+                            formattedAddress: code.address,
                             latitude: code.latitude,
                             longitude: code.longitude,
                             locality: code.locality,

@@ -7,7 +7,7 @@ flutter_native_splash:
   color: "#1A73E8"
 
   # Centered logo image (use a white/light version of the logo for contrast)
-  image: assets/images/PlusLocate_5.png
+  image: assets/images/splash_screen.png
 
   # Keep splash centered on Android
   android_gravity: center
@@ -18,7 +18,7 @@ flutter_native_splash:
 
   # Android 12+ specific configuration
   android_12:
-    image: assets/images/PlusLocate_5.png
+    image: assets/images/logo_splash12.png
     color: "#1A73E8"
     # Android 12 clips the icon to a circle — logo should be 1152x1152px
     # and fit within a 768px circle for best results

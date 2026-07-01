@@ -1,0 +1,6 @@
+# This file is used to configure the Shorebird updater used by your application.
+# Learn more at https://shorebird.dev
+# This file should be checked into version control.
+
+# Your unique application id — run `shorebird init` after `shorebird login` to populate this.
+app_id: ''

@@ -35,15 +35,22 @@ class SavedCodesRepository {
     }
   }
 
-  /// Save a new Plus Code to local storage.
+  /// Save a Plus Code to local storage.
+  /// If a code with the same [SavedCode.globalCode] already exists, it is
+  /// updated in place (same Hive key) and its [SavedCode.savedAt] is
+  /// refreshed so it rises to the top of the history list.
   Future<SavedCode?> saveCode(SavedCode code) async {
     try {
       final box = await _getBox();
-      final id = code.id ?? DateTime.now().millisecondsSinceEpoch.toString();
-      final codeToSave = code.copyWith(
-        id: id,
-        savedAt: code.savedAt ?? DateTime.now(),
-      );
+
+      final existing = box.values.cast<SavedCode?>().firstWhere(
+            (c) => c?.globalCode == code.globalCode,
+            orElse: () => null,
+          );
+
+      final id =
+          existing?.id ?? code.id ?? DateTime.now().millisecondsSinceEpoch.toString();
+      final codeToSave = code.copyWith(id: id, savedAt: DateTime.now());
       await box.put(id, codeToSave);
       return codeToSave;
     } catch (e) {
