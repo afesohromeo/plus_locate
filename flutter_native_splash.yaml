@@ -4,10 +4,11 @@ flutter_native_splash:
   # Remove: dart run flutter_native_splash:remove
 
   # Primary blue background matching customColors.primary (#1A73E8)
-  color: "#1A73E8"
+  # color: "#1A73E8"
+  background_image: assets/images/gradient.png
 
   # Centered logo image (use a white/light version of the logo for contrast)
-  image: assets/images/splash_screen.png
+  image: assets/images/logo_splash2.png
 
   # Keep splash centered on Android
   android_gravity: center
@@ -18,7 +19,8 @@ flutter_native_splash:
 
   # Android 12+ specific configuration
   android_12:
+    background_image: assets/images/gradient.png
     image: assets/images/logo_splash12.png
-    color: "#1A73E8"
+    # color: "#1A73E8"
     # Android 12 clips the icon to a circle — logo should be 1152x1152px
     # and fit within a 768px circle for best results
