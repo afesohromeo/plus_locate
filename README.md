@@ -8,13 +8,13 @@ It exists because a large share of the world doesn't have (or doesn't have relia
 
 ## Screenshots
 
-| Home | Generate | Search |
-|------|----------|--------|
-| ![Home](docs/screenshots/home.png) | ![Generate](docs/screenshots/generate.png) | ![Search](docs/screenshots/search.png) |
+| Onboarding |
+|------|
+| ![Onboarding](doc/screenshots/onboarding.png) |
 
-| Map | History | Settings |
+| Map | Saved location | Search |
 |-----|---------|----------|
-| ![Map](docs/screenshots/map.png) | ![History](docs/screenshots/history.png) | ![Settings](docs/screenshots/settings.png) |
+| ![Map](doc/screenshots/home_map_page.png) | ![Saved location](doc/screenshots/saved_locations.png) | ![Search](doc/screenshots/search_pluscode.png) |
 
 ---
 
