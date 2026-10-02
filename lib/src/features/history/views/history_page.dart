@@ -229,7 +229,11 @@ class _HistoryBody extends StatelessWidget {
               resetFlowStep();
               if (path != null) {
                 await Share.shareXFiles(
-                  [XFile(path, mimeType: 'application/json')],
+                  // Android lists only apps registered for the declared
+                  // type; almost none (not WhatsApp) take application/json,
+                  // and share_plus infers that from ".json" when no type is
+                  // given. "*/*" matches every app that accepts files.
+                  [XFile(path, mimeType: '*/*')],
                   subject: l10n.exportShareSubject,
                 );
               }
