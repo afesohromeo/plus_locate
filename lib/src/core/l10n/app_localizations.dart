@@ -709,6 +709,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t update the label. Please try again.'**
   String get errorUpdatingLabel;
+
+  /// Saved tab menu item: export saved locations to a file
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get actionExport;
+
+  /// Saved tab menu item: import saved locations from a file
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get actionImport;
+
+  /// Subject used when sharing the export file
+  ///
+  /// In en, this message translates to:
+  /// **'PlusLocate saved locations'**
+  String get exportShareSubject;
+
+  /// Success message after importing saved locations
+  ///
+  /// In en, this message translates to:
+  /// **'{added, plural, =0{No new locations imported.} =1{1 location imported.} other{{added} locations imported.}}'**
+  String msgImportResult(int added);
+
+  /// Appended to the import message when some locations were already saved
+  ///
+  /// In en, this message translates to:
+  /// **'{skipped, plural, =1{1 was already saved.} other{{skipped} were already saved.}}'**
+  String msgImportSkipped(int skipped);
+
+  /// Error when writing the export file fails
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t export your saved locations. Please try again.'**
+  String get errorExportFailed;
+
+  /// Error when the picked file isn't a PlusLocate export
+  ///
+  /// In en, this message translates to:
+  /// **'This file isn\'t a PlusLocate export.'**
+  String get errorImportInvalidFile;
+
+  /// Error when reading or importing the file fails
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t import the file. Please try again.'**
+  String get errorImportFailed;
 }
 
 class _AppLocalizationsDelegate

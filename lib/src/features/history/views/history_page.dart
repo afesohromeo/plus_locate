@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plus_locate/plus_locate.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -14,7 +18,8 @@ class HistoryPage extends StatelessWidget {
     return BlocBuilder<HistoryBloc, HistoryState>(
       buildWhen: (previous, current) =>
           previous.isSelectionMode != current.isSelectionMode ||
-          previous.selectedIds != current.selectedIds,
+          previous.selectedIds != current.selectedIds ||
+          previous.savedCodes.isEmpty != current.savedCodes.isEmpty,
       builder: (context, state) {
         final titleStyle = context.textTheme.displayLarge
             ?.copyWith(color: customColors.surface, fontSize: 18);
@@ -65,6 +70,32 @@ class HistoryPage extends StatelessWidget {
                   leading:
                       const Icon(Icons.location_history, color: Colors.white),
                   title: Text(l10n.savedLocations, style: titleStyle),
+                  actions: [
+                    PopupMenuButton<String>(
+                      icon: const Icon(Icons.more_vert, color: Colors.white),
+                      tooltip:
+                          MaterialLocalizations.of(context).showMenuTooltip,
+                      onSelected: (value) {
+                        if (value == 'export') {
+                          context
+                              .read<HistoryBloc>()
+                              .add(const HistoryEvent.exportSavedCodes());
+                        }
+                        if (value == 'import') _pickAndImport(context, l10n);
+                      },
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          value: 'export',
+                          enabled: state.savedCodes.isNotEmpty,
+                          child: Text(l10n.actionExport),
+                        ),
+                        PopupMenuItem(
+                          value: 'import',
+                          child: Text(l10n.actionImport),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
           mobileBody: const _HistoryBody(),
           tabletBody: const _HistoryBody(),
@@ -72,6 +103,32 @@ class HistoryPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _pickAndImport(
+    BuildContext context,
+    AppLocalizations l10n,
+  ) async {
+    final historyBloc = context.read<HistoryBloc>();
+    try {
+      final picked = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['json'],
+        withData: true,
+      );
+      final bytes = picked?.files.single.bytes;
+      if (bytes == null) return;
+
+      historyBloc.add(
+        HistoryEvent.importSavedCodes(
+          content: utf8.decode(bytes, allowMalformed: true),
+        ),
+      );
+    } catch (e) {
+      if (context.mounted) {
+        await DialogUtils.handleFailure(context, l10n.errorImportFailed);
+      }
+    }
   }
 
   Future<void> _confirmAndDeleteSelected(
@@ -125,35 +182,58 @@ class _HistoryBody extends StatelessWidget {
     return BlocConsumer<HistoryBloc, HistoryState>(
       listenWhen: (previous, current) =>
           previous.historyActionStatus != current.historyActionStatus &&
-          (current.flowStep == GenericFlowStep.deletingItem ||
-              current.flowStep == GenericFlowStep.updatingItem),
+          const {
+            GenericFlowStep.deletingItem,
+            GenericFlowStep.updatingItem,
+            GenericFlowStep.exportingItems,
+            GenericFlowStep.importingItems,
+          }.contains(current.flowStep),
       listener: (context, state) async {
         final historyBloc = context.read<HistoryBloc>();
-        final isLabelUpdate = state.flowStep == GenericFlowStep.updatingItem;
+        void resetFlowStep() =>
+            historyBloc.add(const HistoryEvent.resetFlowStep());
 
-        // A label change shows up in the list itself; no success dialog.
-        if (isLabelUpdate &&
-            state.historyActionStatus == GenericStatus.success) {
-          historyBloc.add(const HistoryEvent.resetFlowStep());
-        } else if (state.historyActionStatus == GenericStatus.success) {
-          final deletedCount = state.lastDeletedCount;
-          await DialogUtils.handleSuccess(
-            context,
-            deletedCount != null && deletedCount > 1
-                ? l10n.msgCodesDeleted(deletedCount)
-                : l10n.msgCodeDeleted,
-            postActions: [
-              () => historyBloc.add(const HistoryEvent.resetFlowStep()),
-            ],
-          );
+        if (state.historyActionStatus == GenericStatus.success) {
+          switch (state.flowStep) {
+            // A label change shows up in the list itself; no dialog.
+            case GenericFlowStep.updatingItem:
+              resetFlowStep();
+            case GenericFlowStep.exportingItems:
+              final path = state.exportFilePath;
+              resetFlowStep();
+              if (path != null) {
+                await Share.shareXFiles(
+                  [XFile(path, mimeType: 'application/json')],
+                  subject: l10n.exportShareSubject,
+                );
+              }
+            case GenericFlowStep.importingItems:
+              final added = state.lastImportAdded ?? 0;
+              final skipped = state.lastImportSkipped ?? 0;
+              await DialogUtils.handleSuccess(
+                context,
+                skipped > 0
+                    ? '${l10n.msgImportResult(added)} '
+                        '${l10n.msgImportSkipped(skipped)}'
+                    : l10n.msgImportResult(added),
+                postActions: [resetFlowStep],
+              );
+            default:
+              final deletedCount = state.lastDeletedCount;
+              await DialogUtils.handleSuccess(
+                context,
+                deletedCount != null && deletedCount > 1
+                    ? l10n.msgCodesDeleted(deletedCount)
+                    : l10n.msgCodeDeleted,
+                postActions: [resetFlowStep],
+              );
+          }
         } else if (state.historyActionStatus == GenericStatus.failure) {
           if (context.mounted) {
             await DialogUtils.handleFailure(
               context,
               state.historyActionErrorMessage ?? l10n.operationError,
-              postActions: [
-                () => historyBloc.add(const HistoryEvent.resetFlowStep()),
-              ],
+              postActions: [resetFlowStep],
             );
           }
         }

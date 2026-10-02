@@ -20,5 +20,11 @@ sealed class HistoryState with _$HistoryState {
     @Default(false) bool isSelectionMode,
     @Default(<String>{}) Set<String> selectedIds,
     int? lastDeletedCount,
+
+    // --- Export / import results ---
+    /// Path of the file written by the last export, ready to share.
+    String? exportFilePath,
+    int? lastImportAdded,
+    int? lastImportSkipped,
   }) = _HistoryState;
 }

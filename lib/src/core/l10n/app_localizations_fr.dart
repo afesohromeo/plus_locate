@@ -339,4 +339,48 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get errorUpdatingLabel =>
       'Impossible de modifier le libellé. Veuillez réessayer.';
+
+  @override
+  String get actionExport => 'Exporter';
+
+  @override
+  String get actionImport => 'Importer';
+
+  @override
+  String get exportShareSubject => 'Emplacements enregistrés PlusLocate';
+
+  @override
+  String msgImportResult(int added) {
+    String _temp0 = intl.Intl.pluralLogic(
+      added,
+      locale: localeName,
+      other: '$added emplacements importés.',
+      one: '1 emplacement importé.',
+      zero: 'Aucun nouvel emplacement importé.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String msgImportSkipped(int skipped) {
+    String _temp0 = intl.Intl.pluralLogic(
+      skipped,
+      locale: localeName,
+      other: '$skipped étaient déjà enregistrés.',
+      one: '1 était déjà enregistré.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get errorExportFailed =>
+      'Impossible d\'exporter vos emplacements enregistrés. Veuillez réessayer.';
+
+  @override
+  String get errorImportInvalidFile =>
+      'Ce fichier n\'est pas un export PlusLocate.';
+
+  @override
+  String get errorImportFailed =>
+      'Impossible d\'importer le fichier. Veuillez réessayer.';
 }

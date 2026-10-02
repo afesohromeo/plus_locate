@@ -42,6 +42,11 @@ dependencies:
   open_location_code: ^1.0.1
   geocoding: ^4.0.0
   qr_flutter: ^4.1.0
+  # Pinned: 11+ relies on AGP built-in Kotlin, which android/gradle.properties
+  # disables (android.builtInKotlin=false), so its plugin class isn't compiled
+  # and the Android build fails. 10.3.10 applies the Kotlin plugin itself and
+  # compiles against Flutter's compileSdk (older 10.x use 34, too low).
+  file_picker: 10.3.10
 
 dev_dependencies:
   flutter_test:

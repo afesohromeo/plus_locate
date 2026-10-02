@@ -31,6 +31,72 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     on<_ExitSelectionMode>(_onExitSelectionMode);
     on<_DeleteSelectedCodes>(_onDeleteSelectedCodes);
     on<_UpdateLabel>(_onUpdateLabel);
+    on<_ExportSavedCodes>(_onExportSavedCodes);
+    on<_ImportSavedCodes>(_onImportSavedCodes);
+  }
+
+  Future<void> _onExportSavedCodes(
+    _ExportSavedCodes event,
+    Emitter<HistoryState> emit,
+  ) async {
+    emit(state.copyWith(
+      flowStep: GenericFlowStep.exportingItems,
+      historyActionStatus: GenericStatus.loading,
+      historyActionErrorMessage: null,
+      exportFilePath: null,
+    ));
+
+    try {
+      final path = await _repository.exportToFile();
+      emit(state.copyWith(
+        historyActionStatus: GenericStatus.success,
+        exportFilePath: path,
+      ));
+    } catch (e) {
+      log('Error exporting saved codes: $e');
+      emit(state.copyWith(
+        historyActionStatus: GenericStatus.failure,
+        historyActionErrorMessage:
+            LocalizationService.localization.errorExportFailed,
+      ));
+    }
+  }
+
+  Future<void> _onImportSavedCodes(
+    _ImportSavedCodes event,
+    Emitter<HistoryState> emit,
+  ) async {
+    emit(state.copyWith(
+      flowStep: GenericFlowStep.importingItems,
+      historyActionStatus: GenericStatus.loading,
+      historyActionErrorMessage: null,
+      lastImportAdded: null,
+      lastImportSkipped: null,
+    ));
+
+    try {
+      final result = await _repository.importJson(event.content);
+      emit(state.copyWith(
+        historyActionStatus: GenericStatus.success,
+        lastImportAdded: result.added,
+        lastImportSkipped: result.skipped,
+      ));
+      add(const HistoryEvent.fetchSavedCodes());
+    } on FormatException catch (e) {
+      log('Rejected import file: $e');
+      emit(state.copyWith(
+        historyActionStatus: GenericStatus.failure,
+        historyActionErrorMessage:
+            LocalizationService.localization.errorImportInvalidFile,
+      ));
+    } catch (e) {
+      log('Error importing saved codes: $e');
+      emit(state.copyWith(
+        historyActionStatus: GenericStatus.failure,
+        historyActionErrorMessage:
+            LocalizationService.localization.errorImportFailed,
+      ));
+    }
   }
 
   Future<void> _onUpdateLabel(
@@ -191,6 +257,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       historyActionStatus: GenericStatus.initial,
       historyActionErrorMessage: null,
       lastDeletedCount: null,
+      exportFilePath: null,
+      lastImportAdded: null,
+      lastImportSkipped: null,
     ));
   }
 

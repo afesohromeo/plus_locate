@@ -63,6 +63,8 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult Function(_SelectAllCodes value)? selectAllCodes,
     TResult Function(_ExitSelectionMode value)? exitSelectionMode,
     TResult Function(_DeleteSelectedCodes value)? deleteSelectedCodes,
+    TResult Function(_ExportSavedCodes value)? exportSavedCodes,
+    TResult Function(_ImportSavedCodes value)? importSavedCodes,
     TResult Function(_UpdateLabel value)? updateLabel,
     required TResult orElse(),
   }) {
@@ -92,6 +94,10 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode(_that);
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes(_that);
+      case _ExportSavedCodes() when exportSavedCodes != null:
+        return exportSavedCodes(_that);
+      case _ImportSavedCodes() when importSavedCodes != null:
+        return importSavedCodes(_that);
       case _UpdateLabel() when updateLabel != null:
         return updateLabel(_that);
       case _:
@@ -126,6 +132,8 @@ extension HistoryEventPatterns on HistoryEvent {
     required TResult Function(_SelectAllCodes value) selectAllCodes,
     required TResult Function(_ExitSelectionMode value) exitSelectionMode,
     required TResult Function(_DeleteSelectedCodes value) deleteSelectedCodes,
+    required TResult Function(_ExportSavedCodes value) exportSavedCodes,
+    required TResult Function(_ImportSavedCodes value) importSavedCodes,
     required TResult Function(_UpdateLabel value) updateLabel,
   }) {
     final _that = this;
@@ -154,6 +162,10 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode(_that);
       case _DeleteSelectedCodes():
         return deleteSelectedCodes(_that);
+      case _ExportSavedCodes():
+        return exportSavedCodes(_that);
+      case _ImportSavedCodes():
+        return importSavedCodes(_that);
       case _UpdateLabel():
         return updateLabel(_that);
       case _:
@@ -187,6 +199,8 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult? Function(_SelectAllCodes value)? selectAllCodes,
     TResult? Function(_ExitSelectionMode value)? exitSelectionMode,
     TResult? Function(_DeleteSelectedCodes value)? deleteSelectedCodes,
+    TResult? Function(_ExportSavedCodes value)? exportSavedCodes,
+    TResult? Function(_ImportSavedCodes value)? importSavedCodes,
     TResult? Function(_UpdateLabel value)? updateLabel,
   }) {
     final _that = this;
@@ -215,6 +229,10 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode(_that);
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes(_that);
+      case _ExportSavedCodes() when exportSavedCodes != null:
+        return exportSavedCodes(_that);
+      case _ImportSavedCodes() when importSavedCodes != null:
+        return importSavedCodes(_that);
       case _UpdateLabel() when updateLabel != null:
         return updateLabel(_that);
       case _:
@@ -248,6 +266,8 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult Function()? selectAllCodes,
     TResult Function()? exitSelectionMode,
     TResult Function()? deleteSelectedCodes,
+    TResult Function()? exportSavedCodes,
+    TResult Function(String content)? importSavedCodes,
     TResult Function(String id, String? label)? updateLabel,
     required TResult orElse(),
   }) {
@@ -277,6 +297,10 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode();
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes();
+      case _ExportSavedCodes() when exportSavedCodes != null:
+        return exportSavedCodes();
+      case _ImportSavedCodes() when importSavedCodes != null:
+        return importSavedCodes(_that.content);
       case _UpdateLabel() when updateLabel != null:
         return updateLabel(_that.id, _that.label);
       case _:
@@ -311,6 +335,8 @@ extension HistoryEventPatterns on HistoryEvent {
     required TResult Function() selectAllCodes,
     required TResult Function() exitSelectionMode,
     required TResult Function() deleteSelectedCodes,
+    required TResult Function() exportSavedCodes,
+    required TResult Function(String content) importSavedCodes,
     required TResult Function(String id, String? label) updateLabel,
   }) {
     final _that = this;
@@ -339,6 +365,10 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode();
       case _DeleteSelectedCodes():
         return deleteSelectedCodes();
+      case _ExportSavedCodes():
+        return exportSavedCodes();
+      case _ImportSavedCodes():
+        return importSavedCodes(_that.content);
       case _UpdateLabel():
         return updateLabel(_that.id, _that.label);
       case _:
@@ -372,6 +402,8 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult? Function()? selectAllCodes,
     TResult? Function()? exitSelectionMode,
     TResult? Function()? deleteSelectedCodes,
+    TResult? Function()? exportSavedCodes,
+    TResult? Function(String content)? importSavedCodes,
     TResult? Function(String id, String? label)? updateLabel,
   }) {
     final _that = this;
@@ -400,6 +432,10 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode();
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes();
+      case _ExportSavedCodes() when exportSavedCodes != null:
+        return exportSavedCodes();
+      case _ImportSavedCodes() when importSavedCodes != null:
+        return importSavedCodes(_that.content);
       case _UpdateLabel() when updateLabel != null:
         return updateLabel(_that.id, _that.label);
       case _:
@@ -889,6 +925,92 @@ class _DeleteSelectedCodes implements HistoryEvent {
 
 /// @nodoc
 
+class _ExportSavedCodes implements HistoryEvent {
+  const _ExportSavedCodes();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ExportSavedCodes);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'HistoryEvent.exportSavedCodes()';
+  }
+}
+
+/// @nodoc
+
+class _ImportSavedCodes implements HistoryEvent {
+  const _ImportSavedCodes({required this.content});
+
+  final String content;
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ImportSavedCodesCopyWith<_ImportSavedCodes> get copyWith =>
+      __$ImportSavedCodesCopyWithImpl<_ImportSavedCodes>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ImportSavedCodes &&
+            (identical(other.content, content) || other.content == content));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, content);
+  }
+
+  @override
+  String toString() {
+    return 'HistoryEvent.importSavedCodes(content: $content)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ImportSavedCodesCopyWith<$Res>
+    implements $HistoryEventCopyWith<$Res> {
+  factory _$ImportSavedCodesCopyWith(
+          _ImportSavedCodes value, $Res Function(_ImportSavedCodes) _then) =
+      __$ImportSavedCodesCopyWithImpl;
+  @useResult
+  $Res call({String content});
+}
+
+/// @nodoc
+class __$ImportSavedCodesCopyWithImpl<$Res>
+    implements _$ImportSavedCodesCopyWith<$Res> {
+  __$ImportSavedCodesCopyWithImpl(this._self, this._then);
+
+  final _ImportSavedCodes _self;
+  final $Res Function(_ImportSavedCodes) _then;
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? content = null,
+  }) {
+    return _then(_ImportSavedCodes(
+      content: null == content
+          ? _self.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
 class _UpdateLabel implements HistoryEvent {
   const _UpdateLabel({required this.id, this.label});
 
@@ -971,6 +1093,11 @@ mixin _$HistoryState {
   Set<String> get selectedIds;
   int? get lastDeletedCount;
 
+  /// Path of the file written by the last export, ready to share.
+  String? get exportFilePath;
+  int? get lastImportAdded;
+  int? get lastImportSkipped;
+
   /// Create a copy of HistoryState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1004,7 +1131,13 @@ mixin _$HistoryState {
             const DeepCollectionEquality()
                 .equals(other.selectedIds, _this.selectedIds) &&
             (identical(other.lastDeletedCount, _this.lastDeletedCount) ||
-                other.lastDeletedCount == _this.lastDeletedCount));
+                other.lastDeletedCount == _this.lastDeletedCount) &&
+            (identical(other.exportFilePath, _this.exportFilePath) ||
+                other.exportFilePath == _this.exportFilePath) &&
+            (identical(other.lastImportAdded, _this.lastImportAdded) ||
+                other.lastImportAdded == _this.lastImportAdded) &&
+            (identical(other.lastImportSkipped, _this.lastImportSkipped) ||
+                other.lastImportSkipped == _this.lastImportSkipped));
   }
 
   @override
@@ -1020,13 +1153,16 @@ mixin _$HistoryState {
         _this.historyActionErrorMessage,
         _this.isSelectionMode,
         const DeepCollectionEquality().hash(_this.selectedIds),
-        _this.lastDeletedCount);
+        _this.lastDeletedCount,
+        _this.exportFilePath,
+        _this.lastImportAdded,
+        _this.lastImportSkipped);
   }
 
   @override
   String toString() {
     final _this = this as HistoryState;
-    return 'HistoryState(savedCodes: ${_this.savedCodes}, historyStatus: ${_this.historyStatus}, historyActionStatus: ${_this.historyActionStatus}, flowStep: ${_this.flowStep}, historyErrorMessage: ${_this.historyErrorMessage}, historyActionErrorMessage: ${_this.historyActionErrorMessage}, isSelectionMode: ${_this.isSelectionMode}, selectedIds: ${_this.selectedIds}, lastDeletedCount: ${_this.lastDeletedCount})';
+    return 'HistoryState(savedCodes: ${_this.savedCodes}, historyStatus: ${_this.historyStatus}, historyActionStatus: ${_this.historyActionStatus}, flowStep: ${_this.flowStep}, historyErrorMessage: ${_this.historyErrorMessage}, historyActionErrorMessage: ${_this.historyActionErrorMessage}, isSelectionMode: ${_this.isSelectionMode}, selectedIds: ${_this.selectedIds}, lastDeletedCount: ${_this.lastDeletedCount}, exportFilePath: ${_this.exportFilePath}, lastImportAdded: ${_this.lastImportAdded}, lastImportSkipped: ${_this.lastImportSkipped})';
   }
 }
 
@@ -1045,7 +1181,10 @@ abstract mixin class $HistoryStateCopyWith<$Res> {
       String? historyActionErrorMessage,
       bool isSelectionMode,
       Set<String> selectedIds,
-      int? lastDeletedCount});
+      int? lastDeletedCount,
+      String? exportFilePath,
+      int? lastImportAdded,
+      int? lastImportSkipped});
 }
 
 /// @nodoc
@@ -1069,6 +1208,9 @@ class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
     Object? isSelectionMode = null,
     Object? selectedIds = null,
     Object? lastDeletedCount = freezed,
+    Object? exportFilePath = freezed,
+    Object? lastImportAdded = freezed,
+    Object? lastImportSkipped = freezed,
   }) {
     return _then(HistoryState(
       savedCodes: null == savedCodes
@@ -1106,6 +1248,18 @@ class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
       lastDeletedCount: freezed == lastDeletedCount
           ? _self.lastDeletedCount
           : lastDeletedCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exportFilePath: freezed == exportFilePath
+          ? _self.exportFilePath
+          : exportFilePath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastImportAdded: freezed == lastImportAdded
+          ? _self.lastImportAdded
+          : lastImportAdded // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastImportSkipped: freezed == lastImportSkipped
+          ? _self.lastImportSkipped
+          : lastImportSkipped // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -1211,7 +1365,10 @@ extension HistoryStatePatterns on HistoryState {
             String? historyActionErrorMessage,
             bool isSelectionMode,
             Set<String> selectedIds,
-            int? lastDeletedCount)?
+            int? lastDeletedCount,
+            String? exportFilePath,
+            int? lastImportAdded,
+            int? lastImportSkipped)?
         $default, {
     required TResult orElse(),
   }) {
@@ -1227,7 +1384,10 @@ extension HistoryStatePatterns on HistoryState {
             _that.historyActionErrorMessage,
             _that.isSelectionMode,
             _that.selectedIds,
-            _that.lastDeletedCount);
+            _that.lastDeletedCount,
+            _that.exportFilePath,
+            _that.lastImportAdded,
+            _that.lastImportSkipped);
       case _:
         return orElse();
     }
@@ -1257,7 +1417,10 @@ extension HistoryStatePatterns on HistoryState {
             String? historyActionErrorMessage,
             bool isSelectionMode,
             Set<String> selectedIds,
-            int? lastDeletedCount)
+            int? lastDeletedCount,
+            String? exportFilePath,
+            int? lastImportAdded,
+            int? lastImportSkipped)
         $default,
   ) {
     final _that = this;
@@ -1272,7 +1435,10 @@ extension HistoryStatePatterns on HistoryState {
             _that.historyActionErrorMessage,
             _that.isSelectionMode,
             _that.selectedIds,
-            _that.lastDeletedCount);
+            _that.lastDeletedCount,
+            _that.exportFilePath,
+            _that.lastImportAdded,
+            _that.lastImportSkipped);
     }
   }
 
@@ -1299,7 +1465,10 @@ extension HistoryStatePatterns on HistoryState {
             String? historyActionErrorMessage,
             bool isSelectionMode,
             Set<String> selectedIds,
-            int? lastDeletedCount)?
+            int? lastDeletedCount,
+            String? exportFilePath,
+            int? lastImportAdded,
+            int? lastImportSkipped)?
         $default,
   ) {
     final _that = this;
@@ -1314,7 +1483,10 @@ extension HistoryStatePatterns on HistoryState {
             _that.historyActionErrorMessage,
             _that.isSelectionMode,
             _that.selectedIds,
-            _that.lastDeletedCount);
+            _that.lastDeletedCount,
+            _that.exportFilePath,
+            _that.lastImportAdded,
+            _that.lastImportSkipped);
       case _:
         return null;
     }
@@ -1333,7 +1505,10 @@ class _HistoryState implements HistoryState {
       this.historyActionErrorMessage,
       this.isSelectionMode = false,
       Set<String> selectedIds = const <String>{},
-      this.lastDeletedCount})
+      this.lastDeletedCount,
+      this.exportFilePath,
+      this.lastImportAdded,
+      this.lastImportSkipped})
       : _savedCodes = savedCodes,
         _selectedIds = selectedIds;
 
@@ -1374,6 +1549,14 @@ class _HistoryState implements HistoryState {
   @override
   final int? lastDeletedCount;
 
+  /// Path of the file written by the last export, ready to share.
+  @override
+  final String? exportFilePath;
+  @override
+  final int? lastImportAdded;
+  @override
+  final int? lastImportSkipped;
+
   /// Create a copy of HistoryState
   /// with the given fields replaced by the non-null parameter values.
   @override
@@ -1405,7 +1588,13 @@ class _HistoryState implements HistoryState {
             const DeepCollectionEquality()
                 .equals(other.selectedIds, _selectedIds) &&
             (identical(other.lastDeletedCount, lastDeletedCount) ||
-                other.lastDeletedCount == lastDeletedCount));
+                other.lastDeletedCount == lastDeletedCount) &&
+            (identical(other.exportFilePath, exportFilePath) ||
+                other.exportFilePath == exportFilePath) &&
+            (identical(other.lastImportAdded, lastImportAdded) ||
+                other.lastImportAdded == lastImportAdded) &&
+            (identical(other.lastImportSkipped, lastImportSkipped) ||
+                other.lastImportSkipped == lastImportSkipped));
   }
 
   @override
@@ -1420,12 +1609,15 @@ class _HistoryState implements HistoryState {
         historyActionErrorMessage,
         isSelectionMode,
         const DeepCollectionEquality().hash(_selectedIds),
-        lastDeletedCount);
+        lastDeletedCount,
+        exportFilePath,
+        lastImportAdded,
+        lastImportSkipped);
   }
 
   @override
   String toString() {
-    return 'HistoryState(savedCodes: $savedCodes, historyStatus: $historyStatus, historyActionStatus: $historyActionStatus, flowStep: $flowStep, historyErrorMessage: $historyErrorMessage, historyActionErrorMessage: $historyActionErrorMessage, isSelectionMode: $isSelectionMode, selectedIds: $selectedIds, lastDeletedCount: $lastDeletedCount)';
+    return 'HistoryState(savedCodes: $savedCodes, historyStatus: $historyStatus, historyActionStatus: $historyActionStatus, flowStep: $flowStep, historyErrorMessage: $historyErrorMessage, historyActionErrorMessage: $historyActionErrorMessage, isSelectionMode: $isSelectionMode, selectedIds: $selectedIds, lastDeletedCount: $lastDeletedCount, exportFilePath: $exportFilePath, lastImportAdded: $lastImportAdded, lastImportSkipped: $lastImportSkipped)';
   }
 }
 
@@ -1446,7 +1638,10 @@ abstract mixin class _$HistoryStateCopyWith<$Res>
       String? historyActionErrorMessage,
       bool isSelectionMode,
       Set<String> selectedIds,
-      int? lastDeletedCount});
+      int? lastDeletedCount,
+      String? exportFilePath,
+      int? lastImportAdded,
+      int? lastImportSkipped});
 }
 
 /// @nodoc
@@ -1471,6 +1666,9 @@ class __$HistoryStateCopyWithImpl<$Res>
     Object? isSelectionMode = null,
     Object? selectedIds = null,
     Object? lastDeletedCount = freezed,
+    Object? exportFilePath = freezed,
+    Object? lastImportAdded = freezed,
+    Object? lastImportSkipped = freezed,
   }) {
     return _then(_HistoryState(
       savedCodes: null == savedCodes
@@ -1508,6 +1706,18 @@ class __$HistoryStateCopyWithImpl<$Res>
       lastDeletedCount: freezed == lastDeletedCount
           ? _self.lastDeletedCount
           : lastDeletedCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exportFilePath: freezed == exportFilePath
+          ? _self.exportFilePath
+          : exportFilePath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastImportAdded: freezed == lastImportAdded
+          ? _self.lastImportAdded
+          : lastImportAdded // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastImportSkipped: freezed == lastImportSkipped
+          ? _self.lastImportSkipped
+          : lastImportSkipped // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }

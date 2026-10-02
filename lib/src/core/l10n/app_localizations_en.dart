@@ -336,4 +336,47 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorUpdatingLabel =>
       'Couldn\'t update the label. Please try again.';
+
+  @override
+  String get actionExport => 'Export';
+
+  @override
+  String get actionImport => 'Import';
+
+  @override
+  String get exportShareSubject => 'PlusLocate saved locations';
+
+  @override
+  String msgImportResult(int added) {
+    String _temp0 = intl.Intl.pluralLogic(
+      added,
+      locale: localeName,
+      other: '$added locations imported.',
+      one: '1 location imported.',
+      zero: 'No new locations imported.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String msgImportSkipped(int skipped) {
+    String _temp0 = intl.Intl.pluralLogic(
+      skipped,
+      locale: localeName,
+      other: '$skipped were already saved.',
+      one: '1 was already saved.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get errorExportFailed =>
+      'Couldn\'t export your saved locations. Please try again.';
+
+  @override
+  String get errorImportInvalidFile => 'This file isn\'t a PlusLocate export.';
+
+  @override
+  String get errorImportFailed =>
+      'Couldn\'t import the file. Please try again.';
 }

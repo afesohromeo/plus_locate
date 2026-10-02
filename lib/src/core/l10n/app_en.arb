@@ -432,5 +432,47 @@
     "errorUpdatingLabel": "Couldn't update the label. Please try again.",
     "@errorUpdatingLabel": {
         "description": "Error shown when changing a saved location's label fails"
+    },
+    "actionExport": "Export",
+    "@actionExport": {
+        "description": "Saved tab menu item: export saved locations to a file"
+    },
+    "actionImport": "Import",
+    "@actionImport": {
+        "description": "Saved tab menu item: import saved locations from a file"
+    },
+    "exportShareSubject": "PlusLocate saved locations",
+    "@exportShareSubject": {
+        "description": "Subject used when sharing the export file"
+    },
+    "msgImportResult": "{added, plural, =0{No new locations imported.} =1{1 location imported.} other{{added} locations imported.}}",
+    "@msgImportResult": {
+        "description": "Success message after importing saved locations",
+        "placeholders": {
+            "added": {
+                "type": "int"
+            }
+        }
+    },
+    "msgImportSkipped": "{skipped, plural, =1{1 was already saved.} other{{skipped} were already saved.}}",
+    "@msgImportSkipped": {
+        "description": "Appended to the import message when some locations were already saved",
+        "placeholders": {
+            "skipped": {
+                "type": "int"
+            }
+        }
+    },
+    "errorExportFailed": "Couldn't export your saved locations. Please try again.",
+    "@errorExportFailed": {
+        "description": "Error when writing the export file fails"
+    },
+    "errorImportInvalidFile": "This file isn't a PlusLocate export.",
+    "@errorImportInvalidFile": {
+        "description": "Error when the picked file isn't a PlusLocate export"
+    },
+    "errorImportFailed": "Couldn't import the file. Please try again.",
+    "@errorImportFailed": {
+        "description": "Error when reading or importing the file fails"
     }
 }

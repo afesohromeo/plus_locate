@@ -25,6 +25,13 @@ class HistoryEvent with _$HistoryEvent {
   const factory HistoryEvent.exitSelectionMode() = _ExitSelectionMode;
   const factory HistoryEvent.deleteSelectedCodes() = _DeleteSelectedCodes;
 
+  /// Writes all saved codes to a JSON file (see [HistoryState.exportFilePath]).
+  const factory HistoryEvent.exportSavedCodes() = _ExportSavedCodes;
+
+  /// Adds the locations from an exported JSON document.
+  const factory HistoryEvent.importSavedCodes({required String content}) =
+      _ImportSavedCodes;
+
   /// Sets the label of saved code [id]; a blank [label] removes it.
   const factory HistoryEvent.updateLabel({
     required String id,

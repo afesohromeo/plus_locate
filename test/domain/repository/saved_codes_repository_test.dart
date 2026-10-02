@@ -57,4 +57,64 @@ void main() {
       expect(await repository.updateLabel(id: 'missing', label: 'x'), isNull);
     });
   });
+
+  group('SavedCodesRepository export/import', () {
+    test('round-trips labels, addresses and dates', () async {
+      final original = await repository.saveCode(code.copyWith(
+        label: 'Home',
+        address: 'Rue Jean Abanda Bili, Yaoundé, Cameroon',
+        latitude: 3.8736875,
+        longitude: 11.5403125,
+      ));
+      await repository.saveCode(
+        const SavedCode(globalCode: '6FMHVGJP+WM', locality: 'Yaoundé'),
+      );
+      final json = await repository.exportJson();
+
+      // Simulate a new phone: wipe everything, then import the file.
+      await Hive.deleteFromDisk();
+      final result = await SavedCodesRepository().importJson(json);
+
+      expect(result, (added: 2, skipped: 0));
+      final restored = await SavedCodesRepository().fetchAllSavedCodes();
+      final home = restored.firstWhere((c) => c.globalCode == '6FMHVGFR+F4');
+      expect(home.label, 'Home');
+      expect(home.address, 'Rue Jean Abanda Bili, Yaoundé, Cameroon');
+      expect(home.latitude, 3.8736875);
+      expect(home.savedAt, original!.savedAt);
+    });
+
+    test('importing the same file twice adds nothing the second time',
+        () async {
+      await repository.saveCode(code);
+      final json = await repository.exportJson();
+
+      expect(await repository.importJson(json), (added: 0, skipped: 1));
+      expect(await repository.fetchAllSavedCodes(), hasLength(1));
+    });
+
+    test('rejects files that are not PlusLocate exports', () async {
+      for (final content in [
+        'not json at all',
+        '[]',
+        '{"format": "something.else", "locations": []}',
+        '{"format": "pluslocate.saved_locations"}',
+      ]) {
+        await expectLater(
+          repository.importJson(content),
+          throwsA(isA<FormatException>()),
+          reason: content,
+        );
+      }
+    });
+
+    test('skips entries without a Plus Code', () async {
+      final result = await repository.importJson('''
+        {"format": "pluslocate.saved_locations", "version": 1,
+         "locations": [{"label": "No code"}, 42,
+                       {"global_code": "6FMHVGFR+F4"}]}''');
+
+      expect(result, (added: 1, skipped: 2));
+    });
+  });
 }

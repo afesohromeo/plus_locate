@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 and lower. Saved locations (Hive, in app_flutter/) are backed
+     up; flutter_secure_storage is excluded because its keys live in the
+     device keystore and can't be restored, which makes restored data
+     unreadable. -->
+<full-backup-content>
+    <exclude domain="sharedpref" path="FlutterSecureStorage.xml" />
+    <exclude domain="sharedpref" path="FlutterSecureKeyStorage.xml" />
+</full-backup-content>

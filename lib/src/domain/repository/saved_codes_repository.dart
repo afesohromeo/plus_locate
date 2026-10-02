@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:plus_locate/src/domain/models/saved_code.dart';
 
 /// Repository for locally stored Plus Codes using Hive.
@@ -139,6 +142,88 @@ class SavedCodesRepository {
       }).toList();
     } catch (e) {
       log('Error searching saved codes: $e');
+      rethrow;
+    }
+  }
+
+  static const _exportFormat = 'pluslocate.saved_locations';
+  static const _exportVersion = 1;
+
+  /// All saved codes as a versioned JSON document.
+  Future<String> exportJson() async {
+    try {
+      final codes = await fetchAllSavedCodes();
+      return const JsonEncoder.withIndent('  ').convert({
+        'format': _exportFormat,
+        'version': _exportVersion,
+        'exported_at': DateTime.now().toIso8601String(),
+        'locations': codes.map(SavedCode.toJson).toList(),
+      });
+    } catch (e) {
+      log('Error exporting saved codes: $e');
+      rethrow;
+    }
+  }
+
+  /// Writes [exportJson] to a temporary file and returns its path.
+  Future<String> exportToFile() async {
+    try {
+      final now = DateTime.now();
+      final date = '${now.year}-${now.month.toString().padLeft(2, '0')}'
+          '-${now.day.toString().padLeft(2, '0')}';
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/pluslocate-saved-$date.json');
+      await file.writeAsString(await exportJson());
+      return file.path;
+    } catch (e) {
+      log('Error writing export file: $e');
+      rethrow;
+    }
+  }
+
+  /// Adds the locations from an [exportJson] document. Plus Codes that are
+  /// already saved are skipped, so importing the same file twice is safe.
+  ///
+  /// Throws [FormatException] when [content] isn't a PlusLocate export.
+  Future<({int added, int skipped})> importJson(String content) async {
+    try {
+      final decoded = jsonDecode(content);
+      if (decoded is! Map<String, dynamic> ||
+          decoded['format'] != _exportFormat ||
+          decoded['locations'] is! List) {
+        throw const FormatException('Not a PlusLocate export');
+      }
+
+      final box = await _getBox();
+      final savedCodes = box.values.map((c) => c.globalCode).toSet();
+      var added = 0;
+      var skipped = 0;
+
+      for (final item in decoded['locations'] as List) {
+        if (item is! Map) {
+          skipped++;
+          continue;
+        }
+        final code = SavedCode.fromJson(item.cast<String, dynamic>());
+        if (code.globalCode == null || savedCodes.contains(code.globalCode)) {
+          skipped++;
+          continue;
+        }
+
+        final id = code.id != null && !box.containsKey(code.id)
+            ? code.id!
+            : '${DateTime.now().microsecondsSinceEpoch}$added';
+        await box.put(
+          id,
+          code.copyWith(id: id, savedAt: code.savedAt ?? DateTime.now()),
+        );
+        savedCodes.add(code.globalCode);
+        added++;
+      }
+
+      return (added: added, skipped: skipped);
+    } catch (e) {
+      log('Error importing saved codes: $e');
       rethrow;
     }
   }

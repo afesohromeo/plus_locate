@@ -101,5 +101,13 @@
     "editLabelTitle": "Modifier le libellé",
     "addLabelTitle": "Ajouter un libellé",
     "labelFieldHint": "Libellé (facultatif), ex. Maison",
-    "errorUpdatingLabel": "Impossible de modifier le libellé. Veuillez réessayer."
+    "errorUpdatingLabel": "Impossible de modifier le libellé. Veuillez réessayer.",
+    "actionExport": "Exporter",
+    "actionImport": "Importer",
+    "exportShareSubject": "Emplacements enregistrés PlusLocate",
+    "msgImportResult": "{added, plural, =0{Aucun nouvel emplacement importé.} =1{1 emplacement importé.} other{{added} emplacements importés.}}",
+    "msgImportSkipped": "{skipped, plural, =1{1 était déjà enregistré.} other{{skipped} étaient déjà enregistrés.}}",
+    "errorExportFailed": "Impossible d'exporter vos emplacements enregistrés. Veuillez réessayer.",
+    "errorImportInvalidFile": "Ce fichier n'est pas un export PlusLocate.",
+    "errorImportFailed": "Impossible d'importer le fichier. Veuillez réessayer."
 }
