@@ -734,10 +734,10 @@ abstract class AppLocalizations {
   /// **'{added, plural, =0{No new locations imported.} =1{1 location imported.} other{{added} locations imported.}}'**
   String msgImportResult(int added);
 
-  /// Appended to the import message when some locations were already saved
+  /// Appended to the import message when some entries were not imported: already saved, or without a Plus Code
   ///
   /// In en, this message translates to:
-  /// **'{skipped, plural, =1{1 was already saved.} other{{skipped} were already saved.}}'**
+  /// **'{skipped} skipped (already saved or invalid).'**
   String msgImportSkipped(int skipped);
 
   /// Error when writing the export file fails

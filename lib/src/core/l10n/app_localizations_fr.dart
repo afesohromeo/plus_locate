@@ -366,8 +366,8 @@ class AppLocalizationsFr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       skipped,
       locale: localeName,
-      other: '$skipped étaient déjà enregistrés.',
-      one: '1 était déjà enregistré.',
+      other: '$skipped ignorés (déjà enregistrés ou invalides).',
+      one: '1 ignoré (déjà enregistré ou invalide).',
     );
     return '$_temp0';
   }

@@ -454,9 +454,9 @@
             }
         }
     },
-    "msgImportSkipped": "{skipped, plural, =1{1 was already saved.} other{{skipped} were already saved.}}",
+    "msgImportSkipped": "{skipped} skipped (already saved or invalid).",
     "@msgImportSkipped": {
-        "description": "Appended to the import message when some locations were already saved",
+        "description": "Appended to the import message when some entries were not imported: already saved, or without a Plus Code",
         "placeholders": {
             "skipped": {
                 "type": "int"

@@ -360,13 +360,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String msgImportSkipped(int skipped) {
-    String _temp0 = intl.Intl.pluralLogic(
-      skipped,
-      locale: localeName,
-      other: '$skipped were already saved.',
-      one: '1 was already saved.',
-    );
-    return '$_temp0';
+    return '$skipped skipped (already saved or invalid).';
   }
 
   @override
