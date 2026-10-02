@@ -12,4 +12,4 @@ key.properties
 app/dataCentralMobile-keystore.jks
 app/.cxx/
 **/*.keystore
-**/*.jk
+**/*.jks
