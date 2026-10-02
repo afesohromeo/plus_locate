@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,17 @@ class _MapViewPageState extends State<MapViewPage> {
   /// Google logo and the camera center stay in the visible part of the map.
   double _detailCardHeight = 0;
 
+  static const _markerAsset = 'assets/images/PlusLocate_3.png';
+  static const _markerHeight = 32.0;
+
+  /// The pin's tip, measured from the image: it sits at 93.9% of the height
+  /// (transparent padding below), not at the bottom edge.
+  static const _markerAnchor = Offset(0.5, 0.939);
+
+  /// Brand pin once loaded; the default pin until then or if loading fails.
+  BitmapDescriptor _markerIcon = BitmapDescriptor.defaultMarker;
+  Offset _markerIconAnchor = const Offset(0.5, 1.0);
+
   // Default camera position fallback
   static const CameraPosition _initialPosition = CameraPosition(
     target: LatLng(40.712776, -74.005974),
@@ -32,7 +44,25 @@ class _MapViewPageState extends State<MapViewPage> {
   @override
   void initState() {
     super.initState();
+    _loadMarkerIcon();
     _determineInitialPosition();
+  }
+
+  Future<void> _loadMarkerIcon() async {
+    try {
+      final icon = await BitmapDescriptor.asset(
+        const ImageConfiguration(),
+        _markerAsset,
+        height: _markerHeight,
+      );
+      if (!mounted) return;
+      setState(() {
+        _markerIcon = icon;
+        _markerIconAnchor = _markerAnchor;
+      });
+    } catch (e) {
+      log('Brand marker failed to load, keeping the default pin: $e');
+    }
   }
 
   @override
@@ -211,6 +241,8 @@ class _MapViewPageState extends State<MapViewPage> {
                         state.currentLatitude!,
                         state.currentLongitude!,
                       ),
+                      icon: _markerIcon,
+                      anchor: _markerIconAnchor,
                     ),
                   );
                 }
