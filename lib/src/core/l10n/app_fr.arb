@@ -89,5 +89,10 @@
     "errorLocationPermissionDenied": "PlusLocate n'est pas autorisé à utiliser votre position. Autorisez-la dans les paramètres de l'application pour centrer la carte sur votre position.",
     "errorLocationUnavailable": "Impossible d'obtenir votre position actuelle. Veuillez réessayer.",
     "showDetails": "Afficher les détails",
-    "hideDetails": "Masquer les détails"
+    "hideDetails": "Masquer les détails",
+    "saveLocationTitle": "Enregistrer l'emplacement",
+    "editLabelTitle": "Modifier le libellé",
+    "addLabelTitle": "Ajouter un libellé",
+    "labelFieldHint": "Libellé (facultatif), ex. Maison",
+    "errorUpdatingLabel": "Impossible de modifier le libellé. Veuillez réessayer."
 }

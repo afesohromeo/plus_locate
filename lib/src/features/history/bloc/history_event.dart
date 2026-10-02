@@ -24,4 +24,10 @@ class HistoryEvent with _$HistoryEvent {
   const factory HistoryEvent.selectAllCodes() = _SelectAllCodes;
   const factory HistoryEvent.exitSelectionMode() = _ExitSelectionMode;
   const factory HistoryEvent.deleteSelectedCodes() = _DeleteSelectedCodes;
+
+  /// Sets the label of saved code [id]; a blank [label] removes it.
+  const factory HistoryEvent.updateLabel({
+    required String id,
+    String? label,
+  }) = _UpdateLabel;
 }

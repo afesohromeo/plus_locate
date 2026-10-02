@@ -388,5 +388,25 @@
     "hideDetails": "Hide details",
     "@hideDetails": {
         "description": "Accessibility label for the handle that collapses the map's detail card"
+    },
+    "saveLocationTitle": "Save location",
+    "@saveLocationTitle": {
+        "description": "Title of the sheet shown when saving a location"
+    },
+    "editLabelTitle": "Edit label",
+    "@editLabelTitle": {
+        "description": "Title of the sheet for editing a saved location's label, and its menu item"
+    },
+    "addLabelTitle": "Add label",
+    "@addLabelTitle": {
+        "description": "Menu item and sheet title for adding a label to a saved location that has none"
+    },
+    "labelFieldHint": "Label (optional), e.g. Home",
+    "@labelFieldHint": {
+        "description": "Placeholder for the saved-location label field"
+    },
+    "errorUpdatingLabel": "Couldn't update the label. Please try again.",
+    "@errorUpdatingLabel": {
+        "description": "Error shown when changing a saved location's label fails"
     }
 }

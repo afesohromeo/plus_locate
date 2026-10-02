@@ -30,6 +30,43 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     on<_SelectAllCodes>(_onSelectAllCodes);
     on<_ExitSelectionMode>(_onExitSelectionMode);
     on<_DeleteSelectedCodes>(_onDeleteSelectedCodes);
+    on<_UpdateLabel>(_onUpdateLabel);
+  }
+
+  Future<void> _onUpdateLabel(
+    _UpdateLabel event,
+    Emitter<HistoryState> emit,
+  ) async {
+    emit(state.copyWith(
+      flowStep: GenericFlowStep.updatingItem,
+      historyActionStatus: GenericStatus.loading,
+      historyActionErrorMessage: null,
+    ));
+
+    try {
+      final updated = await _repository.updateLabel(
+        id: event.id,
+        label: event.label,
+      );
+      if (updated == null) {
+        emit(state.copyWith(
+          historyActionStatus: GenericStatus.failure,
+          historyActionErrorMessage:
+              LocalizationService.localization.errorUpdatingLabel,
+        ));
+        return;
+      }
+
+      emit(state.copyWith(historyActionStatus: GenericStatus.success));
+      add(const HistoryEvent.fetchSavedCodes());
+    } catch (e) {
+      log('Error updating label: $e');
+      emit(state.copyWith(
+        historyActionStatus: GenericStatus.failure,
+        historyActionErrorMessage:
+            LocalizationService.localization.errorUpdatingLabel,
+      ));
+    }
   }
 
   void _onInit(_Init event, Emitter<HistoryState> emit) {
@@ -55,8 +92,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       log('Error fetching saved codes: $e');
       emit(state.copyWith(
         historyStatus: GenericStatus.failure,
-        historyErrorMessage:
-            LocalizationService.localization.operationError,
+        historyErrorMessage: LocalizationService.localization.operationError,
       ));
     }
   }
@@ -141,8 +177,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       log('Error searching codes: $e');
       emit(state.copyWith(
         historyStatus: GenericStatus.failure,
-        historyErrorMessage:
-            LocalizationService.localization.operationError,
+        historyErrorMessage: LocalizationService.localization.operationError,
       ));
     }
   }

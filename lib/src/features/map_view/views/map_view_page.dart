@@ -348,9 +348,7 @@ class _MapViewPageState extends State<MapViewPage> {
                                 address: state.locationResult?.formattedAddress,
                                 savedAt: DateTime.now(),
                               );
-                              context.read<HistoryBloc>().add(
-                                    HistoryEvent.saveCode(code: savedCode),
-                                  );
+                              saveLocationWithLabel(context, savedCode);
                             }
                           },
                           onSharePressed: () {

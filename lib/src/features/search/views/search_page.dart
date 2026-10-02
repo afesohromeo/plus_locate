@@ -370,9 +370,11 @@ class _SearchResultView extends StatelessWidget {
             address: state.locationResult?.formattedAddress,
             savedAt: DateTime.now(),
           );
-          context
-              .read<HistoryBloc>()
-              .add(HistoryEvent.saveCode(code: savedCode));
+          saveLocationWithLabel(
+            context,
+            savedCode,
+            suggestedLabel: state.placeName,
+          );
         },
         onSharePressed: () {
           final plusCodeVal = state.plusCode?.globalCode ?? '---';

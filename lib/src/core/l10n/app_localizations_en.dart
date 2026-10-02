@@ -297,4 +297,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hideDetails => 'Hide details';
+
+  @override
+  String get saveLocationTitle => 'Save location';
+
+  @override
+  String get editLabelTitle => 'Edit label';
+
+  @override
+  String get addLabelTitle => 'Add label';
+
+  @override
+  String get labelFieldHint => 'Label (optional), e.g. Home';
+
+  @override
+  String get errorUpdatingLabel =>
+      'Couldn\'t update the label. Please try again.';
 }

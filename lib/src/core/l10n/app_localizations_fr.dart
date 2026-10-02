@@ -300,4 +300,20 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get hideDetails => 'Masquer les détails';
+
+  @override
+  String get saveLocationTitle => 'Enregistrer l\'emplacement';
+
+  @override
+  String get editLabelTitle => 'Modifier le libellé';
+
+  @override
+  String get addLabelTitle => 'Ajouter un libellé';
+
+  @override
+  String get labelFieldHint => 'Libellé (facultatif), ex. Maison';
+
+  @override
+  String get errorUpdatingLabel =>
+      'Impossible de modifier le libellé. Veuillez réessayer.';
 }

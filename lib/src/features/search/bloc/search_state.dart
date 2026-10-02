@@ -24,6 +24,10 @@ sealed class SearchState with _$SearchState {
     @Default(GenericStatus.initial) GenericStatus suggestionsStatus,
     @Default(<PlaceSuggestion>[]) List<PlaceSuggestion> suggestions,
     String? suggestionsErrorMessage,
+
+    /// Name of the place picked from the suggestions ("Dovv Essos"), used to
+    /// pre-fill the label when saving. Null for Plus Code/address searches.
+    String? placeName,
   }) = _SearchState;
 
   /// Best-available latitude for the current result (location result first,

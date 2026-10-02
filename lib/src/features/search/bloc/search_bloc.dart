@@ -140,10 +140,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final canStillUseAutocomplete =
           await _quotaRepository.canUseAutocomplete();
 
+      final placeName = event.suggestion.title.trim();
+
       emit(state.copyWith(
         searchStatus: GenericStatus.success,
         plusCode: plusCode,
         locationResult: locationResult,
+        placeName: placeName.isEmpty ? null : placeName,
         searchMode: canStillUseAutocomplete
             ? SearchMode.autocomplete
             : SearchMode.onSubmit,
@@ -313,6 +316,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(state.copyWith(
       searchStatus: GenericStatus.loading,
       searchErrorMessage: null,
+      placeName: null,
       suggestions: const [],
       suggestionsStatus: GenericStatus.initial,
       suggestionsErrorMessage: null,
@@ -345,6 +349,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       suggestions: const [],
       suggestionsStatus: GenericStatus.initial,
       suggestionsErrorMessage: null,
+      placeName: null,
     ));
   }
 }

@@ -63,6 +63,7 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult Function(_SelectAllCodes value)? selectAllCodes,
     TResult Function(_ExitSelectionMode value)? exitSelectionMode,
     TResult Function(_DeleteSelectedCodes value)? deleteSelectedCodes,
+    TResult Function(_UpdateLabel value)? updateLabel,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -91,6 +92,8 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode(_that);
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes(_that);
+      case _UpdateLabel() when updateLabel != null:
+        return updateLabel(_that);
       case _:
         return orElse();
     }
@@ -123,6 +126,7 @@ extension HistoryEventPatterns on HistoryEvent {
     required TResult Function(_SelectAllCodes value) selectAllCodes,
     required TResult Function(_ExitSelectionMode value) exitSelectionMode,
     required TResult Function(_DeleteSelectedCodes value) deleteSelectedCodes,
+    required TResult Function(_UpdateLabel value) updateLabel,
   }) {
     final _that = this;
     switch (_that) {
@@ -150,6 +154,8 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode(_that);
       case _DeleteSelectedCodes():
         return deleteSelectedCodes(_that);
+      case _UpdateLabel():
+        return updateLabel(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -181,6 +187,7 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult? Function(_SelectAllCodes value)? selectAllCodes,
     TResult? Function(_ExitSelectionMode value)? exitSelectionMode,
     TResult? Function(_DeleteSelectedCodes value)? deleteSelectedCodes,
+    TResult? Function(_UpdateLabel value)? updateLabel,
   }) {
     final _that = this;
     switch (_that) {
@@ -208,6 +215,8 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode(_that);
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes(_that);
+      case _UpdateLabel() when updateLabel != null:
+        return updateLabel(_that);
       case _:
         return null;
     }
@@ -239,6 +248,7 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult Function()? selectAllCodes,
     TResult Function()? exitSelectionMode,
     TResult Function()? deleteSelectedCodes,
+    TResult Function(String id, String? label)? updateLabel,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -267,6 +277,8 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode();
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes();
+      case _UpdateLabel() when updateLabel != null:
+        return updateLabel(_that.id, _that.label);
       case _:
         return orElse();
     }
@@ -299,6 +311,7 @@ extension HistoryEventPatterns on HistoryEvent {
     required TResult Function() selectAllCodes,
     required TResult Function() exitSelectionMode,
     required TResult Function() deleteSelectedCodes,
+    required TResult Function(String id, String? label) updateLabel,
   }) {
     final _that = this;
     switch (_that) {
@@ -326,6 +339,8 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode();
       case _DeleteSelectedCodes():
         return deleteSelectedCodes();
+      case _UpdateLabel():
+        return updateLabel(_that.id, _that.label);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -357,6 +372,7 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult? Function()? selectAllCodes,
     TResult? Function()? exitSelectionMode,
     TResult? Function()? deleteSelectedCodes,
+    TResult? Function(String id, String? label)? updateLabel,
   }) {
     final _that = this;
     switch (_that) {
@@ -384,6 +400,8 @@ extension HistoryEventPatterns on HistoryEvent {
         return exitSelectionMode();
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes();
+      case _UpdateLabel() when updateLabel != null:
+        return updateLabel(_that.id, _that.label);
       case _:
         return null;
     }
@@ -866,6 +884,78 @@ class _DeleteSelectedCodes implements HistoryEvent {
   @override
   String toString() {
     return 'HistoryEvent.deleteSelectedCodes()';
+  }
+}
+
+/// @nodoc
+
+class _UpdateLabel implements HistoryEvent {
+  const _UpdateLabel({required this.id, this.label});
+
+  final String id;
+  final String? label;
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$UpdateLabelCopyWith<_UpdateLabel> get copyWith =>
+      __$UpdateLabelCopyWithImpl<_UpdateLabel>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _UpdateLabel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.label, label) || other.label == label));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, id, label);
+  }
+
+  @override
+  String toString() {
+    return 'HistoryEvent.updateLabel(id: $id, label: $label)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$UpdateLabelCopyWith<$Res>
+    implements $HistoryEventCopyWith<$Res> {
+  factory _$UpdateLabelCopyWith(
+          _UpdateLabel value, $Res Function(_UpdateLabel) _then) =
+      __$UpdateLabelCopyWithImpl;
+  @useResult
+  $Res call({String id, String? label});
+}
+
+/// @nodoc
+class __$UpdateLabelCopyWithImpl<$Res> implements _$UpdateLabelCopyWith<$Res> {
+  __$UpdateLabelCopyWithImpl(this._self, this._then);
+
+  final _UpdateLabel _self;
+  final $Res Function(_UpdateLabel) _then;
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? label = freezed,
+  }) {
+    return _then(_UpdateLabel(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      label: freezed == label
+          ? _self.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
   }
 }
 

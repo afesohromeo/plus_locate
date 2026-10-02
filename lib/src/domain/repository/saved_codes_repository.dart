@@ -38,7 +38,8 @@ class SavedCodesRepository {
   /// Save a Plus Code to local storage.
   /// If a code with the same [SavedCode.globalCode] already exists, it is
   /// updated in place (same Hive key) and its [SavedCode.savedAt] is
-  /// refreshed so it rises to the top of the history list.
+  /// refreshed so it rises to the top of the history list. A null label keeps
+  /// the existing entry's label; a blank one removes it.
   Future<SavedCode?> saveCode(SavedCode code) async {
     try {
       final box = await _getBox();
@@ -48,9 +49,14 @@ class SavedCodesRepository {
             orElse: () => null,
           );
 
-      final id =
-          existing?.id ?? code.id ?? DateTime.now().millisecondsSinceEpoch.toString();
-      final codeToSave = code.copyWith(id: id, savedAt: DateTime.now());
+      final id = existing?.id ??
+          code.id ??
+          DateTime.now().millisecondsSinceEpoch.toString();
+      final codeToSave = code.copyWith(
+        id: id,
+        label: code.label == null ? existing?.label : _cleanLabel(code.label),
+        savedAt: DateTime.now(),
+      );
       await box.put(id, codeToSave);
       return codeToSave;
     } catch (e) {
@@ -70,6 +76,28 @@ class SavedCodesRepository {
       log('Error updating saved code: $e');
       rethrow;
     }
+  }
+
+  /// Sets the label of the saved code [id]; a blank [label] removes it.
+  /// Returns the updated code, or null if [id] isn't saved.
+  Future<SavedCode?> updateLabel({required String id, String? label}) async {
+    try {
+      final box = await _getBox();
+      final existing = box.get(id);
+      if (existing == null) return null;
+
+      final updated = existing.copyWith(label: _cleanLabel(label));
+      await box.put(id, updated);
+      return updated;
+    } catch (e) {
+      log('Error updating label: $e');
+      rethrow;
+    }
+  }
+
+  static String? _cleanLabel(String? label) {
+    final trimmed = label?.trim();
+    return trimmed == null || trimmed.isEmpty ? null : trimmed;
   }
 
   /// Delete a saved code by its ID.

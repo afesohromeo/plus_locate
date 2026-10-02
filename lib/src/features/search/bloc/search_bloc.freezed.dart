@@ -525,6 +525,10 @@ mixin _$SearchState {
   List<PlaceSuggestion> get suggestions;
   String? get suggestionsErrorMessage;
 
+  /// Name of the place picked from the suggestions ("Dovv Essos"), used to
+  /// pre-fill the label when saving. Null for Plus Code/address searches.
+  String? get placeName;
+
   /// Create a copy of SearchState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -555,7 +559,9 @@ mixin _$SearchState {
             (identical(other.suggestionsErrorMessage,
                     _this.suggestionsErrorMessage) ||
                 other.suggestionsErrorMessage ==
-                    _this.suggestionsErrorMessage));
+                    _this.suggestionsErrorMessage) &&
+            (identical(other.placeName, _this.placeName) ||
+                other.placeName == _this.placeName));
   }
 
   @override
@@ -570,13 +576,14 @@ mixin _$SearchState {
         _this.searchErrorMessage,
         _this.suggestionsStatus,
         const DeepCollectionEquality().hash(_this.suggestions),
-        _this.suggestionsErrorMessage);
+        _this.suggestionsErrorMessage,
+        _this.placeName);
   }
 
   @override
   String toString() {
     final _this = this as SearchState;
-    return 'SearchState(searchStatus: ${_this.searchStatus}, searchMode: ${_this.searchMode}, locationResult: ${_this.locationResult}, plusCode: ${_this.plusCode}, searchErrorMessage: ${_this.searchErrorMessage}, suggestionsStatus: ${_this.suggestionsStatus}, suggestions: ${_this.suggestions}, suggestionsErrorMessage: ${_this.suggestionsErrorMessage})';
+    return 'SearchState(searchStatus: ${_this.searchStatus}, searchMode: ${_this.searchMode}, locationResult: ${_this.locationResult}, plusCode: ${_this.plusCode}, searchErrorMessage: ${_this.searchErrorMessage}, suggestionsStatus: ${_this.suggestionsStatus}, suggestions: ${_this.suggestions}, suggestionsErrorMessage: ${_this.suggestionsErrorMessage}, placeName: ${_this.placeName})';
   }
 }
 
@@ -594,7 +601,8 @@ abstract mixin class $SearchStateCopyWith<$Res> {
       String? searchErrorMessage,
       GenericStatus suggestionsStatus,
       List<PlaceSuggestion> suggestions,
-      String? suggestionsErrorMessage});
+      String? suggestionsErrorMessage,
+      String? placeName});
 
   $LocationResultCopyWith<$Res>? get locationResult;
   $PlusCodeCopyWith<$Res>? get plusCode;
@@ -620,6 +628,7 @@ class _$SearchStateCopyWithImpl<$Res> implements $SearchStateCopyWith<$Res> {
     Object? suggestionsStatus = null,
     Object? suggestions = null,
     Object? suggestionsErrorMessage = freezed,
+    Object? placeName = freezed,
   }) {
     return _then(SearchState(
       searchStatus: null == searchStatus
@@ -653,6 +662,10 @@ class _$SearchStateCopyWithImpl<$Res> implements $SearchStateCopyWith<$Res> {
       suggestionsErrorMessage: freezed == suggestionsErrorMessage
           ? _self.suggestionsErrorMessage
           : suggestionsErrorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      placeName: freezed == placeName
+          ? _self.placeName
+          : placeName // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -785,7 +798,8 @@ extension SearchStatePatterns on SearchState {
             String? searchErrorMessage,
             GenericStatus suggestionsStatus,
             List<PlaceSuggestion> suggestions,
-            String? suggestionsErrorMessage)?
+            String? suggestionsErrorMessage,
+            String? placeName)?
         $default, {
     required TResult orElse(),
   }) {
@@ -800,7 +814,8 @@ extension SearchStatePatterns on SearchState {
             _that.searchErrorMessage,
             _that.suggestionsStatus,
             _that.suggestions,
-            _that.suggestionsErrorMessage);
+            _that.suggestionsErrorMessage,
+            _that.placeName);
       case _:
         return orElse();
     }
@@ -829,7 +844,8 @@ extension SearchStatePatterns on SearchState {
             String? searchErrorMessage,
             GenericStatus suggestionsStatus,
             List<PlaceSuggestion> suggestions,
-            String? suggestionsErrorMessage)
+            String? suggestionsErrorMessage,
+            String? placeName)
         $default,
   ) {
     final _that = this;
@@ -843,7 +859,8 @@ extension SearchStatePatterns on SearchState {
             _that.searchErrorMessage,
             _that.suggestionsStatus,
             _that.suggestions,
-            _that.suggestionsErrorMessage);
+            _that.suggestionsErrorMessage,
+            _that.placeName);
     }
   }
 
@@ -869,7 +886,8 @@ extension SearchStatePatterns on SearchState {
             String? searchErrorMessage,
             GenericStatus suggestionsStatus,
             List<PlaceSuggestion> suggestions,
-            String? suggestionsErrorMessage)?
+            String? suggestionsErrorMessage,
+            String? placeName)?
         $default,
   ) {
     final _that = this;
@@ -883,7 +901,8 @@ extension SearchStatePatterns on SearchState {
             _that.searchErrorMessage,
             _that.suggestionsStatus,
             _that.suggestions,
-            _that.suggestionsErrorMessage);
+            _that.suggestionsErrorMessage,
+            _that.placeName);
       case _:
         return null;
     }
@@ -901,7 +920,8 @@ class _SearchState extends SearchState {
       this.searchErrorMessage,
       this.suggestionsStatus = GenericStatus.initial,
       List<PlaceSuggestion> suggestions = const <PlaceSuggestion>[],
-      this.suggestionsErrorMessage})
+      this.suggestionsErrorMessage,
+      this.placeName})
       : _suggestions = suggestions,
         super._();
 
@@ -932,6 +952,11 @@ class _SearchState extends SearchState {
   @override
   final String? suggestionsErrorMessage;
 
+  /// Name of the place picked from the suggestions ("Dovv Essos"), used to
+  /// pre-fill the label when saving. Null for Plus Code/address searches.
+  @override
+  final String? placeName;
+
   /// Create a copy of SearchState
   /// with the given fields replaced by the non-null parameter values.
   @override
@@ -961,7 +986,9 @@ class _SearchState extends SearchState {
                 .equals(other.suggestions, _suggestions) &&
             (identical(
                     other.suggestionsErrorMessage, suggestionsErrorMessage) ||
-                other.suggestionsErrorMessage == suggestionsErrorMessage));
+                other.suggestionsErrorMessage == suggestionsErrorMessage) &&
+            (identical(other.placeName, placeName) ||
+                other.placeName == placeName));
   }
 
   @override
@@ -975,12 +1002,13 @@ class _SearchState extends SearchState {
         searchErrorMessage,
         suggestionsStatus,
         const DeepCollectionEquality().hash(_suggestions),
-        suggestionsErrorMessage);
+        suggestionsErrorMessage,
+        placeName);
   }
 
   @override
   String toString() {
-    return 'SearchState(searchStatus: $searchStatus, searchMode: $searchMode, locationResult: $locationResult, plusCode: $plusCode, searchErrorMessage: $searchErrorMessage, suggestionsStatus: $suggestionsStatus, suggestions: $suggestions, suggestionsErrorMessage: $suggestionsErrorMessage)';
+    return 'SearchState(searchStatus: $searchStatus, searchMode: $searchMode, locationResult: $locationResult, plusCode: $plusCode, searchErrorMessage: $searchErrorMessage, suggestionsStatus: $suggestionsStatus, suggestions: $suggestions, suggestionsErrorMessage: $suggestionsErrorMessage, placeName: $placeName)';
   }
 }
 
@@ -1000,7 +1028,8 @@ abstract mixin class _$SearchStateCopyWith<$Res>
       String? searchErrorMessage,
       GenericStatus suggestionsStatus,
       List<PlaceSuggestion> suggestions,
-      String? suggestionsErrorMessage});
+      String? suggestionsErrorMessage,
+      String? placeName});
 
   @override
   $LocationResultCopyWith<$Res>? get locationResult;
@@ -1028,6 +1057,7 @@ class __$SearchStateCopyWithImpl<$Res> implements _$SearchStateCopyWith<$Res> {
     Object? suggestionsStatus = null,
     Object? suggestions = null,
     Object? suggestionsErrorMessage = freezed,
+    Object? placeName = freezed,
   }) {
     return _then(_SearchState(
       searchStatus: null == searchStatus
@@ -1061,6 +1091,10 @@ class __$SearchStateCopyWithImpl<$Res> implements _$SearchStateCopyWith<$Res> {
       suggestionsErrorMessage: freezed == suggestionsErrorMessage
           ? _self.suggestionsErrorMessage
           : suggestionsErrorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      placeName: freezed == placeName
+          ? _self.placeName
+          : placeName // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }

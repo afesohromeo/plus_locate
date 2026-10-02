@@ -126,10 +126,17 @@ class _HistoryBody extends StatelessWidget {
     return BlocConsumer<HistoryBloc, HistoryState>(
       listenWhen: (previous, current) =>
           previous.historyActionStatus != current.historyActionStatus &&
-          current.flowStep == GenericFlowStep.deletingItem,
+          (current.flowStep == GenericFlowStep.deletingItem ||
+              current.flowStep == GenericFlowStep.updatingItem),
       listener: (context, state) async {
         final historyBloc = context.read<HistoryBloc>();
-        if (state.historyActionStatus == GenericStatus.success) {
+        final isLabelUpdate = state.flowStep == GenericFlowStep.updatingItem;
+
+        // A label change shows up in the list itself; no success dialog.
+        if (isLabelUpdate &&
+            state.historyActionStatus == GenericStatus.success) {
+          historyBloc.add(const HistoryEvent.resetFlowStep());
+        } else if (state.historyActionStatus == GenericStatus.success) {
           final deletedCount = state.lastDeletedCount;
           await DialogUtils.handleSuccess(
             context,
@@ -265,6 +272,21 @@ class _HistoryBody extends StatelessWidget {
               code.address ?? code.locality ?? '---',
             );
             Share.share(shareText);
+          },
+          onEditLabel: () async {
+            final historyBloc = context.read<HistoryBloc>();
+            final result = await showLabelSheet(
+              context,
+              title:
+                  code.label == null ? l10n.addLabelTitle : l10n.editLabelTitle,
+              plusCode: code.globalCode ?? '',
+              initialLabel: code.label,
+            );
+            if (result != null && code.id != null) {
+              historyBloc.add(
+                HistoryEvent.updateLabel(id: code.id!, label: result.label),
+              );
+            }
           },
           onDelete: () async {
             final historyBloc = context.read<HistoryBloc>();

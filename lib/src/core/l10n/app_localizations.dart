@@ -638,6 +638,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hide details'**
   String get hideDetails;
+
+  /// Title of the sheet shown when saving a location
+  ///
+  /// In en, this message translates to:
+  /// **'Save location'**
+  String get saveLocationTitle;
+
+  /// Title of the sheet for editing a saved location's label, and its menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Edit label'**
+  String get editLabelTitle;
+
+  /// Menu item and sheet title for adding a label to a saved location that has none
+  ///
+  /// In en, this message translates to:
+  /// **'Add label'**
+  String get addLabelTitle;
+
+  /// Placeholder for the saved-location label field
+  ///
+  /// In en, this message translates to:
+  /// **'Label (optional), e.g. Home'**
+  String get labelFieldHint;
+
+  /// Error shown when changing a saved location's label fails
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t update the label. Please try again.'**
+  String get errorUpdatingLabel;
 }
 
 class _AppLocalizationsDelegate

@@ -7,6 +7,7 @@ class SavedLocationCard extends StatelessWidget {
   final VoidCallback onCopy;
   final VoidCallback onShare;
   final VoidCallback onDelete;
+  final VoidCallback onEditLabel;
   final bool isSelectionMode;
   final bool isSelected;
   final VoidCallback? onLongPress;
@@ -19,6 +20,7 @@ class SavedLocationCard extends StatelessWidget {
     required this.onCopy,
     required this.onShare,
     required this.onDelete,
+    required this.onEditLabel,
     this.isSelectionMode = false,
     this.isSelected = false,
     this.onLongPress,
@@ -82,7 +84,7 @@ class SavedLocationCard extends StatelessWidget {
                       ),
                     Expanded(
                       child: Text(
-                        code.locality ?? '---',
+                        code.label ?? code.locality ?? '---',
                         style: context.textTheme.displayLarge?.copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.w900,
@@ -119,10 +121,21 @@ class SavedLocationCard extends StatelessWidget {
                           color: customColors.black1.withValues(alpha: 0.8),
                         ),
                         onSelected: (value) {
+                          if (value == 'label') onEditLabel();
                           if (value == 'copy') onCopy();
                           if (value == 'delete') onDelete();
                         },
                         itemBuilder: (context) => [
+                          PopupMenuItem(
+                            value: 'label',
+                            child: Text(
+                              code.label == null
+                                  ? l10n.addLabelTitle
+                                  : l10n.editLabelTitle,
+                              style: context.textTheme.displayMedium?.copyWith(
+                                  fontSize: 13, color: customColors.black1),
+                            ),
+                          ),
                           PopupMenuItem(
                             value: 'copy',
                             child: Text(
