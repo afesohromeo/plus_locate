@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:plus_locate/plus_locate.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,17 +46,31 @@ class _SearchBody extends StatefulWidget {
 
 class _SearchBodyState extends State<_SearchBody> {
   final TextEditingController _textController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void dispose() {
     _textController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
-  void _submit(BuildContext context) {
+  void _submit() {
+    _focusNode.unfocus();
     context
         .read<SearchBloc>()
         .add(SearchEvent.submitQuery(query: _textController.text));
+  }
+
+  void _selectSuggestion(PlaceSuggestion suggestion) {
+    _focusNode.unfocus();
+    _textController.text = suggestion.fullText ?? suggestion.title;
+    _textController.selection = TextSelection.collapsed(
+      offset: _textController.text.length,
+    );
+    context
+        .read<SearchBloc>()
+        .add(SearchEvent.suggestionSelected(suggestion: suggestion));
   }
 
   @override
@@ -71,15 +84,29 @@ class _SearchBodyState extends State<_SearchBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (state.searchMode == SearchMode.autocomplete)
-                _AutocompleteField(textController: _textController)
-              else
-                _SubmitField(
-                  textController: _textController,
-                  onSubmit: () => _submit(context),
+              _SearchField(
+                textController: _textController,
+                focusNode: _focusNode,
+                onSubmit: _submit,
+              ),
+              if (state.suggestionsStatus == GenericStatus.loading)
+                LinearProgressIndicator(
+                  minHeight: 2,
+                  color: customColors.primary,
+                  backgroundColor: Colors.transparent,
                 ),
+              if (state.suggestionsStatus == GenericStatus.failure &&
+                  state.suggestionsErrorMessage != null)
+                _SuggestionsError(message: state.suggestionsErrorMessage!),
               const SizedBox(height: 16),
-              Expanded(child: _buildContent(context, state, l10n)),
+              Expanded(
+                child: state.suggestions.isNotEmpty
+                    ? _SuggestionList(
+                        suggestions: state.suggestions,
+                        onSelected: _selectSuggestion,
+                      )
+                    : _buildContent(context, state, l10n),
+              ),
             ],
           ),
         );
@@ -114,63 +141,16 @@ class _SearchBodyState extends State<_SearchBody> {
   }
 }
 
-/// Live Places Autocomplete field — used while under the monthly quota.
-class _AutocompleteField extends StatelessWidget {
+/// Search text field. Typing feeds autocomplete (the bloc ignores it in
+/// on-submit mode); the keyboard action or search button always submits.
+class _SearchField extends StatelessWidget {
   final TextEditingController textController;
-
-  const _AutocompleteField({required this.textController});
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
-    return GooglePlaceAutoCompleteTextField(
-      textEditingController: textController,
-      googleAPIKey: Environment.googleMapsApiKey,
-      debounceTime: 2000,
-      isLatLngRequired: true,
-      inputDecoration: InputDecoration(
-        hintText: l10n.searchPlacesOrCodes,
-        filled: true,
-        fillColor: customColors.surface,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
-        ),
-      ),
-      itemClick: (prediction) {
-        textController.text = prediction.description ?? '';
-        textController.selection = TextSelection.fromPosition(
-          TextPosition(offset: textController.text.length),
-        );
-      },
-      getPlaceDetailWithLatLng: (prediction) {
-        final latitude = double.tryParse(prediction.lat ?? '');
-        final longitude = double.tryParse(prediction.lng ?? '');
-        if (latitude == null || longitude == null) return;
-
-        context.read<SearchBloc>().add(
-              SearchEvent.placeSelected(
-                description: prediction.description ?? '',
-                latitude: latitude,
-                longitude: longitude,
-              ),
-            );
-      },
-    );
-  }
-}
-
-/// Free-text field + search button — used once the monthly autocomplete
-/// quota is exhausted. Auto-detects Plus Code vs. address on submit.
-class _SubmitField extends StatelessWidget {
-  final TextEditingController textController;
+  final FocusNode focusNode;
   final VoidCallback onSubmit;
 
-  const _SubmitField({
+  const _SearchField({
     required this.textController,
+    required this.focusNode,
     required this.onSubmit,
   });
 
@@ -180,15 +160,118 @@ class _SubmitField extends StatelessWidget {
 
     return InputField(
       controller: textController,
+      focusNode: focusNode,
       validator: (_) => null,
       labelText: l10n.searchPlacesOrCodes,
       bgColor: customColors.surface,
       borderRadius: BorderRadius.circular(10),
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+      onChanged: (query) => context
+          .read<SearchBloc>()
+          .add(SearchEvent.queryChanged(query: query)),
       onEditingComplete: onSubmit,
       suffixIcon: IconButton(
         icon: Icon(Icons.search, color: customColors.primary),
         onPressed: onSubmit,
+      ),
+    );
+  }
+}
+
+/// Shown under the field when suggestions can't be loaded. Submitting still
+/// works through the device geocoder.
+class _SuggestionsError extends StatelessWidget {
+  final String message;
+
+  const _SuggestionsError({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Row(
+        children: [
+          Icon(Icons.info_outline, size: 16, color: customColors.error),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              message,
+              style: context.textTheme.bodySmall?.copyWith(
+                color: customColors.error,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SuggestionList extends StatelessWidget {
+  final List<PlaceSuggestion> suggestions;
+  final ValueChanged<PlaceSuggestion> onSelected;
+
+  const _SuggestionList({
+    required this.suggestions,
+    required this.onSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: customColors.surface,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListView.separated(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        // Last row is the Google attribution required by the Places policy.
+        itemCount: suggestions.length + 1,
+        separatorBuilder: (_, __) => Divider(
+          height: 1,
+          color: customColors.black1.withValues(alpha: 0.08),
+        ),
+        itemBuilder: (context, index) {
+          if (index == suggestions.length) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+              child: Text(
+                l10n.poweredByGoogle,
+                textAlign: TextAlign.end,
+                style: context.textTheme.labelSmall?.copyWith(
+                  color: customColors.black1.withValues(alpha: 0.5),
+                ),
+              ),
+            );
+          }
+
+          final suggestion = suggestions[index];
+          return ListTile(
+            onTap: () => onSelected(suggestion),
+            leading: Icon(Icons.place_outlined, color: customColors.primary),
+            title: Text(
+              suggestion.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: context.textTheme.bodyLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: customColors.black1,
+              ),
+            ),
+            subtitle: suggestion.secondaryText == null
+                ? null
+                : Text(
+                    suggestion.secondaryText!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: context.textTheme.bodySmall?.copyWith(
+                      color: customColors.black1.withValues(alpha: 0.6),
+                    ),
+                  ),
+          );
+        },
       ),
     );
   }

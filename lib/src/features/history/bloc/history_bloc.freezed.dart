@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'history_bloc.dart';
@@ -9,6 +9,7 @@ part of 'history_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -452,7 +453,9 @@ class _SaveCode implements HistoryEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, code);
+  int get hashCode {
+    return Object.hash(runtimeType, code);
+  }
 
   @override
   String toString() {
@@ -526,7 +529,9 @@ class _DeleteCode implements HistoryEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode {
+    return Object.hash(runtimeType, id);
+  }
 
   @override
   String toString() {
@@ -589,7 +594,9 @@ class _SearchCodes implements HistoryEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, query);
+  int get hashCode {
+    return Object.hash(runtimeType, query);
+  }
 
   @override
   String toString() {
@@ -692,7 +699,9 @@ class _EnterSelectionMode implements HistoryEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode {
+    return Object.hash(runtimeType, id);
+  }
 
   @override
   String toString() {
@@ -757,7 +766,9 @@ class _ToggleItemSelection implements HistoryEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode {
+    return Object.hash(runtimeType, id);
+  }
 
   @override
   String toString() {
@@ -860,13 +871,12 @@ class _DeleteSelectedCodes implements HistoryEvent {
 
 /// @nodoc
 mixin _$HistoryState {
-  List<SavedCode> get savedCodes; // --- Status fields (scoped per RULE-006) ---
+  List<SavedCode> get savedCodes;
   GenericStatus get historyStatus;
-  GenericStatus
-      get historyActionStatus; // --- Flow step (for CRUD per RULE-004) ---
-  GenericFlowStep get flowStep; // --- Error messages (per RULE-007) ---
+  GenericStatus get historyActionStatus;
+  GenericFlowStep get flowStep;
   String? get historyErrorMessage;
-  String? get historyActionErrorMessage; // --- Multi-select state ---
+  String? get historyActionErrorMessage;
   bool get isSelectionMode;
   Set<String> get selectedIds;
   int? get lastDeletedCount;
@@ -881,46 +891,52 @@ mixin _$HistoryState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as HistoryState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is HistoryState &&
             const DeepCollectionEquality()
-                .equals(other.savedCodes, savedCodes) &&
-            (identical(other.historyStatus, historyStatus) ||
-                other.historyStatus == historyStatus) &&
-            (identical(other.historyActionStatus, historyActionStatus) ||
-                other.historyActionStatus == historyActionStatus) &&
-            (identical(other.flowStep, flowStep) ||
-                other.flowStep == flowStep) &&
-            (identical(other.historyErrorMessage, historyErrorMessage) ||
-                other.historyErrorMessage == historyErrorMessage) &&
+                .equals(other.savedCodes, _this.savedCodes) &&
+            (identical(other.historyStatus, _this.historyStatus) ||
+                other.historyStatus == _this.historyStatus) &&
+            (identical(other.historyActionStatus, _this.historyActionStatus) ||
+                other.historyActionStatus == _this.historyActionStatus) &&
+            (identical(other.flowStep, _this.flowStep) ||
+                other.flowStep == _this.flowStep) &&
+            (identical(other.historyErrorMessage, _this.historyErrorMessage) ||
+                other.historyErrorMessage == _this.historyErrorMessage) &&
             (identical(other.historyActionErrorMessage,
-                    historyActionErrorMessage) ||
-                other.historyActionErrorMessage == historyActionErrorMessage) &&
-            (identical(other.isSelectionMode, isSelectionMode) ||
-                other.isSelectionMode == isSelectionMode) &&
+                    _this.historyActionErrorMessage) ||
+                other.historyActionErrorMessage ==
+                    _this.historyActionErrorMessage) &&
+            (identical(other.isSelectionMode, _this.isSelectionMode) ||
+                other.isSelectionMode == _this.isSelectionMode) &&
             const DeepCollectionEquality()
-                .equals(other.selectedIds, selectedIds) &&
-            (identical(other.lastDeletedCount, lastDeletedCount) ||
-                other.lastDeletedCount == lastDeletedCount));
+                .equals(other.selectedIds, _this.selectedIds) &&
+            (identical(other.lastDeletedCount, _this.lastDeletedCount) ||
+                other.lastDeletedCount == _this.lastDeletedCount));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(savedCodes),
-      historyStatus,
-      historyActionStatus,
-      flowStep,
-      historyErrorMessage,
-      historyActionErrorMessage,
-      isSelectionMode,
-      const DeepCollectionEquality().hash(selectedIds),
-      lastDeletedCount);
+  int get hashCode {
+    final _this = this as HistoryState;
+    return Object.hash(
+        runtimeType,
+        const DeepCollectionEquality().hash(_this.savedCodes),
+        _this.historyStatus,
+        _this.historyActionStatus,
+        _this.flowStep,
+        _this.historyErrorMessage,
+        _this.historyActionErrorMessage,
+        _this.isSelectionMode,
+        const DeepCollectionEquality().hash(_this.selectedIds),
+        _this.lastDeletedCount);
+  }
 
   @override
   String toString() {
-    return 'HistoryState(savedCodes: $savedCodes, historyStatus: $historyStatus, historyActionStatus: $historyActionStatus, flowStep: $flowStep, historyErrorMessage: $historyErrorMessage, historyActionErrorMessage: $historyActionErrorMessage, isSelectionMode: $isSelectionMode, selectedIds: $selectedIds, lastDeletedCount: $lastDeletedCount)';
+    final _this = this as HistoryState;
+    return 'HistoryState(savedCodes: ${_this.savedCodes}, historyStatus: ${_this.historyStatus}, historyActionStatus: ${_this.historyActionStatus}, flowStep: ${_this.flowStep}, historyErrorMessage: ${_this.historyErrorMessage}, historyActionErrorMessage: ${_this.historyActionErrorMessage}, isSelectionMode: ${_this.isSelectionMode}, selectedIds: ${_this.selectedIds}, lastDeletedCount: ${_this.lastDeletedCount})';
   }
 }
 
@@ -964,7 +980,7 @@ class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
     Object? selectedIds = null,
     Object? lastDeletedCount = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(HistoryState(
       savedCodes: null == savedCodes
           ? _self.savedCodes
           : savedCodes // ignore: cast_nullable_to_non_nullable
@@ -1219,14 +1235,14 @@ extension HistoryStatePatterns on HistoryState {
 
 class _HistoryState implements HistoryState {
   const _HistoryState(
-      {final List<SavedCode> savedCodes = const [],
+      {List<SavedCode> savedCodes = const [],
       this.historyStatus = GenericStatus.initial,
       this.historyActionStatus = GenericStatus.initial,
       this.flowStep = GenericFlowStep.none,
       this.historyErrorMessage,
       this.historyActionErrorMessage,
       this.isSelectionMode = false,
-      final Set<String> selectedIds = const <String>{},
+      Set<String> selectedIds = const <String>{},
       this.lastDeletedCount})
       : _savedCodes = savedCodes,
         _selectedIds = selectedIds;
@@ -1240,23 +1256,19 @@ class _HistoryState implements HistoryState {
     return EqualUnmodifiableListView(_savedCodes);
   }
 
-// --- Status fields (scoped per RULE-006) ---
   @override
   @JsonKey()
   final GenericStatus historyStatus;
   @override
   @JsonKey()
   final GenericStatus historyActionStatus;
-// --- Flow step (for CRUD per RULE-004) ---
   @override
   @JsonKey()
   final GenericFlowStep flowStep;
-// --- Error messages (per RULE-007) ---
   @override
   final String? historyErrorMessage;
   @override
   final String? historyActionErrorMessage;
-// --- Multi-select state ---
   @override
   @JsonKey()
   final bool isSelectionMode;
@@ -1286,7 +1298,7 @@ class _HistoryState implements HistoryState {
         (other.runtimeType == runtimeType &&
             other is _HistoryState &&
             const DeepCollectionEquality()
-                .equals(other._savedCodes, _savedCodes) &&
+                .equals(other.savedCodes, _savedCodes) &&
             (identical(other.historyStatus, historyStatus) ||
                 other.historyStatus == historyStatus) &&
             (identical(other.historyActionStatus, historyActionStatus) ||
@@ -1301,23 +1313,25 @@ class _HistoryState implements HistoryState {
             (identical(other.isSelectionMode, isSelectionMode) ||
                 other.isSelectionMode == isSelectionMode) &&
             const DeepCollectionEquality()
-                .equals(other._selectedIds, _selectedIds) &&
+                .equals(other.selectedIds, _selectedIds) &&
             (identical(other.lastDeletedCount, lastDeletedCount) ||
                 other.lastDeletedCount == lastDeletedCount));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_savedCodes),
-      historyStatus,
-      historyActionStatus,
-      flowStep,
-      historyErrorMessage,
-      historyActionErrorMessage,
-      isSelectionMode,
-      const DeepCollectionEquality().hash(_selectedIds),
-      lastDeletedCount);
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        const DeepCollectionEquality().hash(_savedCodes),
+        historyStatus,
+        historyActionStatus,
+        flowStep,
+        historyErrorMessage,
+        historyActionErrorMessage,
+        isSelectionMode,
+        const DeepCollectionEquality().hash(_selectedIds),
+        lastDeletedCount);
+  }
 
   @override
   String toString() {

@@ -257,4 +257,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get getStarted => 'Get Started';
+
+  @override
+  String get errorPlacesUnavailable =>
+      'Suggestions are unavailable right now. Press search to look up the address directly.';
+
+  @override
+  String get errorPlaceDetails =>
+      'Couldn\'t load the details of this place. Please try again.';
+
+  @override
+  String get errorSearchFailed => 'Search failed. Please try again.';
+
+  @override
+  String get errorShortPlusCodeNeedsLocality =>
+      'Add a town or city after a short Plus Code, e.g. 9G8F+6W Douala.';
+
+  @override
+  String get errorShortPlusCodeLocalityNotFound =>
+      'Couldn\'t find the town or city in this Plus Code.';
+
+  @override
+  String get poweredByGoogle => 'Powered by Google';
+
+  @override
+  String get errorLocationServiceDisabled =>
+      'Location is turned off. Turn it on to center the map on your position.';
+
+  @override
+  String get errorLocationPermissionDenied =>
+      'PlusLocate isn\'t allowed to use your location. Allow it in the app settings to center the map on your position.';
+
+  @override
+  String get errorLocationUnavailable =>
+      'Couldn\'t get your current location. Please try again.';
 }

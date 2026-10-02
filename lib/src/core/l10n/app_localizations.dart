@@ -572,6 +572,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Get Started'**
   String get getStarted;
+
+  /// Shown under the search field when Places autocomplete fails
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestions are unavailable right now. Press search to look up the address directly.'**
+  String get errorPlacesUnavailable;
+
+  /// Error when fetching details for a selected suggestion fails
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load the details of this place. Please try again.'**
+  String get errorPlaceDetails;
+
+  /// Generic error when a submitted search fails unexpectedly
+  ///
+  /// In en, this message translates to:
+  /// **'Search failed. Please try again.'**
+  String get errorSearchFailed;
+
+  /// Error when a short Plus Code is searched without a locality
+  ///
+  /// In en, this message translates to:
+  /// **'Add a town or city after a short Plus Code, e.g. 9G8F+6W Douala.'**
+  String get errorShortPlusCodeNeedsLocality;
+
+  /// Error when the locality of a short Plus Code can't be geocoded
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t find the town or city in this Plus Code.'**
+  String get errorShortPlusCodeLocalityNotFound;
+
+  /// Attribution shown under Places autocomplete suggestions
+  ///
+  /// In en, this message translates to:
+  /// **'Powered by Google'**
+  String get poweredByGoogle;
+
+  /// Re-center button pressed while device location services are off
+  ///
+  /// In en, this message translates to:
+  /// **'Location is turned off. Turn it on to center the map on your position.'**
+  String get errorLocationServiceDisabled;
+
+  /// Re-center button pressed without location permission
+  ///
+  /// In en, this message translates to:
+  /// **'PlusLocate isn\'t allowed to use your location. Allow it in the app settings to center the map on your position.'**
+  String get errorLocationPermissionDenied;
+
+  /// Re-center button pressed but the device couldn't provide a position
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t get your current location. Please try again.'**
+  String get errorLocationUnavailable;
 }
 
 class _AppLocalizationsDelegate

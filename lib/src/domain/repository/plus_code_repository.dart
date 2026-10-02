@@ -48,4 +48,30 @@ class PlusCodeRepository {
   bool isValidPlusCode(String code) {
     return _apiProvider.isValidPlusCode(code);
   }
+
+  /// Whether [code] is a valid full (global) Plus Code.
+  bool isFullPlusCode(String code) => _apiProvider.isFullPlusCode(code);
+
+  /// Whether [code] is a valid short Plus Code (needs a reference location).
+  bool isShortPlusCode(String code) => _apiProvider.isShortPlusCode(code);
+
+  /// Recover the full Plus Code for [shortCode] near the reference point,
+  /// then decode it.
+  Future<PlusCode?> recoverShortPlusCode({
+    required String shortCode,
+    required double referenceLatitude,
+    required double referenceLongitude,
+  }) async {
+    try {
+      final fullCode = _apiProvider.recoverNearest(
+        shortCode: shortCode,
+        referenceLatitude: referenceLatitude,
+        referenceLongitude: referenceLongitude,
+      );
+      return await decodePlusCode(code: fullCode);
+    } catch (e) {
+      log('Error recovering short Plus Code: $e');
+      rethrow;
+    }
+  }
 }

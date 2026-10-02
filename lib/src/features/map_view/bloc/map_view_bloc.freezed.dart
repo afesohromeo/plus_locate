@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'map_view_bloc.dart';
@@ -9,6 +9,7 @@ part of 'map_view_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -340,7 +341,9 @@ class _UpdateLocation implements MapViewEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, latitude, longitude);
+  int get hashCode {
+    return Object.hash(runtimeType, latitude, longitude);
+  }
 
   @override
   String toString() {
@@ -415,7 +418,9 @@ class _ReverseGeocodeLocation implements MapViewEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, latitude, longitude);
+  int get hashCode {
+    return Object.hash(runtimeType, latitude, longitude);
+  }
 
   @override
   String toString() {
@@ -498,8 +503,10 @@ class _FocusOnLocation implements MapViewEvent {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, latitude, longitude, plusCode, locationResult);
+  int get hashCode {
+    return Object.hash(
+        runtimeType, latitude, longitude, plusCode, locationResult);
+  }
 
   @override
   String toString() {
@@ -651,41 +658,47 @@ mixin _$MapViewState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as MapViewState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is MapViewState &&
-            (identical(other.geocodeStatus, geocodeStatus) ||
-                other.geocodeStatus == geocodeStatus) &&
-            (identical(other.locationResult, locationResult) ||
-                other.locationResult == locationResult) &&
-            (identical(other.selectedPlusCode, selectedPlusCode) ||
-                other.selectedPlusCode == selectedPlusCode) &&
-            (identical(other.currentLatitude, currentLatitude) ||
-                other.currentLatitude == currentLatitude) &&
-            (identical(other.currentLongitude, currentLongitude) ||
-                other.currentLongitude == currentLongitude) &&
-            (identical(other.geocodeErrorMessage, geocodeErrorMessage) ||
-                other.geocodeErrorMessage == geocodeErrorMessage) &&
-            (identical(other.mapType, mapType) || other.mapType == mapType) &&
-            (identical(other.focusToken, focusToken) ||
-                other.focusToken == focusToken));
+            (identical(other.geocodeStatus, _this.geocodeStatus) ||
+                other.geocodeStatus == _this.geocodeStatus) &&
+            (identical(other.locationResult, _this.locationResult) ||
+                other.locationResult == _this.locationResult) &&
+            (identical(other.selectedPlusCode, _this.selectedPlusCode) ||
+                other.selectedPlusCode == _this.selectedPlusCode) &&
+            (identical(other.currentLatitude, _this.currentLatitude) ||
+                other.currentLatitude == _this.currentLatitude) &&
+            (identical(other.currentLongitude, _this.currentLongitude) ||
+                other.currentLongitude == _this.currentLongitude) &&
+            (identical(other.geocodeErrorMessage, _this.geocodeErrorMessage) ||
+                other.geocodeErrorMessage == _this.geocodeErrorMessage) &&
+            (identical(other.mapType, _this.mapType) ||
+                other.mapType == _this.mapType) &&
+            (identical(other.focusToken, _this.focusToken) ||
+                other.focusToken == _this.focusToken));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      geocodeStatus,
-      locationResult,
-      selectedPlusCode,
-      currentLatitude,
-      currentLongitude,
-      geocodeErrorMessage,
-      mapType,
-      focusToken);
+  int get hashCode {
+    final _this = this as MapViewState;
+    return Object.hash(
+        runtimeType,
+        _this.geocodeStatus,
+        _this.locationResult,
+        _this.selectedPlusCode,
+        _this.currentLatitude,
+        _this.currentLongitude,
+        _this.geocodeErrorMessage,
+        _this.mapType,
+        _this.focusToken);
+  }
 
   @override
   String toString() {
-    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage, mapType: $mapType, focusToken: $focusToken)';
+    final _this = this as MapViewState;
+    return 'MapViewState(geocodeStatus: ${_this.geocodeStatus}, locationResult: ${_this.locationResult}, selectedPlusCode: ${_this.selectedPlusCode}, currentLatitude: ${_this.currentLatitude}, currentLongitude: ${_this.currentLongitude}, geocodeErrorMessage: ${_this.geocodeErrorMessage}, mapType: ${_this.mapType}, focusToken: ${_this.focusToken})';
   }
 }
 
@@ -730,7 +743,7 @@ class _$MapViewStateCopyWithImpl<$Res> implements $MapViewStateCopyWith<$Res> {
     Object? mapType = null,
     Object? focusToken = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(MapViewState(
       geocodeStatus: null == geocodeStatus
           ? _self.geocodeStatus
           : geocodeStatus // ignore: cast_nullable_to_non_nullable
@@ -1063,16 +1076,18 @@ class _MapViewState implements MapViewState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      geocodeStatus,
-      locationResult,
-      selectedPlusCode,
-      currentLatitude,
-      currentLongitude,
-      geocodeErrorMessage,
-      mapType,
-      focusToken);
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        geocodeStatus,
+        locationResult,
+        selectedPlusCode,
+        currentLatitude,
+        currentLongitude,
+        geocodeErrorMessage,
+        mapType,
+        focusToken);
+  }
 
   @override
   String toString() {

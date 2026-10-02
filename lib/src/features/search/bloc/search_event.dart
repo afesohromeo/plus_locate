@@ -6,18 +6,20 @@ class SearchEvent with _$SearchEvent {
   /// Checks the local autocomplete quota and sets the initial [SearchMode].
   const factory SearchEvent.init() = _Init;
 
-  /// A suggestion was picked from the Places Autocomplete list.
-  const factory SearchEvent.placeSelected({
-    required String description,
-    required double latitude,
-    required double longitude,
-  }) = _PlaceSelected;
+  /// The search text changed. Debounced; fetches Places suggestions in
+  /// [SearchMode.autocomplete] unless the text is a Plus Code.
+  const factory SearchEvent.queryChanged({required String query}) =
+      _QueryChanged;
 
-  /// The user submitted a free-text query (address or Plus Code) in
-  /// search-on-submit mode.
-  const factory SearchEvent.submitQuery({required String query}) =
-      _SubmitQuery;
+  /// A suggestion was picked from the autocomplete list.
+  const factory SearchEvent.suggestionSelected({
+    required PlaceSuggestion suggestion,
+  }) = _SuggestionSelected;
 
-  /// Clears the current result.
+  /// The user submitted free text (address, full Plus Code, or short Plus
+  /// Code followed by a locality). Works in both modes.
+  const factory SearchEvent.submitQuery({required String query}) = _SubmitQuery;
+
+  /// Clears the current result and suggestions.
   const factory SearchEvent.reset() = _Reset;
 }

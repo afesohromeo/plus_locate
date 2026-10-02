@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'location_result.dart';
@@ -9,6 +9,7 @@ part of 'location_result.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -42,28 +43,35 @@ mixin _$LocationResult {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as LocationResult;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is LocationResult &&
-            (identical(other.formattedAddress, formattedAddress) ||
-                other.formattedAddress == formattedAddress) &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude) &&
-            (identical(other.placeId, placeId) || other.placeId == placeId) &&
-            (identical(other.locality, locality) ||
-                other.locality == locality) &&
-            (identical(other.country, country) || other.country == country));
+            (identical(other.formattedAddress, _this.formattedAddress) ||
+                other.formattedAddress == _this.formattedAddress) &&
+            (identical(other.latitude, _this.latitude) ||
+                other.latitude == _this.latitude) &&
+            (identical(other.longitude, _this.longitude) ||
+                other.longitude == _this.longitude) &&
+            (identical(other.placeId, _this.placeId) ||
+                other.placeId == _this.placeId) &&
+            (identical(other.locality, _this.locality) ||
+                other.locality == _this.locality) &&
+            (identical(other.country, _this.country) ||
+                other.country == _this.country));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, formattedAddress, latitude,
-      longitude, placeId, locality, country);
+  int get hashCode {
+    final _this = this as LocationResult;
+    return Object.hash(runtimeType, _this.formattedAddress, _this.latitude,
+        _this.longitude, _this.placeId, _this.locality, _this.country);
+  }
 
   @override
   String toString() {
-    return 'LocationResult(formattedAddress: $formattedAddress, latitude: $latitude, longitude: $longitude, placeId: $placeId, locality: $locality, country: $country)';
+    final _this = this as LocationResult;
+    return 'LocationResult(formattedAddress: ${_this.formattedAddress}, latitude: ${_this.latitude}, longitude: ${_this.longitude}, placeId: ${_this.placeId}, locality: ${_this.locality}, country: ${_this.country})';
   }
 }
 
@@ -102,7 +110,7 @@ class _$LocationResultCopyWithImpl<$Res>
     Object? locality = freezed,
     Object? country = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(LocationResult(
       formattedAddress: freezed == formattedAddress
           ? _self.formattedAddress
           : formattedAddress // ignore: cast_nullable_to_non_nullable
@@ -370,8 +378,10 @@ class _LocationResult extends LocationResult {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, formattedAddress, latitude,
-      longitude, placeId, locality, country);
+  int get hashCode {
+    return Object.hash(runtimeType, formattedAddress, latitude, longitude,
+        placeId, locality, country);
+  }
 
   @override
   String toString() {

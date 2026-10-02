@@ -78,5 +78,14 @@
     "onboardingFeatureGlobal": "Couverture mondiale",
     "onboardingFeatureOffline": "Accès hors ligne",
     "onboardingFeatureShare": "Partage facile",
-    "getStarted": "Commencer"
+    "getStarted": "Commencer",
+    "errorPlacesUnavailable": "Les suggestions sont indisponibles pour le moment. Appuyez sur rechercher pour chercher l'adresse directement.",
+    "errorPlaceDetails": "Impossible de charger les détails de ce lieu. Veuillez réessayer.",
+    "errorSearchFailed": "La recherche a échoué. Veuillez réessayer.",
+    "errorShortPlusCodeNeedsLocality": "Ajoutez une ville après un Plus Code court, par ex. 9G8F+6W Douala.",
+    "errorShortPlusCodeLocalityNotFound": "Impossible de trouver la ville de ce Plus Code.",
+    "poweredByGoogle": "Powered by Google",
+    "errorLocationServiceDisabled": "La localisation est désactivée. Activez-la pour centrer la carte sur votre position.",
+    "errorLocationPermissionDenied": "PlusLocate n'est pas autorisé à utiliser votre position. Autorisez-la dans les paramètres de l'application pour centrer la carte sur votre position.",
+    "errorLocationUnavailable": "Impossible d'obtenir votre position actuelle. Veuillez réessayer."
 }

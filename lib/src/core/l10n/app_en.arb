@@ -344,5 +344,41 @@
     "getStarted": "Get Started",
     "@getStarted": {
         "description": "CTA button text on the onboarding screen"
+    },
+    "errorPlacesUnavailable": "Suggestions are unavailable right now. Press search to look up the address directly.",
+    "@errorPlacesUnavailable": {
+        "description": "Shown under the search field when Places autocomplete fails"
+    },
+    "errorPlaceDetails": "Couldn't load the details of this place. Please try again.",
+    "@errorPlaceDetails": {
+        "description": "Error when fetching details for a selected suggestion fails"
+    },
+    "errorSearchFailed": "Search failed. Please try again.",
+    "@errorSearchFailed": {
+        "description": "Generic error when a submitted search fails unexpectedly"
+    },
+    "errorShortPlusCodeNeedsLocality": "Add a town or city after a short Plus Code, e.g. 9G8F+6W Douala.",
+    "@errorShortPlusCodeNeedsLocality": {
+        "description": "Error when a short Plus Code is searched without a locality"
+    },
+    "errorShortPlusCodeLocalityNotFound": "Couldn't find the town or city in this Plus Code.",
+    "@errorShortPlusCodeLocalityNotFound": {
+        "description": "Error when the locality of a short Plus Code can't be geocoded"
+    },
+    "poweredByGoogle": "Powered by Google",
+    "@poweredByGoogle": {
+        "description": "Attribution shown under Places autocomplete suggestions"
+    },
+    "errorLocationServiceDisabled": "Location is turned off. Turn it on to center the map on your position.",
+    "@errorLocationServiceDisabled": {
+        "description": "Re-center button pressed while device location services are off"
+    },
+    "errorLocationPermissionDenied": "PlusLocate isn't allowed to use your location. Allow it in the app settings to center the map on your position.",
+    "@errorLocationPermissionDenied": {
+        "description": "Re-center button pressed without location permission"
+    },
+    "errorLocationUnavailable": "Couldn't get your current location. Please try again.",
+    "@errorLocationUnavailable": {
+        "description": "Re-center button pressed but the device couldn't provide a position"
     }
 }

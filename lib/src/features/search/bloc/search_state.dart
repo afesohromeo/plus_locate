@@ -1,14 +1,13 @@
 // lib/src/features/search/bloc/search_state.dart
 part of 'search_bloc.dart';
 
-/// Which input UI the Search page should render.
+/// Which input behaviour the Search page uses.
 enum SearchMode {
-  /// Live Places Autocomplete suggestions (Google Places API).
+  /// Live Places Autocomplete (New) suggestions while typing.
   autocomplete,
 
-  /// Plain text field with a search button — free, device-native
-  /// geocoding/Plus Code decode, used once the monthly autocomplete
-  /// quota is exhausted.
+  /// No suggestions — free, device-native geocoding/Plus Code decode on
+  /// submit, used once the monthly autocomplete quota is exhausted.
   onSubmit,
 }
 
@@ -22,6 +21,9 @@ sealed class SearchState with _$SearchState {
     LocationResult? locationResult,
     PlusCode? plusCode,
     String? searchErrorMessage,
+    @Default(GenericStatus.initial) GenericStatus suggestionsStatus,
+    @Default(<PlaceSuggestion>[]) List<PlaceSuggestion> suggestions,
+    String? suggestionsErrorMessage,
   }) = _SearchState;
 
   /// Best-available latitude for the current result (location result first,

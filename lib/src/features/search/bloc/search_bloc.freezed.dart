@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'search_bloc.dart';
@@ -9,6 +9,7 @@ part of 'search_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -51,7 +52,8 @@ extension SearchEventPatterns on SearchEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Init value)? init,
-    TResult Function(_PlaceSelected value)? placeSelected,
+    TResult Function(_QueryChanged value)? queryChanged,
+    TResult Function(_SuggestionSelected value)? suggestionSelected,
     TResult Function(_SubmitQuery value)? submitQuery,
     TResult Function(_Reset value)? reset,
     required TResult orElse(),
@@ -60,8 +62,10 @@ extension SearchEventPatterns on SearchEvent {
     switch (_that) {
       case _Init() when init != null:
         return init(_that);
-      case _PlaceSelected() when placeSelected != null:
-        return placeSelected(_that);
+      case _QueryChanged() when queryChanged != null:
+        return queryChanged(_that);
+      case _SuggestionSelected() when suggestionSelected != null:
+        return suggestionSelected(_that);
       case _SubmitQuery() when submitQuery != null:
         return submitQuery(_that);
       case _Reset() when reset != null:
@@ -87,7 +91,8 @@ extension SearchEventPatterns on SearchEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Init value) init,
-    required TResult Function(_PlaceSelected value) placeSelected,
+    required TResult Function(_QueryChanged value) queryChanged,
+    required TResult Function(_SuggestionSelected value) suggestionSelected,
     required TResult Function(_SubmitQuery value) submitQuery,
     required TResult Function(_Reset value) reset,
   }) {
@@ -95,8 +100,10 @@ extension SearchEventPatterns on SearchEvent {
     switch (_that) {
       case _Init():
         return init(_that);
-      case _PlaceSelected():
-        return placeSelected(_that);
+      case _QueryChanged():
+        return queryChanged(_that);
+      case _SuggestionSelected():
+        return suggestionSelected(_that);
       case _SubmitQuery():
         return submitQuery(_that);
       case _Reset():
@@ -121,7 +128,8 @@ extension SearchEventPatterns on SearchEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Init value)? init,
-    TResult? Function(_PlaceSelected value)? placeSelected,
+    TResult? Function(_QueryChanged value)? queryChanged,
+    TResult? Function(_SuggestionSelected value)? suggestionSelected,
     TResult? Function(_SubmitQuery value)? submitQuery,
     TResult? Function(_Reset value)? reset,
   }) {
@@ -129,8 +137,10 @@ extension SearchEventPatterns on SearchEvent {
     switch (_that) {
       case _Init() when init != null:
         return init(_that);
-      case _PlaceSelected() when placeSelected != null:
-        return placeSelected(_that);
+      case _QueryChanged() when queryChanged != null:
+        return queryChanged(_that);
+      case _SuggestionSelected() when suggestionSelected != null:
+        return suggestionSelected(_that);
       case _SubmitQuery() when submitQuery != null:
         return submitQuery(_that);
       case _Reset() when reset != null:
@@ -155,8 +165,8 @@ extension SearchEventPatterns on SearchEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(String description, double latitude, double longitude)?
-        placeSelected,
+    TResult Function(String query)? queryChanged,
+    TResult Function(PlaceSuggestion suggestion)? suggestionSelected,
     TResult Function(String query)? submitQuery,
     TResult Function()? reset,
     required TResult orElse(),
@@ -165,9 +175,10 @@ extension SearchEventPatterns on SearchEvent {
     switch (_that) {
       case _Init() when init != null:
         return init();
-      case _PlaceSelected() when placeSelected != null:
-        return placeSelected(
-            _that.description, _that.latitude, _that.longitude);
+      case _QueryChanged() when queryChanged != null:
+        return queryChanged(_that.query);
+      case _SuggestionSelected() when suggestionSelected != null:
+        return suggestionSelected(_that.suggestion);
       case _SubmitQuery() when submitQuery != null:
         return submitQuery(_that.query);
       case _Reset() when reset != null:
@@ -193,9 +204,8 @@ extension SearchEventPatterns on SearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(
-            String description, double latitude, double longitude)
-        placeSelected,
+    required TResult Function(String query) queryChanged,
+    required TResult Function(PlaceSuggestion suggestion) suggestionSelected,
     required TResult Function(String query) submitQuery,
     required TResult Function() reset,
   }) {
@@ -203,9 +213,10 @@ extension SearchEventPatterns on SearchEvent {
     switch (_that) {
       case _Init():
         return init();
-      case _PlaceSelected():
-        return placeSelected(
-            _that.description, _that.latitude, _that.longitude);
+      case _QueryChanged():
+        return queryChanged(_that.query);
+      case _SuggestionSelected():
+        return suggestionSelected(_that.suggestion);
       case _SubmitQuery():
         return submitQuery(_that.query);
       case _Reset():
@@ -230,8 +241,8 @@ extension SearchEventPatterns on SearchEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(String description, double latitude, double longitude)?
-        placeSelected,
+    TResult? Function(String query)? queryChanged,
+    TResult? Function(PlaceSuggestion suggestion)? suggestionSelected,
     TResult? Function(String query)? submitQuery,
     TResult? Function()? reset,
   }) {
@@ -239,9 +250,10 @@ extension SearchEventPatterns on SearchEvent {
     switch (_that) {
       case _Init() when init != null:
         return init();
-      case _PlaceSelected() when placeSelected != null:
-        return placeSelected(
-            _that.description, _that.latitude, _that.longitude);
+      case _QueryChanged() when queryChanged != null:
+        return queryChanged(_that.query);
+      case _SuggestionSelected() when suggestionSelected != null:
+        return suggestionSelected(_that.suggestion);
       case _SubmitQuery() when submitQuery != null:
         return submitQuery(_that.query);
       case _Reset() when reset != null:
@@ -274,86 +286,146 @@ class _Init implements SearchEvent {
 
 /// @nodoc
 
-class _PlaceSelected implements SearchEvent {
-  const _PlaceSelected(
-      {required this.description,
-      required this.latitude,
-      required this.longitude});
+class _QueryChanged implements SearchEvent {
+  const _QueryChanged({required this.query});
 
-  final String description;
-  final double latitude;
-  final double longitude;
+  final String query;
 
   /// Create a copy of SearchEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$PlaceSelectedCopyWith<_PlaceSelected> get copyWith =>
-      __$PlaceSelectedCopyWithImpl<_PlaceSelected>(this, _$identity);
+  _$QueryChangedCopyWith<_QueryChanged> get copyWith =>
+      __$QueryChangedCopyWithImpl<_QueryChanged>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PlaceSelected &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude));
+            other is _QueryChanged &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, description, latitude, longitude);
+  int get hashCode {
+    return Object.hash(runtimeType, query);
+  }
 
   @override
   String toString() {
-    return 'SearchEvent.placeSelected(description: $description, latitude: $latitude, longitude: $longitude)';
+    return 'SearchEvent.queryChanged(query: $query)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$PlaceSelectedCopyWith<$Res>
+abstract mixin class _$QueryChangedCopyWith<$Res>
     implements $SearchEventCopyWith<$Res> {
-  factory _$PlaceSelectedCopyWith(
-          _PlaceSelected value, $Res Function(_PlaceSelected) _then) =
-      __$PlaceSelectedCopyWithImpl;
+  factory _$QueryChangedCopyWith(
+          _QueryChanged value, $Res Function(_QueryChanged) _then) =
+      __$QueryChangedCopyWithImpl;
   @useResult
-  $Res call({String description, double latitude, double longitude});
+  $Res call({String query});
 }
 
 /// @nodoc
-class __$PlaceSelectedCopyWithImpl<$Res>
-    implements _$PlaceSelectedCopyWith<$Res> {
-  __$PlaceSelectedCopyWithImpl(this._self, this._then);
+class __$QueryChangedCopyWithImpl<$Res>
+    implements _$QueryChangedCopyWith<$Res> {
+  __$QueryChangedCopyWithImpl(this._self, this._then);
 
-  final _PlaceSelected _self;
-  final $Res Function(_PlaceSelected) _then;
+  final _QueryChanged _self;
+  final $Res Function(_QueryChanged) _then;
 
   /// Create a copy of SearchEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? description = null,
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? query = null,
   }) {
-    return _then(_PlaceSelected(
-      description: null == description
-          ? _self.description
-          : description // ignore: cast_nullable_to_non_nullable
+    return _then(_QueryChanged(
+      query: null == query
+          ? _self.query
+          : query // ignore: cast_nullable_to_non_nullable
               as String,
-      latitude: null == latitude
-          ? _self.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
-          ? _self.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
     ));
+  }
+}
+
+/// @nodoc
+
+class _SuggestionSelected implements SearchEvent {
+  const _SuggestionSelected({required this.suggestion});
+
+  final PlaceSuggestion suggestion;
+
+  /// Create a copy of SearchEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$SuggestionSelectedCopyWith<_SuggestionSelected> get copyWith =>
+      __$SuggestionSelectedCopyWithImpl<_SuggestionSelected>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _SuggestionSelected &&
+            (identical(other.suggestion, suggestion) ||
+                other.suggestion == suggestion));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, suggestion);
+  }
+
+  @override
+  String toString() {
+    return 'SearchEvent.suggestionSelected(suggestion: $suggestion)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$SuggestionSelectedCopyWith<$Res>
+    implements $SearchEventCopyWith<$Res> {
+  factory _$SuggestionSelectedCopyWith(
+          _SuggestionSelected value, $Res Function(_SuggestionSelected) _then) =
+      __$SuggestionSelectedCopyWithImpl;
+  @useResult
+  $Res call({PlaceSuggestion suggestion});
+
+  $PlaceSuggestionCopyWith<$Res> get suggestion;
+}
+
+/// @nodoc
+class __$SuggestionSelectedCopyWithImpl<$Res>
+    implements _$SuggestionSelectedCopyWith<$Res> {
+  __$SuggestionSelectedCopyWithImpl(this._self, this._then);
+
+  final _SuggestionSelected _self;
+  final $Res Function(_SuggestionSelected) _then;
+
+  /// Create a copy of SearchEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? suggestion = null,
+  }) {
+    return _then(_SuggestionSelected(
+      suggestion: null == suggestion
+          ? _self.suggestion
+          : suggestion // ignore: cast_nullable_to_non_nullable
+              as PlaceSuggestion,
+    ));
+  }
+
+  /// Create a copy of SearchEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PlaceSuggestionCopyWith<$Res> get suggestion {
+    return $PlaceSuggestionCopyWith<$Res>(_self.suggestion, (value) {
+      return _then(_self.copyWith(suggestion: value));
+    });
   }
 }
 
@@ -380,7 +452,9 @@ class _SubmitQuery implements SearchEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, query);
+  int get hashCode {
+    return Object.hash(runtimeType, query);
+  }
 
   @override
   String toString() {
@@ -447,6 +521,9 @@ mixin _$SearchState {
   LocationResult? get locationResult;
   PlusCode? get plusCode;
   String? get searchErrorMessage;
+  GenericStatus get suggestionsStatus;
+  List<PlaceSuggestion> get suggestions;
+  String? get suggestionsErrorMessage;
 
   /// Create a copy of SearchState
   /// with the given fields replaced by the non-null parameter values.
@@ -457,28 +534,49 @@ mixin _$SearchState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as SearchState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SearchState &&
-            (identical(other.searchStatus, searchStatus) ||
-                other.searchStatus == searchStatus) &&
-            (identical(other.searchMode, searchMode) ||
-                other.searchMode == searchMode) &&
-            (identical(other.locationResult, locationResult) ||
-                other.locationResult == locationResult) &&
-            (identical(other.plusCode, plusCode) ||
-                other.plusCode == plusCode) &&
-            (identical(other.searchErrorMessage, searchErrorMessage) ||
-                other.searchErrorMessage == searchErrorMessage));
+            (identical(other.searchStatus, _this.searchStatus) ||
+                other.searchStatus == _this.searchStatus) &&
+            (identical(other.searchMode, _this.searchMode) ||
+                other.searchMode == _this.searchMode) &&
+            (identical(other.locationResult, _this.locationResult) ||
+                other.locationResult == _this.locationResult) &&
+            (identical(other.plusCode, _this.plusCode) ||
+                other.plusCode == _this.plusCode) &&
+            (identical(other.searchErrorMessage, _this.searchErrorMessage) ||
+                other.searchErrorMessage == _this.searchErrorMessage) &&
+            (identical(other.suggestionsStatus, _this.suggestionsStatus) ||
+                other.suggestionsStatus == _this.suggestionsStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.suggestions, _this.suggestions) &&
+            (identical(other.suggestionsErrorMessage,
+                    _this.suggestionsErrorMessage) ||
+                other.suggestionsErrorMessage ==
+                    _this.suggestionsErrorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, searchStatus, searchMode,
-      locationResult, plusCode, searchErrorMessage);
+  int get hashCode {
+    final _this = this as SearchState;
+    return Object.hash(
+        runtimeType,
+        _this.searchStatus,
+        _this.searchMode,
+        _this.locationResult,
+        _this.plusCode,
+        _this.searchErrorMessage,
+        _this.suggestionsStatus,
+        const DeepCollectionEquality().hash(_this.suggestions),
+        _this.suggestionsErrorMessage);
+  }
 
   @override
   String toString() {
-    return 'SearchState(searchStatus: $searchStatus, searchMode: $searchMode, locationResult: $locationResult, plusCode: $plusCode, searchErrorMessage: $searchErrorMessage)';
+    final _this = this as SearchState;
+    return 'SearchState(searchStatus: ${_this.searchStatus}, searchMode: ${_this.searchMode}, locationResult: ${_this.locationResult}, plusCode: ${_this.plusCode}, searchErrorMessage: ${_this.searchErrorMessage}, suggestionsStatus: ${_this.suggestionsStatus}, suggestions: ${_this.suggestions}, suggestionsErrorMessage: ${_this.suggestionsErrorMessage})';
   }
 }
 
@@ -493,7 +591,10 @@ abstract mixin class $SearchStateCopyWith<$Res> {
       SearchMode searchMode,
       LocationResult? locationResult,
       PlusCode? plusCode,
-      String? searchErrorMessage});
+      String? searchErrorMessage,
+      GenericStatus suggestionsStatus,
+      List<PlaceSuggestion> suggestions,
+      String? suggestionsErrorMessage});
 
   $LocationResultCopyWith<$Res>? get locationResult;
   $PlusCodeCopyWith<$Res>? get plusCode;
@@ -516,8 +617,11 @@ class _$SearchStateCopyWithImpl<$Res> implements $SearchStateCopyWith<$Res> {
     Object? locationResult = freezed,
     Object? plusCode = freezed,
     Object? searchErrorMessage = freezed,
+    Object? suggestionsStatus = null,
+    Object? suggestions = null,
+    Object? suggestionsErrorMessage = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(SearchState(
       searchStatus: null == searchStatus
           ? _self.searchStatus
           : searchStatus // ignore: cast_nullable_to_non_nullable
@@ -537,6 +641,18 @@ class _$SearchStateCopyWithImpl<$Res> implements $SearchStateCopyWith<$Res> {
       searchErrorMessage: freezed == searchErrorMessage
           ? _self.searchErrorMessage
           : searchErrorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      suggestionsStatus: null == suggestionsStatus
+          ? _self.suggestionsStatus
+          : suggestionsStatus // ignore: cast_nullable_to_non_nullable
+              as GenericStatus,
+      suggestions: null == suggestions
+          ? _self.suggestions
+          : suggestions // ignore: cast_nullable_to_non_nullable
+              as List<PlaceSuggestion>,
+      suggestionsErrorMessage: freezed == suggestionsErrorMessage
+          ? _self.suggestionsErrorMessage
+          : suggestionsErrorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -666,15 +782,25 @@ extension SearchStatePatterns on SearchState {
             SearchMode searchMode,
             LocationResult? locationResult,
             PlusCode? plusCode,
-            String? searchErrorMessage)?
+            String? searchErrorMessage,
+            GenericStatus suggestionsStatus,
+            List<PlaceSuggestion> suggestions,
+            String? suggestionsErrorMessage)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _SearchState() when $default != null:
-        return $default(_that.searchStatus, _that.searchMode,
-            _that.locationResult, _that.plusCode, _that.searchErrorMessage);
+        return $default(
+            _that.searchStatus,
+            _that.searchMode,
+            _that.locationResult,
+            _that.plusCode,
+            _that.searchErrorMessage,
+            _that.suggestionsStatus,
+            _that.suggestions,
+            _that.suggestionsErrorMessage);
       case _:
         return orElse();
     }
@@ -700,14 +826,24 @@ extension SearchStatePatterns on SearchState {
             SearchMode searchMode,
             LocationResult? locationResult,
             PlusCode? plusCode,
-            String? searchErrorMessage)
+            String? searchErrorMessage,
+            GenericStatus suggestionsStatus,
+            List<PlaceSuggestion> suggestions,
+            String? suggestionsErrorMessage)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _SearchState():
-        return $default(_that.searchStatus, _that.searchMode,
-            _that.locationResult, _that.plusCode, _that.searchErrorMessage);
+        return $default(
+            _that.searchStatus,
+            _that.searchMode,
+            _that.locationResult,
+            _that.plusCode,
+            _that.searchErrorMessage,
+            _that.suggestionsStatus,
+            _that.suggestions,
+            _that.suggestionsErrorMessage);
     }
   }
 
@@ -730,14 +866,24 @@ extension SearchStatePatterns on SearchState {
             SearchMode searchMode,
             LocationResult? locationResult,
             PlusCode? plusCode,
-            String? searchErrorMessage)?
+            String? searchErrorMessage,
+            GenericStatus suggestionsStatus,
+            List<PlaceSuggestion> suggestions,
+            String? suggestionsErrorMessage)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _SearchState() when $default != null:
-        return $default(_that.searchStatus, _that.searchMode,
-            _that.locationResult, _that.plusCode, _that.searchErrorMessage);
+        return $default(
+            _that.searchStatus,
+            _that.searchMode,
+            _that.locationResult,
+            _that.plusCode,
+            _that.searchErrorMessage,
+            _that.suggestionsStatus,
+            _that.suggestions,
+            _that.suggestionsErrorMessage);
       case _:
         return null;
     }
@@ -752,8 +898,12 @@ class _SearchState extends SearchState {
       this.searchMode = SearchMode.autocomplete,
       this.locationResult,
       this.plusCode,
-      this.searchErrorMessage})
-      : super._();
+      this.searchErrorMessage,
+      this.suggestionsStatus = GenericStatus.initial,
+      List<PlaceSuggestion> suggestions = const <PlaceSuggestion>[],
+      this.suggestionsErrorMessage})
+      : _suggestions = suggestions,
+        super._();
 
   @override
   @JsonKey()
@@ -767,6 +917,20 @@ class _SearchState extends SearchState {
   final PlusCode? plusCode;
   @override
   final String? searchErrorMessage;
+  @override
+  @JsonKey()
+  final GenericStatus suggestionsStatus;
+  final List<PlaceSuggestion> _suggestions;
+  @override
+  @JsonKey()
+  List<PlaceSuggestion> get suggestions {
+    if (_suggestions is EqualUnmodifiableListView) return _suggestions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_suggestions);
+  }
+
+  @override
+  final String? suggestionsErrorMessage;
 
   /// Create a copy of SearchState
   /// with the given fields replaced by the non-null parameter values.
@@ -790,16 +954,33 @@ class _SearchState extends SearchState {
             (identical(other.plusCode, plusCode) ||
                 other.plusCode == plusCode) &&
             (identical(other.searchErrorMessage, searchErrorMessage) ||
-                other.searchErrorMessage == searchErrorMessage));
+                other.searchErrorMessage == searchErrorMessage) &&
+            (identical(other.suggestionsStatus, suggestionsStatus) ||
+                other.suggestionsStatus == suggestionsStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.suggestions, _suggestions) &&
+            (identical(
+                    other.suggestionsErrorMessage, suggestionsErrorMessage) ||
+                other.suggestionsErrorMessage == suggestionsErrorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, searchStatus, searchMode,
-      locationResult, plusCode, searchErrorMessage);
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        searchStatus,
+        searchMode,
+        locationResult,
+        plusCode,
+        searchErrorMessage,
+        suggestionsStatus,
+        const DeepCollectionEquality().hash(_suggestions),
+        suggestionsErrorMessage);
+  }
 
   @override
   String toString() {
-    return 'SearchState(searchStatus: $searchStatus, searchMode: $searchMode, locationResult: $locationResult, plusCode: $plusCode, searchErrorMessage: $searchErrorMessage)';
+    return 'SearchState(searchStatus: $searchStatus, searchMode: $searchMode, locationResult: $locationResult, plusCode: $plusCode, searchErrorMessage: $searchErrorMessage, suggestionsStatus: $suggestionsStatus, suggestions: $suggestions, suggestionsErrorMessage: $suggestionsErrorMessage)';
   }
 }
 
@@ -816,7 +997,10 @@ abstract mixin class _$SearchStateCopyWith<$Res>
       SearchMode searchMode,
       LocationResult? locationResult,
       PlusCode? plusCode,
-      String? searchErrorMessage});
+      String? searchErrorMessage,
+      GenericStatus suggestionsStatus,
+      List<PlaceSuggestion> suggestions,
+      String? suggestionsErrorMessage});
 
   @override
   $LocationResultCopyWith<$Res>? get locationResult;
@@ -841,6 +1025,9 @@ class __$SearchStateCopyWithImpl<$Res> implements _$SearchStateCopyWith<$Res> {
     Object? locationResult = freezed,
     Object? plusCode = freezed,
     Object? searchErrorMessage = freezed,
+    Object? suggestionsStatus = null,
+    Object? suggestions = null,
+    Object? suggestionsErrorMessage = freezed,
   }) {
     return _then(_SearchState(
       searchStatus: null == searchStatus
@@ -862,6 +1049,18 @@ class __$SearchStateCopyWithImpl<$Res> implements _$SearchStateCopyWith<$Res> {
       searchErrorMessage: freezed == searchErrorMessage
           ? _self.searchErrorMessage
           : searchErrorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      suggestionsStatus: null == suggestionsStatus
+          ? _self.suggestionsStatus
+          : suggestionsStatus // ignore: cast_nullable_to_non_nullable
+              as GenericStatus,
+      suggestions: null == suggestions
+          ? _self._suggestions
+          : suggestions // ignore: cast_nullable_to_non_nullable
+              as List<PlaceSuggestion>,
+      suggestionsErrorMessage: freezed == suggestionsErrorMessage
+          ? _self.suggestionsErrorMessage
+          : suggestionsErrorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }

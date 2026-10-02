@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'generate_bloc.dart';
@@ -9,6 +9,7 @@ part of 'generate_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -280,7 +281,9 @@ class _GenerateFromCoordinates implements GenerateEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, latitude, longitude);
+  int get hashCode {
+    return Object.hash(runtimeType, latitude, longitude);
+  }
 
   @override
   String toString() {
@@ -362,24 +365,30 @@ mixin _$GenerateState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as GenerateState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is GenerateState &&
-            (identical(other.generateStatus, generateStatus) ||
-                other.generateStatus == generateStatus) &&
-            (identical(other.generatedCode, generatedCode) ||
-                other.generatedCode == generatedCode) &&
-            (identical(other.generateErrorMessage, generateErrorMessage) ||
-                other.generateErrorMessage == generateErrorMessage));
+            (identical(other.generateStatus, _this.generateStatus) ||
+                other.generateStatus == _this.generateStatus) &&
+            (identical(other.generatedCode, _this.generatedCode) ||
+                other.generatedCode == _this.generatedCode) &&
+            (identical(
+                    other.generateErrorMessage, _this.generateErrorMessage) ||
+                other.generateErrorMessage == _this.generateErrorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, generateStatus, generatedCode, generateErrorMessage);
+  int get hashCode {
+    final _this = this as GenerateState;
+    return Object.hash(runtimeType, _this.generateStatus, _this.generatedCode,
+        _this.generateErrorMessage);
+  }
 
   @override
   String toString() {
-    return 'GenerateState(generateStatus: $generateStatus, generatedCode: $generatedCode, generateErrorMessage: $generateErrorMessage)';
+    final _this = this as GenerateState;
+    return 'GenerateState(generateStatus: ${_this.generateStatus}, generatedCode: ${_this.generatedCode}, generateErrorMessage: ${_this.generateErrorMessage})';
   }
 }
 
@@ -414,7 +423,7 @@ class _$GenerateStateCopyWithImpl<$Res>
     Object? generatedCode = freezed,
     Object? generateErrorMessage = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(GenerateState(
       generateStatus: null == generateStatus
           ? _self.generateStatus
           : generateStatus // ignore: cast_nullable_to_non_nullable
@@ -645,8 +654,10 @@ class _GenerateState implements GenerateState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, generateStatus, generatedCode, generateErrorMessage);
+  int get hashCode {
+    return Object.hash(
+        runtimeType, generateStatus, generatedCode, generateErrorMessage);
+  }
 
   @override
   String toString() {

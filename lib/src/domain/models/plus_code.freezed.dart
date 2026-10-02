@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'plus_code.dart';
@@ -9,6 +9,7 @@ part of 'plus_code.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -38,28 +39,33 @@ mixin _$PlusCode {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as PlusCode;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is PlusCode &&
-            (identical(other.globalCode, globalCode) ||
-                other.globalCode == globalCode) &&
-            (identical(other.localCode, localCode) ||
-                other.localCode == localCode) &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude) &&
-            (identical(other.locality, locality) ||
-                other.locality == locality));
+            (identical(other.globalCode, _this.globalCode) ||
+                other.globalCode == _this.globalCode) &&
+            (identical(other.localCode, _this.localCode) ||
+                other.localCode == _this.localCode) &&
+            (identical(other.latitude, _this.latitude) ||
+                other.latitude == _this.latitude) &&
+            (identical(other.longitude, _this.longitude) ||
+                other.longitude == _this.longitude) &&
+            (identical(other.locality, _this.locality) ||
+                other.locality == _this.locality));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, globalCode, localCode, latitude, longitude, locality);
+  int get hashCode {
+    final _this = this as PlusCode;
+    return Object.hash(runtimeType, _this.globalCode, _this.localCode,
+        _this.latitude, _this.longitude, _this.locality);
+  }
 
   @override
   String toString() {
-    return 'PlusCode(globalCode: $globalCode, localCode: $localCode, latitude: $latitude, longitude: $longitude, locality: $locality)';
+    final _this = this as PlusCode;
+    return 'PlusCode(globalCode: ${_this.globalCode}, localCode: ${_this.localCode}, latitude: ${_this.latitude}, longitude: ${_this.longitude}, locality: ${_this.locality})';
   }
 }
 
@@ -94,7 +100,7 @@ class _$PlusCodeCopyWithImpl<$Res> implements $PlusCodeCopyWith<$Res> {
     Object? longitude = freezed,
     Object? locality = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(PlusCode(
       globalCode: freezed == globalCode
           ? _self.globalCode
           : globalCode // ignore: cast_nullable_to_non_nullable
@@ -338,8 +344,10 @@ class _PlusCode extends PlusCode {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, globalCode, localCode, latitude, longitude, locality);
+  int get hashCode {
+    return Object.hash(
+        runtimeType, globalCode, localCode, latitude, longitude, locality);
+  }
 
   @override
   String toString() {

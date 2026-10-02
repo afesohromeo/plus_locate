@@ -18,6 +18,13 @@ class Environment {
     defaultValue: googleMapsApiKey,
   );
 
+  /// Places API (New) key — defaults to Maps key if not set separately.
+  /// Restrict this key to "Places API (New)" in the Google Cloud Console.
+  static const String placesApiKey = String.fromEnvironment(
+    'PLACES_API_KEY',
+    defaultValue: googleMapsApiKey,
+  );
+
   /// Base URL for the Plus Codes API.
   static const String plusCodeApiBaseUrl = String.fromEnvironment(
     'PLUS_CODE_API_BASE_URL',

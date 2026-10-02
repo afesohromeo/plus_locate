@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'saved_code.dart';
@@ -9,6 +9,7 @@ part of 'saved_code.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -50,32 +51,49 @@ mixin _$SavedCode {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as SavedCode;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SavedCode &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.globalCode, globalCode) ||
-                other.globalCode == globalCode) &&
-            (identical(other.localCode, localCode) ||
-                other.localCode == localCode) &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude) &&
-            (identical(other.label, label) || other.label == label) &&
-            (identical(other.locality, locality) ||
-                other.locality == locality) &&
-            (identical(other.address, address) || other.address == address) &&
-            (identical(other.savedAt, savedAt) || other.savedAt == savedAt));
+            (identical(other.id, _this.id) || other.id == _this.id) &&
+            (identical(other.globalCode, _this.globalCode) ||
+                other.globalCode == _this.globalCode) &&
+            (identical(other.localCode, _this.localCode) ||
+                other.localCode == _this.localCode) &&
+            (identical(other.latitude, _this.latitude) ||
+                other.latitude == _this.latitude) &&
+            (identical(other.longitude, _this.longitude) ||
+                other.longitude == _this.longitude) &&
+            (identical(other.label, _this.label) ||
+                other.label == _this.label) &&
+            (identical(other.locality, _this.locality) ||
+                other.locality == _this.locality) &&
+            (identical(other.address, _this.address) ||
+                other.address == _this.address) &&
+            (identical(other.savedAt, _this.savedAt) ||
+                other.savedAt == _this.savedAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, globalCode, localCode,
-      latitude, longitude, label, locality, address, savedAt);
+  int get hashCode {
+    final _this = this as SavedCode;
+    return Object.hash(
+        runtimeType,
+        _this.id,
+        _this.globalCode,
+        _this.localCode,
+        _this.latitude,
+        _this.longitude,
+        _this.label,
+        _this.locality,
+        _this.address,
+        _this.savedAt);
+  }
 
   @override
   String toString() {
-    return 'SavedCode(id: $id, globalCode: $globalCode, localCode: $localCode, latitude: $latitude, longitude: $longitude, label: $label, locality: $locality, address: $address, savedAt: $savedAt)';
+    final _this = this as SavedCode;
+    return 'SavedCode(id: ${_this.id}, globalCode: ${_this.globalCode}, localCode: ${_this.localCode}, latitude: ${_this.latitude}, longitude: ${_this.longitude}, label: ${_this.label}, locality: ${_this.locality}, address: ${_this.address}, savedAt: ${_this.savedAt})';
   }
 }
 
@@ -118,7 +136,7 @@ class _$SavedCodeCopyWithImpl<$Res> implements $SavedCodeCopyWith<$Res> {
     Object? address = freezed,
     Object? savedAt = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(SavedCode(
       id: freezed == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -450,8 +468,10 @@ class _SavedCode extends SavedCode {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, globalCode, localCode,
-      latitude, longitude, label, locality, address, savedAt);
+  int get hashCode {
+    return Object.hash(runtimeType, id, globalCode, localCode, latitude,
+        longitude, label, locality, address, savedAt);
+  }
 
   @override
   String toString() {

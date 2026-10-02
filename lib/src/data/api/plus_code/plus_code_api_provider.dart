@@ -35,4 +35,27 @@ class PlusCodeApiProvider {
   bool isValidPlusCode(String code) {
     return olc.PlusCode.unverified(code).isValid;
   }
+
+  /// Whether [code] is a valid full (global) Plus Code, e.g. `8FVC9G8F+6W`.
+  bool isFullPlusCode(String code) {
+    final plusCode = olc.PlusCode.unverified(code);
+    return plusCode.isValid && plusCode.isFull();
+  }
+
+  /// Whether [code] is a valid short Plus Code, e.g. `9G8F+6W`.
+  bool isShortPlusCode(String code) {
+    final plusCode = olc.PlusCode.unverified(code);
+    return plusCode.isValid && plusCode.isShort();
+  }
+
+  /// Full code nearest to the reference point that matches [shortCode].
+  String recoverNearest({
+    required String shortCode,
+    required double referenceLatitude,
+    required double referenceLongitude,
+  }) {
+    return olc.PlusCode(shortCode)
+        .recoverNearest(olc.LatLng(referenceLatitude, referenceLongitude))
+        .toString();
+  }
 }
