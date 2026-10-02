@@ -57,6 +57,42 @@ void main() {
       );
     });
 
+    test('several locations: header, then numbered single messages', () {
+      const office =
+          ShareableLocation(plusCode: '6FMHVG88+MM', label: 'Office');
+      final message =
+          LocationShare.messageForMany(l10n, const [_location, office]);
+
+      expect(
+        message,
+        [
+          '2 locations from PlusLocate:',
+          '1. ${LocationShare.message(l10n, _location)}',
+          '2. ${LocationShare.message(l10n, office)}',
+        ].join('\n\n'),
+      );
+    });
+
+    test('a single location gets the plain message, without header', () {
+      expect(
+        LocationShare.messageForMany(l10n, const [_location]),
+        LocationShare.message(l10n, _location),
+      );
+    });
+
+    test('a saved location falls back to its locality for the address', () {
+      final shareable = ShareableLocation.fromSavedCode(
+        const SavedCode(
+          globalCode: '6FMHVGFR+F4',
+          locality: 'Yaoundé',
+          label: 'Home',
+        ),
+      );
+
+      expect(shareable.address, 'Yaoundé');
+      expect(shareable.label, 'Home');
+    });
+
     test('WhatsApp link carries the full message', () {
       final message = LocationShare.message(l10n, _location);
       final uri = LocationShare.whatsAppUri(message);
@@ -93,6 +129,71 @@ void main() {
       expect(find.text(l10n.shareViaWhatsApp), findsOneWidget);
       expect(find.text(l10n.shareMoreApps), findsOneWidget);
       expect(find.text(l10n.showQrCode), findsOneWidget);
+    });
+
+    testWidgets('several locations: no QR code, a PlusLocate file option',
+        (tester) async {
+      var fileShared = false;
+      bool? chosen;
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: const Locale('en'),
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: TextButton(
+                onPressed: () async => chosen = await showShareLocationsSheet(
+                  context,
+                  const [_location, ShareableLocation(plusCode: '6FMHVG88+MM')],
+                  onShareAsFile: () => fileShared = true,
+                ),
+                child: const Text('share'),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('share'));
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.showQrCode), findsNothing);
+      expect(find.text(l10n.shareAsPlusLocateFileHint), findsOneWidget);
+
+      await tester.tap(find.text(l10n.shareAsPlusLocateFile));
+      await tester.pumpAndSettle();
+
+      expect(fileShared, isTrue);
+      expect(chosen, isTrue);
+    });
+
+    testWidgets('dismissing the sheet reports that nothing was shared',
+        (tester) async {
+      bool? chosen;
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: const Locale('en'),
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: TextButton(
+                onPressed: () async => chosen =
+                    await showShareLocationsSheet(context, const [_location]),
+                child: const Text('share'),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('share'));
+      await tester.pumpAndSettle();
+
+      // Tap the barrier above the sheet.
+      await tester.tapAt(const Offset(20, 20));
+      await tester.pumpAndSettle();
+
+      expect(chosen, isFalse);
     });
 
     testWidgets('QR code option shows a code that opens the Maps link',

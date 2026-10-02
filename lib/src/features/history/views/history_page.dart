@@ -53,7 +53,13 @@ class HistoryPage extends StatelessWidget {
                           .add(const HistoryEvent.selectAllCodes()),
                     ),
                     IconButton(
+                      icon: const Icon(Icons.share, color: Colors.white),
+                      tooltip: l10n.actionShare,
+                      onPressed: () => _shareSelected(context, state),
+                    ),
+                    IconButton(
                       icon: const Icon(Icons.delete, color: Colors.white),
+                      tooltip: l10n.actionDelete,
                       onPressed: () => _confirmAndDeleteSelected(
                           context, l10n, state.selectedIds.length),
                     ),
@@ -103,6 +109,26 @@ class HistoryPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  /// Shares the selected locations, in list order. Selection mode ends once
+  /// an option is picked; dismissing the sheet keeps the selection.
+  Future<void> _shareSelected(BuildContext context, HistoryState state) async {
+    final historyBloc = context.read<HistoryBloc>();
+    final selectedIds = Set<String>.of(state.selectedIds);
+    final locations = state.savedCodes
+        .where((code) => selectedIds.contains(code.id))
+        .map(ShareableLocation.fromSavedCode)
+        .toList();
+    if (locations.isEmpty) return;
+
+    final shared = await showShareLocationsSheet(
+      context,
+      locations,
+      onShareAsFile: () =>
+          historyBloc.add(HistoryEvent.exportSavedCodes(ids: selectedIds)),
+    );
+    if (shared) historyBloc.add(const HistoryEvent.exitSelectionMode());
   }
 
   Future<void> _pickAndImport(
@@ -345,13 +371,7 @@ class _HistoryBody extends StatelessWidget {
           },
           onShare: () => showShareLocationSheet(
             context,
-            ShareableLocation(
-              plusCode: code.globalCode,
-              latitude: code.latitude,
-              longitude: code.longitude,
-              address: code.address ?? code.locality,
-              label: code.label,
-            ),
+            ShareableLocation.fromSavedCode(code),
           ),
           onEditLabel: () async {
             final historyBloc = context.read<HistoryBloc>();

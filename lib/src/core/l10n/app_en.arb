@@ -474,5 +474,22 @@
     "errorImportFailed": "Couldn't import the file. Please try again.",
     "@errorImportFailed": {
         "description": "Error when reading or importing the file fails"
+    },
+    "shareManyHeader": "{count, plural, =1{1 location from PlusLocate:} other{{count} locations from PlusLocate:}}",
+    "@shareManyHeader": {
+        "description": "First line of a message sharing several saved locations",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "shareAsPlusLocateFile": "PlusLocate file",
+    "@shareAsPlusLocateFile": {
+        "description": "Share option that sends the selected locations as an import file"
+    },
+    "shareAsPlusLocateFileHint": "The recipient can import them in PlusLocate",
+    "@shareAsPlusLocateFileHint": {
+        "description": "Subtitle of the PlusLocate file share option"
     }
 }

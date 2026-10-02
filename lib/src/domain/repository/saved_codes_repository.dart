@@ -149,10 +149,12 @@ class SavedCodesRepository {
   static const _exportFormat = 'pluslocate.saved_locations';
   static const _exportVersion = 1;
 
-  /// All saved codes as a versioned JSON document.
-  Future<String> exportJson() async {
+  /// Saved codes as a versioned JSON document: all of them, or only [ids].
+  Future<String> exportJson({Set<String>? ids}) async {
     try {
-      final codes = await fetchAllSavedCodes();
+      final codes = (await fetchAllSavedCodes())
+          .where((code) => ids == null || ids.contains(code.id))
+          .toList();
       return const JsonEncoder.withIndent('  ').convert({
         'format': _exportFormat,
         'version': _exportVersion,
@@ -166,14 +168,14 @@ class SavedCodesRepository {
   }
 
   /// Writes [exportJson] to a temporary file and returns its path.
-  Future<String> exportToFile() async {
+  Future<String> exportToFile({Set<String>? ids}) async {
     try {
       final now = DateTime.now();
       final date = '${now.year}-${now.month.toString().padLeft(2, '0')}'
           '-${now.day.toString().padLeft(2, '0')}';
       final directory = await getTemporaryDirectory();
       final file = File('${directory.path}/pluslocate-saved-$date.json');
-      await file.writeAsString(await exportJson());
+      await file.writeAsString(await exportJson(ids: ids));
       return file.path;
     } catch (e) {
       log('Error writing export file: $e');

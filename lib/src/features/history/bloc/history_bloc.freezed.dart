@@ -266,7 +266,7 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult Function()? selectAllCodes,
     TResult Function()? exitSelectionMode,
     TResult Function()? deleteSelectedCodes,
-    TResult Function()? exportSavedCodes,
+    TResult Function(Set<String>? ids)? exportSavedCodes,
     TResult Function(String content)? importSavedCodes,
     TResult Function(String id, String? label)? updateLabel,
     required TResult orElse(),
@@ -298,7 +298,7 @@ extension HistoryEventPatterns on HistoryEvent {
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes();
       case _ExportSavedCodes() when exportSavedCodes != null:
-        return exportSavedCodes();
+        return exportSavedCodes(_that.ids);
       case _ImportSavedCodes() when importSavedCodes != null:
         return importSavedCodes(_that.content);
       case _UpdateLabel() when updateLabel != null:
@@ -335,7 +335,7 @@ extension HistoryEventPatterns on HistoryEvent {
     required TResult Function() selectAllCodes,
     required TResult Function() exitSelectionMode,
     required TResult Function() deleteSelectedCodes,
-    required TResult Function() exportSavedCodes,
+    required TResult Function(Set<String>? ids) exportSavedCodes,
     required TResult Function(String content) importSavedCodes,
     required TResult Function(String id, String? label) updateLabel,
   }) {
@@ -366,7 +366,7 @@ extension HistoryEventPatterns on HistoryEvent {
       case _DeleteSelectedCodes():
         return deleteSelectedCodes();
       case _ExportSavedCodes():
-        return exportSavedCodes();
+        return exportSavedCodes(_that.ids);
       case _ImportSavedCodes():
         return importSavedCodes(_that.content);
       case _UpdateLabel():
@@ -402,7 +402,7 @@ extension HistoryEventPatterns on HistoryEvent {
     TResult? Function()? selectAllCodes,
     TResult? Function()? exitSelectionMode,
     TResult? Function()? deleteSelectedCodes,
-    TResult? Function()? exportSavedCodes,
+    TResult? Function(Set<String>? ids)? exportSavedCodes,
     TResult? Function(String content)? importSavedCodes,
     TResult? Function(String id, String? label)? updateLabel,
   }) {
@@ -433,7 +433,7 @@ extension HistoryEventPatterns on HistoryEvent {
       case _DeleteSelectedCodes() when deleteSelectedCodes != null:
         return deleteSelectedCodes();
       case _ExportSavedCodes() when exportSavedCodes != null:
-        return exportSavedCodes();
+        return exportSavedCodes(_that.ids);
       case _ImportSavedCodes() when importSavedCodes != null:
         return importSavedCodes(_that.content);
       case _UpdateLabel() when updateLabel != null:
@@ -926,20 +926,73 @@ class _DeleteSelectedCodes implements HistoryEvent {
 /// @nodoc
 
 class _ExportSavedCodes implements HistoryEvent {
-  const _ExportSavedCodes();
+  const _ExportSavedCodes({Set<String>? ids}) : _ids = ids;
+
+  final Set<String>? _ids;
+  Set<String>? get ids {
+    final value = _ids;
+    if (value == null) return null;
+    if (_ids is EqualUnmodifiableSetView) return _ids;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(value);
+  }
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ExportSavedCodesCopyWith<_ExportSavedCodes> get copyWith =>
+      __$ExportSavedCodesCopyWithImpl<_ExportSavedCodes>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _ExportSavedCodes);
+        (other.runtimeType == runtimeType &&
+            other is _ExportSavedCodes &&
+            const DeepCollectionEquality().equals(other.ids, _ids));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode {
+    return Object.hash(runtimeType, const DeepCollectionEquality().hash(_ids));
+  }
 
   @override
   String toString() {
-    return 'HistoryEvent.exportSavedCodes()';
+    return 'HistoryEvent.exportSavedCodes(ids: $ids)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ExportSavedCodesCopyWith<$Res>
+    implements $HistoryEventCopyWith<$Res> {
+  factory _$ExportSavedCodesCopyWith(
+          _ExportSavedCodes value, $Res Function(_ExportSavedCodes) _then) =
+      __$ExportSavedCodesCopyWithImpl;
+  @useResult
+  $Res call({Set<String>? ids});
+}
+
+/// @nodoc
+class __$ExportSavedCodesCopyWithImpl<$Res>
+    implements _$ExportSavedCodesCopyWith<$Res> {
+  __$ExportSavedCodesCopyWithImpl(this._self, this._then);
+
+  final _ExportSavedCodes _self;
+  final $Res Function(_ExportSavedCodes) _then;
+
+  /// Create a copy of HistoryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? ids = freezed,
+  }) {
+    return _then(_ExportSavedCodes(
+      ids: freezed == ids
+          ? _self._ids
+          : ids // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
+    ));
   }
 }
 

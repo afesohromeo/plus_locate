@@ -108,6 +108,19 @@ void main() {
       }
     });
 
+    test('exports only the selected ids when given', () async {
+      final home = (await repository.saveCode(code.copyWith(label: 'Home')))!;
+      await repository.saveCode(const SavedCode(globalCode: '6FMHVG88+MM'));
+
+      final json = await repository.exportJson(ids: {home.id!});
+
+      await Hive.deleteFromDisk();
+      final result = await SavedCodesRepository().importJson(json);
+      expect(result, (added: 1, skipped: 0));
+      final restored = await SavedCodesRepository().fetchAllSavedCodes();
+      expect(restored.single.label, 'Home');
+    });
+
     test('skips entries without a Plus Code', () async {
       final result = await repository.importJson('''
         {"format": "pluslocate.saved_locations", "version": 1,

@@ -373,4 +373,22 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorImportFailed =>
       'Couldn\'t import the file. Please try again.';
+
+  @override
+  String shareManyHeader(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count locations from PlusLocate:',
+      one: '1 location from PlusLocate:',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get shareAsPlusLocateFile => 'PlusLocate file';
+
+  @override
+  String get shareAsPlusLocateFileHint =>
+      'The recipient can import them in PlusLocate';
 }

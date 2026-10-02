@@ -109,5 +109,8 @@
     "msgImportSkipped": "{skipped, plural, =1{1 ignoré (déjà enregistré ou invalide).} other{{skipped} ignorés (déjà enregistrés ou invalides).}}",
     "errorExportFailed": "Impossible d'exporter vos emplacements enregistrés. Veuillez réessayer.",
     "errorImportInvalidFile": "Ce fichier n'est pas un export PlusLocate.",
-    "errorImportFailed": "Impossible d'importer le fichier. Veuillez réessayer."
+    "errorImportFailed": "Impossible d'importer le fichier. Veuillez réessayer.",
+    "shareManyHeader": "{count, plural, =1{1 emplacement de PlusLocate :} other{{count} emplacements de PlusLocate :}}",
+    "shareAsPlusLocateFile": "Fichier PlusLocate",
+    "shareAsPlusLocateFileHint": "Le destinataire peut les importer dans PlusLocate"
 }

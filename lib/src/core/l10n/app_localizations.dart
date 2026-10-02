@@ -757,6 +757,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t import the file. Please try again.'**
   String get errorImportFailed;
+
+  /// First line of a message sharing several saved locations
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 location from PlusLocate:} other{{count} locations from PlusLocate:}}'**
+  String shareManyHeader(int count);
+
+  /// Share option that sends the selected locations as an import file
+  ///
+  /// In en, this message translates to:
+  /// **'PlusLocate file'**
+  String get shareAsPlusLocateFile;
+
+  /// Subtitle of the PlusLocate file share option
+  ///
+  /// In en, this message translates to:
+  /// **'The recipient can import them in PlusLocate'**
+  String get shareAsPlusLocateFileHint;
 }
 
 class _AppLocalizationsDelegate

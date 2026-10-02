@@ -47,7 +47,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     ));
 
     try {
-      final path = await _repository.exportToFile();
+      final path = await _repository.exportToFile(ids: event.ids);
       emit(state.copyWith(
         historyActionStatus: GenericStatus.success,
         exportFilePath: path,

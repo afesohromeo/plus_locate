@@ -120,4 +120,36 @@ void main() {
       expect(item(tester, l10n.actionExport).enabled, isTrue);
     });
   });
+
+  testWidgets('selection mode offers Share for the selected locations',
+      (tester) async {
+    final bloc = HistoryBloc(repository: SavedCodesRepository());
+    addTearDown(bloc.close);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: const Locale('en'),
+        home: BlocProvider.value(value: bloc, child: const HistoryPage()),
+      ),
+    );
+    // ignore: invalid_use_of_visible_for_testing_member
+    bloc.emit(const HistoryState(
+      historyStatus: GenericStatus.success,
+      savedCodes: [
+        SavedCode(id: 'a', globalCode: '6FMHVGFR+F4', label: 'Home'),
+        SavedCode(id: 'b', globalCode: '6FMHVG88+MM', label: 'Office'),
+      ],
+      isSelectionMode: true,
+      selectedIds: {'a', 'b'},
+    ));
+    await tester.pump();
+
+    await tester.tap(find.byTooltip(l10n.actionShare));
+    await tester.pumpAndSettle();
+
+    expect(find.text(l10n.shareAsPlusLocateFile), findsOneWidget);
+    expect(find.text(l10n.showQrCode), findsNothing);
+  });
 }

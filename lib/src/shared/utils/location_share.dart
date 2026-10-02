@@ -10,6 +10,15 @@ class ShareableLocation {
     this.label,
   });
 
+  /// A saved location, with its address falling back to the locality.
+  factory ShareableLocation.fromSavedCode(SavedCode code) => ShareableLocation(
+        plusCode: code.globalCode,
+        latitude: code.latitude,
+        longitude: code.longitude,
+        address: code.address ?? code.locality,
+        label: code.label,
+      );
+
   final String? plusCode;
   final double? latitude;
   final double? longitude;
@@ -44,6 +53,20 @@ class LocationShare {
       if (address != null && address.isNotEmpty) address,
       l10n.shareOpenInMapsLine(mapsLink(location).toString()),
     ].join('\n');
+  }
+
+  /// One message for several locations: a header, then each location's
+  /// [message], numbered. A single location gets the plain [message].
+  static String messageForMany(
+    AppLocalizations l10n,
+    List<ShareableLocation> locations,
+  ) {
+    if (locations.length == 1) return message(l10n, locations.single);
+    return [
+      l10n.shareManyHeader(locations.length),
+      for (var i = 0; i < locations.length; i++)
+        '${i + 1}. ${message(l10n, locations[i])}',
+    ].join('\n\n');
   }
 
   /// Opens WhatsApp (app if installed, otherwise WhatsApp Web) with
