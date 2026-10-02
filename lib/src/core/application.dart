@@ -25,12 +25,6 @@ class Application extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => HomeBloc()),
-          BlocProvider(
-            create: (context) => GenerateBloc(
-              repository: context.read<PlusCodeRepository>(),
-            ),
-          ),
           BlocProvider(
             create: (context) => SearchBloc(
               plusCodeRepository: context.read<PlusCodeRepository>(),

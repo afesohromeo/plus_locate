@@ -1,12 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:plus_locate/plus_locate.dart';
-
-enum DrawerMode {
-  overlay, // mobile / tablet
-  fixed, // desktop
-}
 
 class ScaffoldWrapper extends StatelessWidget {
   const ScaffoldWrapper({
@@ -31,9 +24,6 @@ class ScaffoldWrapper extends StatelessWidget {
     this.resizeToAvoidBottomInset = false,
     this.elevation,
     this.toolBarHeight,
-    this.showDrawer = true,
-    this.drawerMode = DrawerMode.overlay,
-    this.fixedDrawerWidth = 280,
   });
 
   final Widget? body;
@@ -56,13 +46,9 @@ class ScaffoldWrapper extends StatelessWidget {
   final Color? appBarBgColor;
   final double? elevation;
   final double? toolBarHeight;
-  final bool? showDrawer;
-  final DrawerMode drawerMode;
-  final double fixedDrawerWidth;
 
   @override
   Widget build(BuildContext context) {
-    log('scalfold wrapper $showDrawer');
     final scaffoldBody = SafeArea(top: false, child: body!);
     final buildFab = Padding(
       padding: floatingButtonpadding ?? const EdgeInsets.only(top: 65.0),
@@ -103,9 +89,6 @@ class ScaffoldWrapper extends StatelessWidget {
           : null,
       body: scaffoldBody,
       floatingActionButton: showFloatingButton ? buildFab : null,
-      drawer: drawerMode == DrawerMode.overlay && showDrawer == true
-          ? AppDrawer(parentContext: context)
-          : null,
       bottomNavigationBar: showBottomNav ? bottomNav : null,
     );
   }

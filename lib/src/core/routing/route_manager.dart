@@ -39,36 +39,6 @@ class RouteManager {
           );
         },
       ),
-      GoRoute(
-        name: homeRouteName,
-        path: homePage,
-        pageBuilder: (context, state) {
-          return NoTransitionPage<void>(
-            key: state.pageKey,
-            child: const HomePage(),
-          );
-        },
-      ),
-      GoRoute(
-        name: generateRouteName,
-        path: generatePage,
-        pageBuilder: (context, state) {
-          return NoTransitionPage<void>(
-            key: state.pageKey,
-            child: const GeneratePage(),
-          );
-        },
-      ),
-      GoRoute(
-        name: settingsRouteName,
-        path: settingsPage,
-        pageBuilder: (context, state) {
-          return NoTransitionPage<void>(
-            key: state.pageKey,
-            child: const SettingsPage(),
-          );
-        },
-      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return ScaffoldWithNav(navigationShell: navigationShell);

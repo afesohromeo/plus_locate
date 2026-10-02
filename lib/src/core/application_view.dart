@@ -59,7 +59,5 @@ class _ApplicationViewState extends State<ApplicationView> {
         );
       },
     );
-
-    // LocalizationWrapper(child: HomePage());
   }
 }

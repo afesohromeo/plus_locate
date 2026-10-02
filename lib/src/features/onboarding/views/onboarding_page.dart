@@ -34,7 +34,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
         hasAppbar: false,
         showBottomNav: false,
         showFloatingButton: false,
-        showDrawer: false,
         bgColor: customColors.background,
       ),
       mobileBody: LayoutBuilder(

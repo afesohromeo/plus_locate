@@ -18,7 +18,6 @@ class SearchPage extends StatelessWidget {
         hasAppbar: true,
         appBarBgColor: customColors.primary,
         elevation: 0,
-        showDrawer: false,
         showBottomNav: false,
         showFloatingButton: false,
         resizeToAvoidBottomInset: true,

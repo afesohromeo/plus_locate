@@ -218,7 +218,6 @@ class _MapViewPageState extends State<MapViewPage> {
       child: ResponsiveScaffoldWrapper(
         props: const ScaffoldWrapperProps(
           hasAppbar: false,
-          showDrawer: false,
           showBottomNav: false,
         ),
         mobileBody: Stack(

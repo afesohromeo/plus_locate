@@ -20,7 +20,6 @@ class ScaffoldWrapperProps {
   final Color? bgColor;
   final double? elevation;
   final double? toolBarHeight;
-  final bool? showDrawer;
 
   const ScaffoldWrapperProps(
       {this.leading,
@@ -41,6 +40,5 @@ class ScaffoldWrapperProps {
       this.appBarBgColor,
       this.bgColor,
       this.elevation,
-      this.toolBarHeight,
-      this.showDrawer = true});
+      this.toolBarHeight});
 }

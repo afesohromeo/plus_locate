@@ -99,7 +99,6 @@ class LocationQrView extends StatelessWidget {
         hasAppbar: true,
         appBarBgColor: customColors.primary,
         elevation: 0,
-        showDrawer: false,
         showBottomNav: false,
         showFloatingButton: false,
         leading: IconButton(
