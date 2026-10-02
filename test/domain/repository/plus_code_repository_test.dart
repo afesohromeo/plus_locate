@@ -37,6 +37,34 @@ void main() {
     });
   });
 
+  group('PlusCodeRepository local code', () {
+    final repository = PlusCodeRepository();
+
+    test('encoding fills the short code, not a copy of the global one',
+        () async {
+      final center = await repository.decodePlusCode(code: '8FVC9G8F+6W');
+      final plusCode = await repository.encodePlusCode(
+        latitude: center!.latitude!,
+        longitude: center.longitude!,
+      );
+
+      expect(plusCode?.globalCode, '8FVC9G8F+6W');
+      expect(plusCode?.localCode, '9G8F+6W');
+    });
+
+    test('decoding fills the short code too', () async {
+      final plusCode = await repository.decodePlusCode(code: '6FMHVGFR+F4');
+
+      expect(plusCode?.localCode, 'VGFR+F4');
+    });
+
+    test('a padded code has no short form', () async {
+      final plusCode = await repository.decodePlusCode(code: '6FMH0000+');
+
+      expect(plusCode?.localCode, isNull);
+    });
+  });
+
   group('PlusCodeRepository.recoverShortPlusCode', () {
     final repository = PlusCodeRepository();
 

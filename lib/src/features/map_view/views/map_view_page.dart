@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:plus_locate/plus_locate.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MapViewPage extends StatefulWidget {
@@ -352,25 +351,26 @@ class _MapViewPageState extends State<MapViewPage> {
                             }
                           },
                           onSharePressed: () {
-                            final plusCodeVal =
-                                state.selectedPlusCode?.globalCode ?? '---';
-                            final latVal =
-                                state.currentLatitude?.toStringAsFixed(6) ??
-                                    '---';
-                            final lngVal =
-                                state.currentLongitude?.toStringAsFixed(6) ??
-                                    '---';
-                            final addressVal =
-                                state.locationResult?.formattedAddress ?? '---';
+                            final globalCode =
+                                state.selectedPlusCode?.globalCode;
+                            final savedLabel = context
+                                .read<HistoryBloc>()
+                                .state
+                                .savedCodes
+                                .where((c) => c.globalCode == globalCode)
+                                .firstOrNull
+                                ?.label;
 
-                            final shareText = l10n.shareLocationText(
-                              plusCodeVal,
-                              latVal,
-                              lngVal,
-                              addressVal,
+                            showShareLocationSheet(
+                              context,
+                              ShareableLocation(
+                                plusCode: globalCode,
+                                latitude: state.currentLatitude,
+                                longitude: state.currentLongitude,
+                                address: state.locationResult?.formattedAddress,
+                                label: savedLabel,
+                              ),
                             );
-
-                            Share.share(shareText);
                           },
                           onCopyPlusCode: () async {
                             final code = state.selectedPlusCode?.globalCode;

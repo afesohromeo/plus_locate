@@ -452,12 +452,53 @@ abstract class AppLocalizations {
   /// **'Location shared'**
   String get msgLocationShared;
 
-  /// Text format used when sharing a location
+  /// Title of the share options sheet
   ///
   /// In en, this message translates to:
-  /// **'Check out this location: {plusCode} ({lat}, {lng}) - {address}'**
-  String shareLocationText(
-      String plusCode, String lat, String lng, String address);
+  /// **'Share location'**
+  String get shareSheetTitle;
+
+  /// Share option that sends the location through WhatsApp
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp'**
+  String get shareViaWhatsApp;
+
+  /// Share option that opens the system share sheet
+  ///
+  /// In en, this message translates to:
+  /// **'More apps'**
+  String get shareMoreApps;
+
+  /// Share option that shows a scannable QR code
+  ///
+  /// In en, this message translates to:
+  /// **'QR code'**
+  String get showQrCode;
+
+  /// Line of a shared location message
+  ///
+  /// In en, this message translates to:
+  /// **'Plus Code: {plusCode}'**
+  String sharePlusCodeLine(String plusCode);
+
+  /// Last line of a shared location message, with a Google Maps link
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Maps: {link}'**
+  String shareOpenInMapsLine(String link);
+
+  /// Title of the full-screen QR code
+  ///
+  /// In en, this message translates to:
+  /// **'Location QR code'**
+  String get qrCodeTitle;
+
+  /// Hint under the location QR code
+  ///
+  /// In en, this message translates to:
+  /// **'Scan with a phone camera to open this location in Maps.'**
+  String get qrScanHint;
 
   /// Snackbar message when location is saved to history
   ///

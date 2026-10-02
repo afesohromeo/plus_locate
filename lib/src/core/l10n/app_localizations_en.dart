@@ -188,10 +188,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get msgLocationShared => 'Location shared';
 
   @override
-  String shareLocationText(
-      String plusCode, String lat, String lng, String address) {
-    return 'Check out this location: $plusCode ($lat, $lng) - $address';
+  String get shareSheetTitle => 'Share location';
+
+  @override
+  String get shareViaWhatsApp => 'WhatsApp';
+
+  @override
+  String get shareMoreApps => 'More apps';
+
+  @override
+  String get showQrCode => 'QR code';
+
+  @override
+  String sharePlusCodeLine(String plusCode) {
+    return 'Plus Code: $plusCode';
   }
+
+  @override
+  String shareOpenInMapsLine(String link) {
+    return 'Open in Maps: $link';
+  }
+
+  @override
+  String get qrCodeTitle => 'Location QR code';
+
+  @override
+  String get qrScanHint =>
+      'Scan with a phone camera to open this location in Maps.';
 
   @override
   String get msgLocationSaved => 'Location saved to history';

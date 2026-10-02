@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plus_locate/plus_locate.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SearchPage extends StatelessWidget {
@@ -376,16 +375,16 @@ class _SearchResultView extends StatelessWidget {
             suggestedLabel: state.placeName,
           );
         },
-        onSharePressed: () {
-          final plusCodeVal = state.plusCode?.globalCode ?? '---';
-          final latVal = state.latitude?.toStringAsFixed(6) ?? '---';
-          final lngVal = state.longitude?.toStringAsFixed(6) ?? '---';
-          final addressVal = state.locationResult?.formattedAddress ?? '---';
-
-          Share.share(
-            l10n.shareLocationText(plusCodeVal, latVal, lngVal, addressVal),
-          );
-        },
+        onSharePressed: () => showShareLocationSheet(
+          context,
+          ShareableLocation(
+            plusCode: state.plusCode?.globalCode,
+            latitude: state.latitude,
+            longitude: state.longitude,
+            address: state.locationResult?.formattedAddress,
+            label: state.placeName,
+          ),
+        ),
         onCopyPlusCode: () async {
           final code = state.plusCode?.globalCode;
           if (code == null) return;

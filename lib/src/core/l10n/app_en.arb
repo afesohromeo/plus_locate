@@ -236,23 +236,47 @@
     "@msgLocationShared": {
         "description": "Snackbar message when location is shared"
     },
-    "shareLocationText": "Check out this location: {plusCode} ({lat}, {lng}) - {address}",
-    "@shareLocationText": {
-        "description": "Text format used when sharing a location",
+    "shareSheetTitle": "Share location",
+    "@shareSheetTitle": {
+        "description": "Title of the share options sheet"
+    },
+    "shareViaWhatsApp": "WhatsApp",
+    "@shareViaWhatsApp": {
+        "description": "Share option that sends the location through WhatsApp"
+    },
+    "shareMoreApps": "More apps",
+    "@shareMoreApps": {
+        "description": "Share option that opens the system share sheet"
+    },
+    "showQrCode": "QR code",
+    "@showQrCode": {
+        "description": "Share option that shows a scannable QR code"
+    },
+    "sharePlusCodeLine": "Plus Code: {plusCode}",
+    "@sharePlusCodeLine": {
+        "description": "Line of a shared location message",
         "placeholders": {
             "plusCode": {
                 "type": "String"
-            },
-            "lat": {
-                "type": "String"
-            },
-            "lng": {
-                "type": "String"
-            },
-            "address": {
+            }
+        }
+    },
+    "shareOpenInMapsLine": "Open in Maps: {link}",
+    "@shareOpenInMapsLine": {
+        "description": "Last line of a shared location message, with a Google Maps link",
+        "placeholders": {
+            "link": {
                 "type": "String"
             }
         }
+    },
+    "qrCodeTitle": "Location QR code",
+    "@qrCodeTitle": {
+        "description": "Title of the full-screen QR code"
+    },
+    "qrScanHint": "Scan with a phone camera to open this location in Maps.",
+    "@qrScanHint": {
+        "description": "Hint under the location QR code"
     },
     "msgLocationSaved": "Location saved to history",
     "@msgLocationSaved": {

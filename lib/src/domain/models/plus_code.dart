@@ -35,7 +35,7 @@ sealed class PlusCode with _$PlusCode {
   factory PlusCode.fromJson(Map<String, dynamic> json) {
     return PlusCode(
       globalCode: json['global_code']?.toString(),
-      localCode: json['global_code']?.toString(),
+      localCode: json['local_code']?.toString(),
       latitude: convertToDouble(json['latitude']),
       longitude: convertToDouble(json['longitude']),
       locality: json['locality']?.toString(),

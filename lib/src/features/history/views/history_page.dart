@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:plus_locate/plus_locate.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -264,15 +263,16 @@ class _HistoryBody extends StatelessWidget {
               await DialogUtils.handleSuccess(context, l10n.msgCodeCopied);
             }
           },
-          onShare: () {
-            final shareText = l10n.shareLocationText(
-              code.globalCode ?? '---',
-              code.latitude?.toStringAsFixed(6) ?? '---',
-              code.longitude?.toStringAsFixed(6) ?? '---',
-              code.address ?? code.locality ?? '---',
-            );
-            Share.share(shareText);
-          },
+          onShare: () => showShareLocationSheet(
+            context,
+            ShareableLocation(
+              plusCode: code.globalCode,
+              latitude: code.latitude,
+              longitude: code.longitude,
+              address: code.address ?? code.locality,
+              label: code.label,
+            ),
+          ),
           onEditLabel: () async {
             final historyBloc = context.read<HistoryBloc>();
             final result = await showLabelSheet(

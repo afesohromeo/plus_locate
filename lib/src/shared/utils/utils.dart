@@ -10,3 +10,4 @@ export 'dialog_utils.dart';
 export 'auth_check_helper.dart';
 export 'file_downloader.dart';
 export 'event_transformers.dart';
+export 'location_share.dart';

@@ -11,6 +11,7 @@ class PlusCodeApiProvider {
     final plusCode = olc.PlusCode.encode(olc.LatLng(latitude, longitude));
     return {
       'global_code': plusCode.toString(),
+      'local_code': _localCode(plusCode.toString()),
       'latitude': latitude,
       'longitude': longitude,
     };
@@ -23,9 +24,20 @@ class PlusCodeApiProvider {
     final area = olc.PlusCode(code).decode();
     return {
       'global_code': code,
+      'local_code': _localCode(code),
       'latitude': area.center.latitude,
       'longitude': area.center.longitude,
     };
+  }
+
+  /// Short form as Google Maps shows it ("VGFR+F4" for "6FMHVGFR+F4"),
+  /// meant to be read together with a nearby town name. Dropping the first
+  /// four characters is recoverable from a reference up to ~30 km away.
+  /// Null for padded or already-short codes.
+  static String? _localCode(String globalCode) {
+    final code = globalCode.toUpperCase();
+    if (code.contains('0') || code.indexOf('+') != 8) return null;
+    return code.substring(4);
   }
 
   /// Whether [code] is a syntactically valid Plus Code.
