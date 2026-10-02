@@ -58,7 +58,7 @@ Future<void> showSuccessErrorDialog(
       });
     });
 
-    return completer.future;
+    return await completer.future;
   } catch (e) {
     log('😒😒😒😒 $e');
   }

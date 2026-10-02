@@ -222,7 +222,9 @@ class PlusCodeDetailCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    locationResult?.latitude?.toStringAsFixed(6) ?? '---',
+                    (locationResult?.latitude ?? plusCode?.latitude)
+                            ?.toStringAsFixed(6) ??
+                        '---',
                     style: context.textTheme.bodyMedium?.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -246,7 +248,9 @@ class PlusCodeDetailCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    locationResult?.longitude?.toStringAsFixed(6) ?? '---',
+                    (locationResult?.longitude ?? plusCode?.longitude)
+                            ?.toStringAsFixed(6) ??
+                        '---',
                     style: context.textTheme.bodyMedium?.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -349,8 +353,7 @@ class PlusCodeDetailCard extends StatelessWidget {
                 iconSize: 20,
                 onPressed: onViewOnMapPressed,
                 style: IconButton.styleFrom(
-                  backgroundColor:
-                      customColors.primary.withValues(alpha: 0.1),
+                  backgroundColor: customColors.primary.withValues(alpha: 0.1),
                   foregroundColor: customColors.primary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28),

@@ -39,27 +39,58 @@ class _MapViewPageState extends State<MapViewPage> {
     super.dispose();
   }
 
-  Future<void> _determineInitialPosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) return;
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) return;
+  /// Centers the map on the device. When [userInitiated] (the re-center
+  /// button), explains any failure and opens the relevant settings; on
+  /// startup it fails silently and the map keeps its default position.
+  Future<void> _determineInitialPosition({bool userInitiated = false}) async {
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      if (userInitiated) {
+        await _showLocationError(
+          (l10n) => l10n.errorLocationServiceDisabled,
+          openSettings: Geolocator.openLocationSettings,
+        );
+      }
+      return;
     }
 
-    if (permission == LocationPermission.deniedForever) return;
+    var permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        if (userInitiated) {
+          await _showLocationError(
+            (l10n) => l10n.errorLocationPermissionDenied,
+          );
+        }
+        return;
+      }
+    }
 
-    final position = await Geolocator.getCurrentPosition(
-      locationSettings: LocationSettings(
-        accuracy: LocationAccuracy.high,
-        distanceFilter: 3,
-      ),
-    );
+    if (permission == LocationPermission.deniedForever) {
+      if (userInitiated) {
+        await _showLocationError(
+          (l10n) => l10n.errorLocationPermissionDenied,
+          openSettings: Geolocator.openAppSettings,
+        );
+      }
+      return;
+    }
+
+    final Position position;
+    try {
+      position = await Geolocator.getCurrentPosition(
+        locationSettings: LocationSettings(
+          accuracy: LocationAccuracy.high,
+          distanceFilter: 3,
+        ),
+      );
+    } catch (e) {
+      if (userInitiated) {
+        await _showLocationError((l10n) => l10n.errorLocationUnavailable);
+      }
+      return;
+    }
     final latLng = LatLng(position.latitude, position.longitude);
 
     final controller = await _controller.future;
@@ -73,6 +104,20 @@ class _MapViewPageState extends State<MapViewPage> {
             ),
           );
     }
+  }
+
+  /// The message is resolved lazily: this class also runs location lookup
+  /// from initState, where localizations can't be read yet.
+  Future<void> _showLocationError(
+    String Function(AppLocalizations l10n) message, {
+    Future<bool> Function()? openSettings,
+  }) async {
+    if (!mounted) return;
+    await DialogUtils.handleFailure(
+      context,
+      message(AppLocalizations.of(context)!),
+      postActions: [if (openSettings != null) () => openSettings()],
+    );
   }
 
   void _onMapTapped(LatLng position) {
@@ -192,104 +237,110 @@ class _MapViewPageState extends State<MapViewPage> {
               ),
             ),
 
-            // 3. Map Action Buttons (Right Aligned)
-            // Positioned(
-            //   right: 24,
-            //   bottom: 300, // Above the detail card
-            //   child: MapActionButtons(
-            //     onLayersPressed: () {
-            //       context
-            //           .read<MapViewBloc>()
-            //           .add(const MapViewEvent.toggleMapType());
-            //     },
-            //     onMyLocationPressed: () async {
-            //       _determineInitialPosition();
-            //     },
-            //   ),
-            // ),
-
-            // 4. Bottom Detail Card
+            // 3. Map Action Buttons + Bottom Detail Card
+            // Stacked in one column so the buttons always sit right above
+            // the card, whatever its current height.
             Positioned(
               bottom: 0,
               left: 0,
               right: 0,
-              child: BlocBuilder<MapViewBloc, MapViewState>(
-                builder: (context, state) {
-                  return PlusCodeDetailCard(
-                    locationResult: state.locationResult,
-                    plusCode: state.selectedPlusCode,
-                    status: state.geocodeStatus,
-                    onNavigatePressed: () async {
-                      if (state.currentLatitude != null &&
-                          state.currentLongitude != null) {
-                        final url = Uri.parse(
-                          'https://www.google.com/maps/dir/?api=1&destination=${state.currentLatitude},${state.currentLongitude}',
-                        );
-                        if (await canLaunchUrl(url)) {
-                          await launchUrl(
-                            url,
-                            mode: LaunchMode.externalApplication,
-                          );
-                        } else {
-                          if (context.mounted) {
-                            await DialogUtils.handleFailure(
-                              context,
-                              l10n.operationError,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 24),
+                    child: MapActionButtons(
+                      onLayersPressed: () => context
+                          .read<MapViewBloc>()
+                          .add(const MapViewEvent.toggleMapType()),
+                      onMyLocationPressed: () =>
+                          _determineInitialPosition(userInitiated: true),
+                    ),
+                  ),
+                  BlocBuilder<MapViewBloc, MapViewState>(
+                    builder: (context, state) {
+                      return PlusCodeDetailCard(
+                        locationResult: state.locationResult,
+                        plusCode: state.selectedPlusCode,
+                        status: state.geocodeStatus,
+                        onNavigatePressed: () async {
+                          if (state.currentLatitude != null &&
+                              state.currentLongitude != null) {
+                            final url = Uri.parse(
+                              'https://www.google.com/maps/dir/?api=1&destination=${state.currentLatitude},${state.currentLongitude}',
                             );
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(
+                                url,
+                                mode: LaunchMode.externalApplication,
+                              );
+                            } else {
+                              if (context.mounted) {
+                                await DialogUtils.handleFailure(
+                                  context,
+                                  l10n.operationError,
+                                );
+                              }
+                            }
                           }
-                        }
-                      }
-                    },
-                    onSavePressed: () {
-                      if (state.selectedPlusCode != null) {
-                        final savedCode = SavedCode(
-                          id: DateTime.now().millisecondsSinceEpoch.toString(),
-                          globalCode: state.selectedPlusCode?.globalCode,
-                          localCode: state.selectedPlusCode?.localCode,
-                          latitude: state.currentLatitude,
-                          longitude: state.currentLongitude,
-                          locality: state.locationResult?.locality,
-                          address: state.locationResult?.formattedAddress,
-                          savedAt: DateTime.now(),
-                        );
-                        context.read<HistoryBloc>().add(
-                              HistoryEvent.saveCode(code: savedCode),
+                        },
+                        onSavePressed: () {
+                          if (state.selectedPlusCode != null) {
+                            final savedCode = SavedCode(
+                              id: DateTime.now()
+                                  .millisecondsSinceEpoch
+                                  .toString(),
+                              globalCode: state.selectedPlusCode?.globalCode,
+                              localCode: state.selectedPlusCode?.localCode,
+                              latitude: state.currentLatitude,
+                              longitude: state.currentLongitude,
+                              locality: state.locationResult?.locality,
+                              address: state.locationResult?.formattedAddress,
+                              savedAt: DateTime.now(),
                             );
-                      }
-                    },
-                    onSharePressed: () {
-                      final plusCodeVal =
-                          state.selectedPlusCode?.globalCode ?? '---';
-                      final latVal =
-                          state.currentLatitude?.toStringAsFixed(6) ?? '---';
-                      final lngVal =
-                          state.currentLongitude?.toStringAsFixed(6) ?? '---';
-                      final addressVal =
-                          state.locationResult?.formattedAddress ?? '---';
+                            context.read<HistoryBloc>().add(
+                                  HistoryEvent.saveCode(code: savedCode),
+                                );
+                          }
+                        },
+                        onSharePressed: () {
+                          final plusCodeVal =
+                              state.selectedPlusCode?.globalCode ?? '---';
+                          final latVal =
+                              state.currentLatitude?.toStringAsFixed(6) ??
+                                  '---';
+                          final lngVal =
+                              state.currentLongitude?.toStringAsFixed(6) ??
+                                  '---';
+                          final addressVal =
+                              state.locationResult?.formattedAddress ?? '---';
 
-                      final shareText = l10n.shareLocationText(
-                        plusCodeVal,
-                        latVal,
-                        lngVal,
-                        addressVal,
-                      );
-
-                      Share.share(shareText);
-                    },
-                    onCopyPlusCode: () async {
-                      final code = state.selectedPlusCode?.globalCode;
-                      if (code != null) {
-                        Clipboard.setData(ClipboardData(text: code));
-                        if (context.mounted) {
-                          await DialogUtils.handleSuccess(
-                            context,
-                            l10n.msgCodeCopied,
+                          final shareText = l10n.shareLocationText(
+                            plusCodeVal,
+                            latVal,
+                            lngVal,
+                            addressVal,
                           );
-                        }
-                      }
+
+                          Share.share(shareText);
+                        },
+                        onCopyPlusCode: () async {
+                          final code = state.selectedPlusCode?.globalCode;
+                          if (code != null) {
+                            Clipboard.setData(ClipboardData(text: code));
+                            if (context.mounted) {
+                              await DialogUtils.handleSuccess(
+                                context,
+                                l10n.msgCodeCopied,
+                              );
+                            }
+                          }
+                        },
+                      );
                     },
-                  );
-                },
+                  ),
+                ],
               ),
             ),
           ],

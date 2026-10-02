@@ -262,7 +262,7 @@ class _HistoryBody extends StatelessWidget {
               code.globalCode ?? '---',
               code.latitude?.toStringAsFixed(6) ?? '---',
               code.longitude?.toStringAsFixed(6) ?? '---',
-              code.locality ?? '---',
+              code.address ?? code.locality ?? '---',
             );
             Share.share(shareText);
           },
