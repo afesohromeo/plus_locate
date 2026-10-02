@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'package:plus_locate/src/domain/models/app_exception.dart'
+    show AccessDeniedException;
 import 'package:plus_locate/src/domain/models/location_result.dart';
 import 'package:plus_locate/src/domain/models/place_suggestion.dart';
 import 'package:plus_locate/src/domain/models/plus_code.dart';
@@ -99,6 +101,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         suggestionsStatus: GenericStatus.success,
         suggestions: suggestions,
       ));
+    } on AccessDeniedException catch (e) {
+      // Google refused the project (e.g. billing off): stop asking for this
+      // session and fall back to free search-on-submit, without an error.
+      log('Places unavailable, switching to search-on-submit: $e');
+      _emitSuggestionsCleared(emit);
+      emit(state.copyWith(searchMode: SearchMode.onSubmit));
     } catch (e) {
       log('Error fetching suggestions: $e');
       if (event.query != _latestQuery) return;
@@ -151,6 +159,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             ? SearchMode.autocomplete
             : SearchMode.onSubmit,
       ));
+    } on AccessDeniedException catch (e) {
+      log('Places unavailable, switching to search-on-submit: $e');
+      emit(state.copyWith(searchMode: SearchMode.onSubmit));
+      _emitSearchFailure(
+        emit,
+        LocalizationService.localization.errorPlaceDetails,
+      );
     } catch (e) {
       log('Error resolving selected place: $e');
       _emitSearchFailure(

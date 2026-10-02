@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'dart:math' show Random;
 
+import 'package:dio/dio.dart';
 import 'package:plus_locate/src/data/api/places/places_api_provider.dart';
+import 'package:plus_locate/src/domain/models/app_exception.dart';
 import 'package:plus_locate/src/domain/models/location_result.dart';
 import 'package:plus_locate/src/domain/models/place_suggestion.dart';
 
@@ -38,9 +40,9 @@ class PlacesRepository {
           .map(PlaceSuggestion.fromJson)
           .where((s) => s.placeId.isNotEmpty)
           .toList();
-    } catch (e) {
+    } catch (e, stack) {
       log('Error fetching place suggestions: $e');
-      rethrow;
+      _rethrowAsAccessDenied(e, stack);
     }
   }
 
@@ -57,12 +59,33 @@ class PlacesRepository {
       );
       final result = LocationResult.fromPlaceDetails(res);
       return result.hasCoordinates ? result : null;
-    } catch (e) {
+    } catch (e, stack) {
       log('Error fetching place details: $e');
-      rethrow;
+      _rethrowAsAccessDenied(e, stack);
     } finally {
       endSession();
     }
+  }
+
+  /// Rethrows [error], as an [AccessDeniedException] when Google refused the
+  /// project itself: no key, invalid key, or any 403 (billing disabled, API
+  /// not enabled, key restricted). Timeouts and server errors pass through
+  /// unchanged because a retry may succeed.
+  Never _rethrowAsAccessDenied(Object error, StackTrace stack) {
+    if (error is StateError) {
+      throw AccessDeniedException(message: error.message);
+    }
+    if (error is DioException) {
+      final status = error.response?.statusCode;
+      final isInvalidKey = status == 400 &&
+          error.response.toString().contains('API_KEY_INVALID');
+      if (status == 403 || isInvalidKey) {
+        throw AccessDeniedException(
+          message: 'Places API refused the request (HTTP $status)',
+        );
+      }
+    }
+    Error.throwWithStackTrace(error, stack);
   }
 
   /// Drops the current session so the next autocomplete starts a new one.

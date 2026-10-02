@@ -23,6 +23,11 @@ sealed class AppException implements Exception {
 
   const factory AppException.cancelled() = CancelledException;
 
+  /// The service refused this app/project (missing or invalid key, billing
+  /// disabled, API not enabled). Retrying won't help.
+  const factory AppException.accessDenied({required String message}) =
+      AccessDeniedException;
+
   const factory AppException.unknown({required String message}) =
       UnknownException;
 
@@ -53,12 +58,15 @@ class TimeoutException extends AppException {
 }
 
 class NoConnectionException extends AppException {
-  const NoConnectionException()
-      : super(message: 'No internet connection');
+  const NoConnectionException() : super(message: 'No internet connection');
 }
 
 class CancelledException extends AppException {
   const CancelledException() : super(message: 'Request was cancelled');
+}
+
+class AccessDeniedException extends AppException {
+  const AccessDeniedException({required super.message});
 }
 
 class UnknownException extends AppException {

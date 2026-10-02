@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plus_locate/src/data/api/places/places_api_provider.dart';
+import 'package:plus_locate/src/domain/models/app_exception.dart';
 import 'package:plus_locate/src/domain/repository/places_repository.dart';
 
 /// Answers every request with a canned JSON body and records the requests.
@@ -134,28 +135,74 @@ void main() {
       expect(adapter.requests[3].data['sessionToken'], isNot(firstToken));
     });
 
-    test('rethrows when Google denies the request', () async {
+    test('billing disabled (403) is reported as access denied', () async {
       final adapter = _FakeAdapter(
         (_) => (
           403,
           {
-            'error': {'code': 403, 'status': 'PERMISSION_DENIED'},
+            'error': {
+              'code': 403,
+              'status': 'PERMISSION_DENIED',
+              'details': [
+                {'reason': 'BILLING_DISABLED'},
+              ],
+            },
           },
         ),
       );
 
-      expect(
+      await expectLater(
+        _repository(adapter).autocomplete(input: 'Doua'),
+        throwsA(isA<AccessDeniedException>()),
+      );
+    });
+
+    test('an invalid key (400 API_KEY_INVALID) is reported as access denied',
+        () async {
+      final adapter = _FakeAdapter(
+        (_) => (
+          400,
+          {
+            'error': {
+              'code': 400,
+              'status': 'INVALID_ARGUMENT',
+              'details': [
+                {'reason': 'API_KEY_INVALID'},
+              ],
+            },
+          },
+        ),
+      );
+
+      await expectLater(
+        _repository(adapter).placeDetails(placeId: 'place-1'),
+        throwsA(isA<AccessDeniedException>()),
+      );
+    });
+
+    test('a server error stays a normal, retryable error', () async {
+      final adapter = _FakeAdapter(
+        (_) => (
+          500,
+          {
+            'error': {'code': 500, 'status': 'INTERNAL'},
+          },
+        ),
+      );
+
+      await expectLater(
         _repository(adapter).autocomplete(input: 'Doua'),
         throwsA(isA<DioException>()),
       );
     });
 
-    test('fails fast without calling Google when the key is empty', () async {
+    test('an empty key fails fast as access denied, without calling Google',
+        () async {
       final adapter = _FakeAdapter((_) => (200, _autocompleteBody));
 
       await expectLater(
         _repository(adapter, apiKey: '').autocomplete(input: 'Doua'),
-        throwsA(isA<StateError>()),
+        throwsA(isA<AccessDeniedException>()),
       );
       expect(adapter.requests, isEmpty);
     });
