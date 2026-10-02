@@ -10,6 +10,7 @@ GeneratedPluginRegistrant.java
 # See https://flutter.dev/docs/deployment/android#reference-the-keystore-from-the-app
 key.properties
 app/dataCentralMobile-keystore.jks
+app/plus_locate-upload.jks
 app/.cxx/
 **/*.keystore
 **/*.jks
