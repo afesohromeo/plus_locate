@@ -166,6 +166,12 @@ Release signing reads `android/key.properties`, which is git-ignored.
 
 ---
 
+## Privacy
+
+PlusLocate has no accounts, no ads and no servers of its own. See the [privacy policy](PRIVACY.md) (English and French).
+
+---
+
 ## Roadmap
 
 - [ ] Settings screen (language, map type, light/dark theme)
