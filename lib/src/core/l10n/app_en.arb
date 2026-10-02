@@ -325,9 +325,9 @@
     "@onboardingTagline": {
         "description": "Tagline / body text on the onboarding splash screen"
     },
-    "onboardingPrecise": "Precise to 3 meters",
+    "onboardingPrecise": "Accurate to about 14 m",
     "@onboardingPrecise": {
-        "description": "Precision badge text on the sample Plus Code card"
+        "description": "Precision badge text on the sample Plus Code card. A standard 10-character Plus Code covers about 14 x 14 m."
     },
     "onboardingFeatureGlobal": "Global Coverage",
     "@onboardingFeatureGlobal": {

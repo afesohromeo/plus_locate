@@ -247,7 +247,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Découvrez des codes Plus précis pour n\'importe quel endroit sur Terre, même sans adresse. Naviguez dans le monde avec une précision architecturale.';
 
   @override
-  String get onboardingPrecise => 'Précis à 3 mètres';
+  String get onboardingPrecise => 'Précis à environ 14 m';
 
   @override
   String get onboardingFeatureGlobal => 'Couverture mondiale';

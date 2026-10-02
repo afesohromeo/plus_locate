@@ -543,10 +543,10 @@ abstract class AppLocalizations {
   /// **'Discover precise Plus Codes for any location on Earth, even without a street address. Navigate the world with architectural precision.'**
   String get onboardingTagline;
 
-  /// Precision badge text on the sample Plus Code card
+  /// Precision badge text on the sample Plus Code card. A standard 10-character Plus Code covers about 14 x 14 m.
   ///
   /// In en, this message translates to:
-  /// **'Precise to 3 meters'**
+  /// **'Accurate to about 14 m'**
   String get onboardingPrecise;
 
   /// First feature pill label on the onboarding screen
