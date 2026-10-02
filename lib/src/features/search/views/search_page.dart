@@ -89,23 +89,21 @@ class _SearchBodyState extends State<_SearchBody> {
                 focusNode: _focusNode,
                 onSubmit: _submit,
               ),
-              if (state.suggestionsStatus == GenericStatus.loading)
-                LinearProgressIndicator(
-                  minHeight: 2,
-                  color: customColors.primary,
-                  backgroundColor: Colors.transparent,
-                ),
               if (state.suggestionsStatus == GenericStatus.failure &&
                   state.suggestionsErrorMessage != null)
                 _SuggestionsError(message: state.suggestionsErrorMessage!),
               const SizedBox(height: 16),
               Expanded(
+                // While refreshing, existing suggestions stay on screen until
+                // the new ones arrive; placeholders only fill an empty list.
                 child: state.suggestions.isNotEmpty
                     ? _SuggestionList(
                         suggestions: state.suggestions,
                         onSelected: _selectSuggestion,
                       )
-                    : _buildContent(context, state, l10n),
+                    : state.suggestionsStatus == GenericStatus.loading
+                        ? const _SuggestionListSkeleton()
+                        : _buildContent(context, state, l10n),
               ),
             ],
           ),
@@ -121,7 +119,9 @@ class _SearchBodyState extends State<_SearchBody> {
   ) {
     switch (state.searchStatus) {
       case GenericStatus.loading:
-        return LoadingWidget(loadingText: l10n.loading);
+        return const SingleChildScrollView(
+          child: PlusCodeDetailCardSkeleton.card(margin: EdgeInsets.zero),
+        );
       case GenericStatus.failure:
         return ErrorrWidget(
           errorMessage: state.searchErrorMessage ?? l10n.operationError,
@@ -158,22 +158,17 @@ class _SearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return InputField(
-      controller: textController,
+    return SearchInputField(
+      inputController: textController,
       focusNode: focusNode,
-      validator: (_) => null,
       labelText: l10n.searchPlacesOrCodes,
       bgColor: customColors.surface,
-      borderRadius: BorderRadius.circular(10),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+      labelColor: customColors.black1.withValues(alpha: .7),
       onChanged: (query) => context
           .read<SearchBloc>()
           .add(SearchEvent.queryChanged(query: query)),
       onEditingComplete: onSubmit,
-      suffixIcon: IconButton(
-        icon: Icon(Icons.search, color: customColors.primary),
-        onPressed: onSubmit,
-      ),
+      onSuffixPressed: onSubmit,
     );
   }
 }
@@ -207,6 +202,60 @@ class _SuggestionsError extends StatelessWidget {
   }
 }
 
+/// Placeholder rows shaped like [_SuggestionList] items.
+class _SuggestionListSkeleton extends StatelessWidget {
+  const _SuggestionListSkeleton();
+
+  static const _rowCount = 3;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Semantics(
+        label: AppLocalizations.of(context)!.loading,
+        child: Material(
+          color: customColors.surface,
+          borderRadius: BorderRadius.circular(10),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: ShimmerSkeleton(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (var i = 0; i < _rowCount; i++)
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      child: Row(
+                        children: [
+                          SkeletonBox.circle(size: 24),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SkeletonBox(width: 160, height: 14),
+                                SizedBox(height: 6),
+                                SkeletonBox(width: 100, height: 12),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _SuggestionList extends StatelessWidget {
   final List<PlaceSuggestion> suggestions;
   final ValueChanged<PlaceSuggestion> onSelected;
@@ -220,11 +269,12 @@ class _SuggestionList extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: customColors.surface,
-        borderRadius: BorderRadius.circular(10),
-      ),
+    // A Material (not a decorated Container) so the ListTile ink ripples
+    // paint on this background instead of behind it.
+    return Material(
+      color: customColors.surface,
+      borderRadius: BorderRadius.circular(10),
+      clipBehavior: Clip.antiAlias,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(vertical: 4),
         // Last row is the Google attribution required by the Places policy.
@@ -288,6 +338,7 @@ class _SearchResultView extends StatelessWidget {
 
     return SingleChildScrollView(
       child: PlusCodeDetailCard(
+        margin: EdgeInsets.zero,
         title: l10n.searchResult,
         locationResult: state.locationResult,
         plusCode: state.plusCode,

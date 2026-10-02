@@ -19,4 +19,6 @@ class MapViewEvent with _$MapViewEvent {
   }) = _FocusOnLocation;
   const factory MapViewEvent.reset() = _Reset;
   const factory MapViewEvent.toggleMapType() = _ToggleMapType;
+  const factory MapViewEvent.setDetailCardExpanded({required bool expanded}) =
+      _SetDetailCardExpanded;
 }

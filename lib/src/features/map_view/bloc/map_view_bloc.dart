@@ -31,6 +31,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<_FocusOnLocation>(_onFocusOnLocation);
     on<_Reset>(_onReset);
     on<_ToggleMapType>(_onToggleMapType);
+    on<_SetDetailCardExpanded>(_onSetDetailCardExpanded);
   }
 
   void _onInit(_Init event, Emitter<MapViewState> emit) {
@@ -136,5 +137,12 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       _ => MapType.normal,
     };
     emit(state.copyWith(mapType: nextMapType));
+  }
+
+  void _onSetDetailCardExpanded(
+    _SetDetailCardExpanded event,
+    Emitter<MapViewState> emit,
+  ) {
+    emit(state.copyWith(isDetailCardExpanded: event.expanded));
   }
 }

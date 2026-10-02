@@ -20,7 +20,7 @@ part 'search_state.dart';
 part 'search_bloc.freezed.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  static const _suggestionsDebounce = Duration(milliseconds: 800);
+  static const _suggestionsDebounce = Duration(seconds: 1);
   static const _minAutocompleteLength = 3;
 
   final PlusCodeRepository _plusCodeRepository;

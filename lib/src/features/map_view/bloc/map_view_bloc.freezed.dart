@@ -57,6 +57,7 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult Function(_FocusOnLocation value)? focusOnLocation,
     TResult Function(_Reset value)? reset,
     TResult Function(_ToggleMapType value)? toggleMapType,
+    TResult Function(_SetDetailCardExpanded value)? setDetailCardExpanded,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -73,6 +74,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reset(_that);
       case _ToggleMapType() when toggleMapType != null:
         return toggleMapType(_that);
+      case _SetDetailCardExpanded() when setDetailCardExpanded != null:
+        return setDetailCardExpanded(_that);
       case _:
         return orElse();
     }
@@ -100,6 +103,8 @@ extension MapViewEventPatterns on MapViewEvent {
     required TResult Function(_FocusOnLocation value) focusOnLocation,
     required TResult Function(_Reset value) reset,
     required TResult Function(_ToggleMapType value) toggleMapType,
+    required TResult Function(_SetDetailCardExpanded value)
+        setDetailCardExpanded,
   }) {
     final _that = this;
     switch (_that) {
@@ -115,6 +120,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reset(_that);
       case _ToggleMapType():
         return toggleMapType(_that);
+      case _SetDetailCardExpanded():
+        return setDetailCardExpanded(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -140,6 +147,7 @@ extension MapViewEventPatterns on MapViewEvent {
     TResult? Function(_FocusOnLocation value)? focusOnLocation,
     TResult? Function(_Reset value)? reset,
     TResult? Function(_ToggleMapType value)? toggleMapType,
+    TResult? Function(_SetDetailCardExpanded value)? setDetailCardExpanded,
   }) {
     final _that = this;
     switch (_that) {
@@ -155,6 +163,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reset(_that);
       case _ToggleMapType() when toggleMapType != null:
         return toggleMapType(_that);
+      case _SetDetailCardExpanded() when setDetailCardExpanded != null:
+        return setDetailCardExpanded(_that);
       case _:
         return null;
     }
@@ -182,6 +192,7 @@ extension MapViewEventPatterns on MapViewEvent {
         focusOnLocation,
     TResult Function()? reset,
     TResult Function()? toggleMapType,
+    TResult Function(bool expanded)? setDetailCardExpanded,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -199,6 +210,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reset();
       case _ToggleMapType() when toggleMapType != null:
         return toggleMapType();
+      case _SetDetailCardExpanded() when setDetailCardExpanded != null:
+        return setDetailCardExpanded(_that.expanded);
       case _:
         return orElse();
     }
@@ -228,6 +241,7 @@ extension MapViewEventPatterns on MapViewEvent {
         focusOnLocation,
     required TResult Function() reset,
     required TResult Function() toggleMapType,
+    required TResult Function(bool expanded) setDetailCardExpanded,
   }) {
     final _that = this;
     switch (_that) {
@@ -244,6 +258,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reset();
       case _ToggleMapType():
         return toggleMapType();
+      case _SetDetailCardExpanded():
+        return setDetailCardExpanded(_that.expanded);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -272,6 +288,7 @@ extension MapViewEventPatterns on MapViewEvent {
         focusOnLocation,
     TResult? Function()? reset,
     TResult? Function()? toggleMapType,
+    TResult? Function(bool expanded)? setDetailCardExpanded,
   }) {
     final _that = this;
     switch (_that) {
@@ -288,6 +305,8 @@ extension MapViewEventPatterns on MapViewEvent {
         return reset();
       case _ToggleMapType() when toggleMapType != null:
         return toggleMapType();
+      case _SetDetailCardExpanded() when setDetailCardExpanded != null:
+        return setDetailCardExpanded(_that.expanded);
       case _:
         return null;
     }
@@ -638,6 +657,74 @@ class _ToggleMapType implements MapViewEvent {
 }
 
 /// @nodoc
+
+class _SetDetailCardExpanded implements MapViewEvent {
+  const _SetDetailCardExpanded({required this.expanded});
+
+  final bool expanded;
+
+  /// Create a copy of MapViewEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$SetDetailCardExpandedCopyWith<_SetDetailCardExpanded> get copyWith =>
+      __$SetDetailCardExpandedCopyWithImpl<_SetDetailCardExpanded>(
+          this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _SetDetailCardExpanded &&
+            (identical(other.expanded, expanded) ||
+                other.expanded == expanded));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, expanded);
+  }
+
+  @override
+  String toString() {
+    return 'MapViewEvent.setDetailCardExpanded(expanded: $expanded)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$SetDetailCardExpandedCopyWith<$Res>
+    implements $MapViewEventCopyWith<$Res> {
+  factory _$SetDetailCardExpandedCopyWith(_SetDetailCardExpanded value,
+          $Res Function(_SetDetailCardExpanded) _then) =
+      __$SetDetailCardExpandedCopyWithImpl;
+  @useResult
+  $Res call({bool expanded});
+}
+
+/// @nodoc
+class __$SetDetailCardExpandedCopyWithImpl<$Res>
+    implements _$SetDetailCardExpandedCopyWith<$Res> {
+  __$SetDetailCardExpandedCopyWithImpl(this._self, this._then);
+
+  final _SetDetailCardExpanded _self;
+  final $Res Function(_SetDetailCardExpanded) _then;
+
+  /// Create a copy of MapViewEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? expanded = null,
+  }) {
+    return _then(_SetDetailCardExpanded(
+      expanded: null == expanded
+          ? _self.expanded
+          : expanded // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
 mixin _$MapViewState {
   GenericStatus get geocodeStatus;
   LocationResult? get locationResult;
@@ -647,6 +734,10 @@ mixin _$MapViewState {
   String? get geocodeErrorMessage;
   MapType get mapType;
   int get focusToken;
+
+  /// Whether the map's detail card shows full details or the compact
+  /// summary. Kept across location changes.
+  bool get isDetailCardExpanded;
 
   /// Create a copy of MapViewState
   /// with the given fields replaced by the non-null parameter values.
@@ -677,7 +768,10 @@ mixin _$MapViewState {
             (identical(other.mapType, _this.mapType) ||
                 other.mapType == _this.mapType) &&
             (identical(other.focusToken, _this.focusToken) ||
-                other.focusToken == _this.focusToken));
+                other.focusToken == _this.focusToken) &&
+            (identical(
+                    other.isDetailCardExpanded, _this.isDetailCardExpanded) ||
+                other.isDetailCardExpanded == _this.isDetailCardExpanded));
   }
 
   @override
@@ -692,13 +786,14 @@ mixin _$MapViewState {
         _this.currentLongitude,
         _this.geocodeErrorMessage,
         _this.mapType,
-        _this.focusToken);
+        _this.focusToken,
+        _this.isDetailCardExpanded);
   }
 
   @override
   String toString() {
     final _this = this as MapViewState;
-    return 'MapViewState(geocodeStatus: ${_this.geocodeStatus}, locationResult: ${_this.locationResult}, selectedPlusCode: ${_this.selectedPlusCode}, currentLatitude: ${_this.currentLatitude}, currentLongitude: ${_this.currentLongitude}, geocodeErrorMessage: ${_this.geocodeErrorMessage}, mapType: ${_this.mapType}, focusToken: ${_this.focusToken})';
+    return 'MapViewState(geocodeStatus: ${_this.geocodeStatus}, locationResult: ${_this.locationResult}, selectedPlusCode: ${_this.selectedPlusCode}, currentLatitude: ${_this.currentLatitude}, currentLongitude: ${_this.currentLongitude}, geocodeErrorMessage: ${_this.geocodeErrorMessage}, mapType: ${_this.mapType}, focusToken: ${_this.focusToken}, isDetailCardExpanded: ${_this.isDetailCardExpanded})';
   }
 }
 
@@ -716,7 +811,8 @@ abstract mixin class $MapViewStateCopyWith<$Res> {
       double? currentLongitude,
       String? geocodeErrorMessage,
       MapType mapType,
-      int focusToken});
+      int focusToken,
+      bool isDetailCardExpanded});
 
   $LocationResultCopyWith<$Res>? get locationResult;
   $PlusCodeCopyWith<$Res>? get selectedPlusCode;
@@ -742,6 +838,7 @@ class _$MapViewStateCopyWithImpl<$Res> implements $MapViewStateCopyWith<$Res> {
     Object? geocodeErrorMessage = freezed,
     Object? mapType = null,
     Object? focusToken = null,
+    Object? isDetailCardExpanded = null,
   }) {
     return _then(MapViewState(
       geocodeStatus: null == geocodeStatus
@@ -776,6 +873,10 @@ class _$MapViewStateCopyWithImpl<$Res> implements $MapViewStateCopyWith<$Res> {
           ? _self.focusToken
           : focusToken // ignore: cast_nullable_to_non_nullable
               as int,
+      isDetailCardExpanded: null == isDetailCardExpanded
+          ? _self.isDetailCardExpanded
+          : isDetailCardExpanded // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -907,7 +1008,8 @@ extension MapViewStatePatterns on MapViewState {
             double? currentLongitude,
             String? geocodeErrorMessage,
             MapType mapType,
-            int focusToken)?
+            int focusToken,
+            bool isDetailCardExpanded)?
         $default, {
     required TResult orElse(),
   }) {
@@ -922,7 +1024,8 @@ extension MapViewStatePatterns on MapViewState {
             _that.currentLongitude,
             _that.geocodeErrorMessage,
             _that.mapType,
-            _that.focusToken);
+            _that.focusToken,
+            _that.isDetailCardExpanded);
       case _:
         return orElse();
     }
@@ -951,7 +1054,8 @@ extension MapViewStatePatterns on MapViewState {
             double? currentLongitude,
             String? geocodeErrorMessage,
             MapType mapType,
-            int focusToken)
+            int focusToken,
+            bool isDetailCardExpanded)
         $default,
   ) {
     final _that = this;
@@ -965,7 +1069,8 @@ extension MapViewStatePatterns on MapViewState {
             _that.currentLongitude,
             _that.geocodeErrorMessage,
             _that.mapType,
-            _that.focusToken);
+            _that.focusToken,
+            _that.isDetailCardExpanded);
     }
   }
 
@@ -991,7 +1096,8 @@ extension MapViewStatePatterns on MapViewState {
             double? currentLongitude,
             String? geocodeErrorMessage,
             MapType mapType,
-            int focusToken)?
+            int focusToken,
+            bool isDetailCardExpanded)?
         $default,
   ) {
     final _that = this;
@@ -1005,7 +1111,8 @@ extension MapViewStatePatterns on MapViewState {
             _that.currentLongitude,
             _that.geocodeErrorMessage,
             _that.mapType,
-            _that.focusToken);
+            _that.focusToken,
+            _that.isDetailCardExpanded);
       case _:
         return null;
     }
@@ -1023,7 +1130,8 @@ class _MapViewState implements MapViewState {
       this.currentLongitude,
       this.geocodeErrorMessage,
       this.mapType = MapType.normal,
-      this.focusToken = 0});
+      this.focusToken = 0,
+      this.isDetailCardExpanded = false});
 
   @override
   @JsonKey()
@@ -1044,6 +1152,12 @@ class _MapViewState implements MapViewState {
   @override
   @JsonKey()
   final int focusToken;
+
+  /// Whether the map's detail card shows full details or the compact
+  /// summary. Kept across location changes.
+  @override
+  @JsonKey()
+  final bool isDetailCardExpanded;
 
   /// Create a copy of MapViewState
   /// with the given fields replaced by the non-null parameter values.
@@ -1072,7 +1186,9 @@ class _MapViewState implements MapViewState {
                 other.geocodeErrorMessage == geocodeErrorMessage) &&
             (identical(other.mapType, mapType) || other.mapType == mapType) &&
             (identical(other.focusToken, focusToken) ||
-                other.focusToken == focusToken));
+                other.focusToken == focusToken) &&
+            (identical(other.isDetailCardExpanded, isDetailCardExpanded) ||
+                other.isDetailCardExpanded == isDetailCardExpanded));
   }
 
   @override
@@ -1086,12 +1202,13 @@ class _MapViewState implements MapViewState {
         currentLongitude,
         geocodeErrorMessage,
         mapType,
-        focusToken);
+        focusToken,
+        isDetailCardExpanded);
   }
 
   @override
   String toString() {
-    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage, mapType: $mapType, focusToken: $focusToken)';
+    return 'MapViewState(geocodeStatus: $geocodeStatus, locationResult: $locationResult, selectedPlusCode: $selectedPlusCode, currentLatitude: $currentLatitude, currentLongitude: $currentLongitude, geocodeErrorMessage: $geocodeErrorMessage, mapType: $mapType, focusToken: $focusToken, isDetailCardExpanded: $isDetailCardExpanded)';
   }
 }
 
@@ -1111,7 +1228,8 @@ abstract mixin class _$MapViewStateCopyWith<$Res>
       double? currentLongitude,
       String? geocodeErrorMessage,
       MapType mapType,
-      int focusToken});
+      int focusToken,
+      bool isDetailCardExpanded});
 
   @override
   $LocationResultCopyWith<$Res>? get locationResult;
@@ -1140,6 +1258,7 @@ class __$MapViewStateCopyWithImpl<$Res>
     Object? geocodeErrorMessage = freezed,
     Object? mapType = null,
     Object? focusToken = null,
+    Object? isDetailCardExpanded = null,
   }) {
     return _then(_MapViewState(
       geocodeStatus: null == geocodeStatus
@@ -1174,6 +1293,10 @@ class __$MapViewStateCopyWithImpl<$Res>
           ? _self.focusToken
           : focusToken // ignore: cast_nullable_to_non_nullable
               as int,
+      isDetailCardExpanded: null == isDetailCardExpanded
+          ? _self.isDetailCardExpanded
+          : isDetailCardExpanded // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 

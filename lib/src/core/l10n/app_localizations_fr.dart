@@ -294,4 +294,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get errorLocationUnavailable =>
       'Impossible d\'obtenir votre position actuelle. Veuillez réessayer.';
+
+  @override
+  String get showDetails => 'Afficher les détails';
+
+  @override
+  String get hideDetails => 'Masquer les détails';
 }

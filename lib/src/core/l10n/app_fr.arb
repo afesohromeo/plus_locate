@@ -87,5 +87,7 @@
     "poweredByGoogle": "Powered by Google",
     "errorLocationServiceDisabled": "La localisation est désactivée. Activez-la pour centrer la carte sur votre position.",
     "errorLocationPermissionDenied": "PlusLocate n'est pas autorisé à utiliser votre position. Autorisez-la dans les paramètres de l'application pour centrer la carte sur votre position.",
-    "errorLocationUnavailable": "Impossible d'obtenir votre position actuelle. Veuillez réessayer."
+    "errorLocationUnavailable": "Impossible d'obtenir votre position actuelle. Veuillez réessayer.",
+    "showDetails": "Afficher les détails",
+    "hideDetails": "Masquer les détails"
 }

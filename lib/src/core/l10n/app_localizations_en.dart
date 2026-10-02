@@ -291,4 +291,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorLocationUnavailable =>
       'Couldn\'t get your current location. Please try again.';
+
+  @override
+  String get showDetails => 'Show details';
+
+  @override
+  String get hideDetails => 'Hide details';
 }

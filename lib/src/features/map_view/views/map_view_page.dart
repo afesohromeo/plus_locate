@@ -19,6 +19,10 @@ class MapViewPage extends StatefulWidget {
 class _MapViewPageState extends State<MapViewPage> {
   final Completer<GoogleMapController> _controller = Completer();
 
+  /// Height of the detail card, used as the map's bottom padding so the
+  /// Google logo and the camera center stay in the visible part of the map.
+  double _detailCardHeight = 0;
+
   // Default camera position fallback
   static const CameraPosition _initialPosition = CameraPosition(
     target: LatLng(40.712776, -74.005974),
@@ -223,6 +227,7 @@ class _MapViewPageState extends State<MapViewPage> {
                   myLocationButtonEnabled: false,
                   myLocationEnabled: true,
                   mapToolbarEnabled: false,
+                  padding: EdgeInsets.only(bottom: _detailCardHeight),
                 );
               },
             ),
@@ -258,87 +263,100 @@ class _MapViewPageState extends State<MapViewPage> {
                           _determineInitialPosition(userInitiated: true),
                     ),
                   ),
-                  BlocBuilder<MapViewBloc, MapViewState>(
-                    builder: (context, state) {
-                      return PlusCodeDetailCard(
-                        locationResult: state.locationResult,
-                        plusCode: state.selectedPlusCode,
-                        status: state.geocodeStatus,
-                        onNavigatePressed: () async {
-                          if (state.currentLatitude != null &&
-                              state.currentLongitude != null) {
-                            final url = Uri.parse(
-                              'https://www.google.com/maps/dir/?api=1&destination=${state.currentLatitude},${state.currentLongitude}',
-                            );
-                            if (await canLaunchUrl(url)) {
-                              await launchUrl(
-                                url,
-                                mode: LaunchMode.externalApplication,
+                  MeasureSize(
+                    onChange: (size) {
+                      if (mounted && size.height != _detailCardHeight) {
+                        setState(() => _detailCardHeight = size.height);
+                      }
+                    },
+                    child: BlocBuilder<MapViewBloc, MapViewState>(
+                      builder: (context, state) {
+                        return PlusCodeDetailCard(
+                          locationResult: state.locationResult,
+                          plusCode: state.selectedPlusCode,
+                          status: state.geocodeStatus,
+                          expanded: state.isDetailCardExpanded,
+                          onExpandedChanged: (expanded) => context
+                              .read<MapViewBloc>()
+                              .add(MapViewEvent.setDetailCardExpanded(
+                                expanded: expanded,
+                              )),
+                          onNavigatePressed: () async {
+                            if (state.currentLatitude != null &&
+                                state.currentLongitude != null) {
+                              final url = Uri.parse(
+                                'https://www.google.com/maps/dir/?api=1&destination=${state.currentLatitude},${state.currentLongitude}',
                               );
-                            } else {
+                              if (await canLaunchUrl(url)) {
+                                await launchUrl(
+                                  url,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              } else {
+                                if (context.mounted) {
+                                  await DialogUtils.handleFailure(
+                                    context,
+                                    l10n.operationError,
+                                  );
+                                }
+                              }
+                            }
+                          },
+                          onSavePressed: () {
+                            if (state.selectedPlusCode != null) {
+                              final savedCode = SavedCode(
+                                id: DateTime.now()
+                                    .millisecondsSinceEpoch
+                                    .toString(),
+                                globalCode: state.selectedPlusCode?.globalCode,
+                                localCode: state.selectedPlusCode?.localCode,
+                                latitude: state.currentLatitude,
+                                longitude: state.currentLongitude,
+                                locality: state.locationResult?.locality,
+                                address: state.locationResult?.formattedAddress,
+                                savedAt: DateTime.now(),
+                              );
+                              context.read<HistoryBloc>().add(
+                                    HistoryEvent.saveCode(code: savedCode),
+                                  );
+                            }
+                          },
+                          onSharePressed: () {
+                            final plusCodeVal =
+                                state.selectedPlusCode?.globalCode ?? '---';
+                            final latVal =
+                                state.currentLatitude?.toStringAsFixed(6) ??
+                                    '---';
+                            final lngVal =
+                                state.currentLongitude?.toStringAsFixed(6) ??
+                                    '---';
+                            final addressVal =
+                                state.locationResult?.formattedAddress ?? '---';
+
+                            final shareText = l10n.shareLocationText(
+                              plusCodeVal,
+                              latVal,
+                              lngVal,
+                              addressVal,
+                            );
+
+                            Share.share(shareText);
+                          },
+                          onCopyPlusCode: () async {
+                            final code = state.selectedPlusCode?.globalCode;
+                            if (code != null) {
+                              Clipboard.setData(ClipboardData(text: code));
                               if (context.mounted) {
-                                await DialogUtils.handleFailure(
+                                await DialogUtils.handleSuccess(
                                   context,
-                                  l10n.operationError,
+                                  l10n.msgCodeCopied,
                                 );
                               }
                             }
-                          }
-                        },
-                        onSavePressed: () {
-                          if (state.selectedPlusCode != null) {
-                            final savedCode = SavedCode(
-                              id: DateTime.now()
-                                  .millisecondsSinceEpoch
-                                  .toString(),
-                              globalCode: state.selectedPlusCode?.globalCode,
-                              localCode: state.selectedPlusCode?.localCode,
-                              latitude: state.currentLatitude,
-                              longitude: state.currentLongitude,
-                              locality: state.locationResult?.locality,
-                              address: state.locationResult?.formattedAddress,
-                              savedAt: DateTime.now(),
-                            );
-                            context.read<HistoryBloc>().add(
-                                  HistoryEvent.saveCode(code: savedCode),
-                                );
-                          }
-                        },
-                        onSharePressed: () {
-                          final plusCodeVal =
-                              state.selectedPlusCode?.globalCode ?? '---';
-                          final latVal =
-                              state.currentLatitude?.toStringAsFixed(6) ??
-                                  '---';
-                          final lngVal =
-                              state.currentLongitude?.toStringAsFixed(6) ??
-                                  '---';
-                          final addressVal =
-                              state.locationResult?.formattedAddress ?? '---';
-
-                          final shareText = l10n.shareLocationText(
-                            plusCodeVal,
-                            latVal,
-                            lngVal,
-                            addressVal,
-                          );
-
-                          Share.share(shareText);
-                        },
-                        onCopyPlusCode: () async {
-                          final code = state.selectedPlusCode?.globalCode;
-                          if (code != null) {
-                            Clipboard.setData(ClipboardData(text: code));
-                            if (context.mounted) {
-                              await DialogUtils.handleSuccess(
-                                context,
-                                l10n.msgCodeCopied,
-                              );
-                            }
-                          }
-                        },
-                      );
-                    },
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:plus_locate/plus_locate.dart';
 
@@ -18,6 +17,16 @@ class PlusCodeDetailCard extends StatelessWidget {
   /// When provided, shows a "View on Map" icon button in the action row.
   final VoidCallback? onViewOnMapPressed;
 
+  /// Makes the card collapsible (Map tab): [expanded] picks the compact
+  /// summary or the full details, and dragging or tapping the handle asks
+  /// for the other state. When null the card always shows full details.
+  final ValueChanged<bool>? onExpandedChanged;
+  final bool expanded;
+
+  /// Space around the card. The Search tab passes zero because its page
+  /// is already padded.
+  final EdgeInsetsGeometry margin;
+
   const PlusCodeDetailCard({
     super.key,
     this.locationResult,
@@ -29,38 +38,143 @@ class PlusCodeDetailCard extends StatelessWidget {
     required this.onCopyPlusCode,
     this.title,
     this.onViewOnMapPressed,
+    this.onExpandedChanged,
+    this.expanded = true,
+    this.margin = const EdgeInsets.all(12),
   });
+
+  bool get _isCollapsible => onExpandedChanged != null;
+
+  bool get _hasResult => locationResult != null || plusCode != null;
+
+  void _onVerticalDragEnd(DragEndDetails details) {
+    final velocity = details.primaryVelocity ?? 0;
+    if (velocity < -50 && !expanded) onExpandedChanged!(true);
+    if (velocity > 50 && expanded) onExpandedChanged!(false);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(24.0),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 24.0, sigmaY: 24.0),
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              color: customColors.surface.withValues(alpha: 0.95),
-              borderRadius: BorderRadius.circular(24.0),
-              border: Border.all(
-                color: customColors.surface.withValues(alpha: 0.4),
-                width: 1,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: customColors.black1.withValues(alpha: 0.1),
-                  blurRadius: 32,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: _buildContent(context),
+    return DetailCardSurface(
+      margin: margin,
+      child: GestureDetector(
+        onVerticalDragEnd:
+            _isCollapsible && _hasResult ? _onVerticalDragEnd : null,
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 220),
+          curve: Curves.easeOutCubic,
+          alignment: Alignment.bottomCenter,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (_isCollapsible &&
+                  _hasResult &&
+                  status != GenericStatus.loading)
+                _buildHandle(context),
+              _buildContent(context),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildHandle(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Semantics(
+      button: true,
+      label: expanded ? l10n.hideDetails : l10n.showDetails,
+      child: InkWell(
+        onTap: () => onExpandedChanged!(!expanded),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Center(
+            child: Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: customColors.black1.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Collapsed Map-tab summary: locality, Plus Code (tap to copy), Navigate.
+  Widget _buildCompact(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Row(
+      children: [
+        Expanded(
+          child: InkWell(
+            onTap: onCopyPlusCode,
+            borderRadius: BorderRadius.circular(12),
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    locationResult?.locality ?? l10n.unknownLocation,
+                    style: context.textTheme.displayLarge?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: customColors.black1.withValues(alpha: 0.7),
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 2),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          plusCode?.globalCode ?? '---',
+                          style: context.textTheme.displayLarge?.copyWith(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w900,
+                            color: customColors.primary,
+                            letterSpacing: -1.0,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Icon(
+                        Icons.content_copy,
+                        size: 18,
+                        color: customColors.black1.withValues(alpha: 0.6),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        IconButton(
+          iconSize: 22,
+          tooltip: l10n.navigate,
+          onPressed: onNavigatePressed,
+          style: IconButton.styleFrom(
+            backgroundColor: customColors.primary,
+            foregroundColor: customColors.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28),
+            ),
+          ),
+          icon: const Icon(Icons.directions),
+        ),
+      ],
     );
   }
 
@@ -68,15 +182,10 @@ class PlusCodeDetailCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     if (status == GenericStatus.loading) {
-      return const Center(
-        child: Padding(
-          padding: EdgeInsets.all(32.0),
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return PlusCodeDetailCardSkeleton(compact: _isCollapsible && !expanded);
     }
 
-    if (locationResult == null && plusCode == null) {
+    if (!_hasResult) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -90,6 +199,8 @@ class PlusCodeDetailCard extends StatelessWidget {
         ),
       );
     }
+
+    if (_isCollapsible && !expanded) return _buildCompact(context);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -264,14 +375,13 @@ class PlusCodeDetailCard extends StatelessWidget {
         ),
         const SizedBox(height: 12),
 
-        // Action Buttons
+        // Action Buttons: one labelled primary action, the rest as icons so
+        // the row fits narrow screens even with View on Map.
         Row(
           children: [
             Expanded(
-              flex: 2,
               child: PrimaryButton(
                 onPressed: onNavigatePressed,
-                // height: 50,
                 inkRaduis: 20,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32),
@@ -285,87 +395,72 @@ class PlusCodeDetailCard extends StatelessWidget {
                       color: customColors.surface,
                     ),
                     const SizedBox(width: 8),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: Text(
-                        l10n.navigate,
-                        style: context.textTheme.displayLarge?.copyWith(
-                            color: customColors.surface, fontSize: 14),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Text(
+                          l10n.navigate,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.textTheme.displayLarge?.copyWith(
+                            color: customColors.surface,
+                            fontSize: 14,
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              flex: 2,
-              child: PrimaryButton(
-                onPressed: onSavePressed,
-                withBg: false,
-                buttonColor: customColors.black1.withValues(alpha: 0.05),
-                borderColor: Colors.transparent,
-                inkRaduis: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.bookmark_border,
-                        size: 20,
-                        color: customColors.black1,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        l10n.saved,
-                        style: context.textTheme.displayLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: customColors.black1,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            const SizedBox(width: 8),
+            _actionIconButton(
+              icon: Icons.bookmark_border,
+              tooltip: l10n.actionSave,
+              onPressed: onSavePressed,
             ),
-            const SizedBox(width: 12),
-            IconButton(
-              iconSize: 20,
+            const SizedBox(width: 8),
+            _actionIconButton(
+              icon: Icons.share,
+              tooltip: l10n.actionShare,
               onPressed: onSharePressed,
-              style: IconButton.styleFrom(
-                backgroundColor: customColors.black1.withValues(alpha: 0.05),
-                foregroundColor: customColors.black1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
-                ),
-                padding: EdgeInsets.zero,
-              ),
-              icon: const Icon(Icons.share),
             ),
             if (onViewOnMapPressed != null) ...[
-              const SizedBox(width: 12),
-              IconButton(
-                iconSize: 20,
-                onPressed: onViewOnMapPressed,
-                style: IconButton.styleFrom(
-                  backgroundColor: customColors.primary.withValues(alpha: 0.1),
-                  foregroundColor: customColors.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(28),
-                  ),
-                  padding: EdgeInsets.zero,
-                ),
-                icon: const Icon(Icons.map_outlined),
+              const SizedBox(width: 8),
+              _actionIconButton(
+                icon: Icons.map_outlined,
+                tooltip: l10n.viewOnMap,
+                onPressed: onViewOnMapPressed!,
+                highlighted: true,
               ),
             ],
           ],
         ),
       ],
+    );
+  }
+
+  Widget _actionIconButton({
+    required IconData icon,
+    required String tooltip,
+    required VoidCallback onPressed,
+    bool highlighted = false,
+  }) {
+    return IconButton(
+      iconSize: 20,
+      tooltip: tooltip,
+      onPressed: onPressed,
+      style: IconButton.styleFrom(
+        backgroundColor: highlighted
+            ? customColors.primary.withValues(alpha: 0.1)
+            : customColors.black1.withValues(alpha: 0.05),
+        foregroundColor:
+            highlighted ? customColors.primary : customColors.black1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(28),
+        ),
+      ),
+      icon: Icon(icon),
     );
   }
 }

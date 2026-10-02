@@ -380,5 +380,13 @@
     "errorLocationUnavailable": "Couldn't get your current location. Please try again.",
     "@errorLocationUnavailable": {
         "description": "Re-center button pressed but the device couldn't provide a position"
+    },
+    "showDetails": "Show details",
+    "@showDetails": {
+        "description": "Accessibility label for the handle that expands the map's detail card"
+    },
+    "hideDetails": "Hide details",
+    "@hideDetails": {
+        "description": "Accessibility label for the handle that collapses the map's detail card"
     }
 }

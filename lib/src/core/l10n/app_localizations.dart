@@ -626,6 +626,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t get your current location. Please try again.'**
   String get errorLocationUnavailable;
+
+  /// Accessibility label for the handle that expands the map's detail card
+  ///
+  /// In en, this message translates to:
+  /// **'Show details'**
+  String get showDetails;
+
+  /// Accessibility label for the handle that collapses the map's detail card
+  ///
+  /// In en, this message translates to:
+  /// **'Hide details'**
+  String get hideDetails;
 }
 
 class _AppLocalizationsDelegate
