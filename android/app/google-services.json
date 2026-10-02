@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "314057443458",
+    "project_id": "pluslocate",
+    "storage_bucket": "pluslocate.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314057443458:android:0ce75b191e0f471747cc9b",
+        "android_client_info": {
+          "package_name": "com.romeoAfesoh.plusLocate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClFGgTc7yoyuKM0ABAB8zSOt5b7MJlCwA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

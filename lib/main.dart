@@ -22,9 +22,6 @@ void main() {
       );
       appInitializer.postAppRun();
     },
-    (error, stack) {
-      // Add your error tracking here (Firebase, Sentry, custom logging, etc.)
-      debugPrintStack(stackTrace: stack);
-    },
+    appInitializer.recordError,
   );
 }
