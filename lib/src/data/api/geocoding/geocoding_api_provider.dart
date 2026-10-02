@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 
+import 'address_formatter.dart';
+
 /// Local geocoding provider using the geocoding package.
 /// Uses device-native reverse geocoding — no API key required.
 class GeocodingApiProvider {
@@ -19,7 +21,9 @@ class GeocodingApiProvider {
 
     // Placemark lookup is best-effort — a Play Services timeout should not
     // block the forward geocode result.
-    final placemark = await _safePlacemark(loc.latitude, loc.longitude);
+    final formatted = AddressFormatter.format(
+      await _safePlacemarks(loc.latitude, loc.longitude),
+    );
 
     return {
       'results': [
@@ -27,8 +31,8 @@ class GeocodingApiProvider {
           'formatted_address': address,
           'latitude': loc.latitude,
           'longitude': loc.longitude,
-          'locality': placemark?.locality,
-          'country': placemark?.country,
+          'locality': formatted.locality,
+          'country': formatted.country,
         }
       ]
     };
@@ -39,42 +43,36 @@ class GeocodingApiProvider {
     required double latitude,
     required double longitude,
   }) async {
-    final placemark = await _safePlacemark(latitude, longitude);
-    if (placemark == null) return {'results': []};
+    final placemarks = await _safePlacemarks(latitude, longitude);
+    if (placemarks.isEmpty) return {'results': []};
 
-    final formattedAddress = [
-      placemark.street,
-      placemark.locality,
-      placemark.administrativeArea,
-      placemark.country,
-    ].where((p) => p != null && p.isNotEmpty).join(', ');
+    final formatted = AddressFormatter.format(placemarks);
 
     return {
       'results': [
         {
-          'formatted_address':
-              formattedAddress.isNotEmpty ? formattedAddress : null,
+          'formatted_address': formatted.address,
           'latitude': latitude,
           'longitude': longitude,
-          'locality': placemark.locality,
-          'country': placemark.country,
+          'locality': formatted.locality,
+          'country': formatted.country,
         }
       ]
     };
   }
 
-  /// Wraps [placemarkFromCoordinates] with a timeout and absorbs the
-  /// Android Play Services IO_ERROR that occurs when the native Geocoder
-  /// times out. Returns null on any platform/timeout failure so callers
-  /// can degrade gracefully instead of propagating a non-actionable error.
-  Future<Placemark?> _safePlacemark(double lat, double lng) async {
+  /// All candidates for the point, nearest first. Wraps
+  /// [placemarkFromCoordinates] with a timeout and absorbs the Android Play
+  /// Services IO_ERROR that occurs when the native Geocoder times out.
+  /// Returns an empty list on any platform/timeout failure so callers can
+  /// degrade gracefully instead of propagating a non-actionable error.
+  Future<List<Placemark>> _safePlacemarks(double lat, double lng) async {
     try {
-      final marks = await placemarkFromCoordinates(lat, lng).timeout(_kTimeout);
-      return marks.isNotEmpty ? marks.first : null;
+      return await placemarkFromCoordinates(lat, lng).timeout(_kTimeout);
     } on TimeoutException {
-      return null;
+      return const [];
     } on PlatformException catch (e) {
-      if (e.code == 'IO_ERROR') return null;
+      if (e.code == 'IO_ERROR') return const [];
       rethrow;
     }
   }
